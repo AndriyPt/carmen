@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>carmen_msgs</name>
+  <version>0.0.1</version>
+  <description>The carmen_msgs package</description>
+
+  <maintainer email="Andriy.Petlovanyy@todo.todo">Andriy Petlovanyy</maintainer>
+
+  <author>Andriy Petlovanyy</author>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>std_msgs</depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+</package>
