@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>carmen_web</name>
+  <version>0.0.1</version>
+  <description>The carmen_web package</description>
+  
+  <maintainer email="Andriy.Petlovanyy@todo.todo">Andriy Petlovanyy</maintainer>
+
+  <author>Andriy Petlovanyy</author>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>web_video_server</exec_depend>
+  <exec_depend>rosbridge_server</exec_depend>
+</package>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>carmen_launch</name>
+  <version>0.0.1</version>
+  <description>The carmen_launch package</description>
+  
+  <maintainer email="Andriy.Petlovanyy@todo.todo">Andriy Petlovanyy</maintainer>
+
+  <author>Andriy Petlovanyy</author>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>carmen_description</exec_depend>
+  <exec_depend>carmen_gazebo</exec_depend>
+</package>
