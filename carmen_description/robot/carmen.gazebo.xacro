@@ -23,6 +23,7 @@
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
+        <fdir1 value="1 0 0"/>
         <material>Gazebo/Black</material>
     </gazebo>
 
@@ -31,6 +32,7 @@
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
+        <fdir1 value="1 0 0"/>
         <material>Gazebo/Black</material>
     </gazebo>
 
@@ -39,6 +41,7 @@
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
+        <fdir1 value="1 0 0"/>
         <material>Gazebo/Black</material>
     </gazebo>
 
@@ -47,6 +50,7 @@
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
+        <fdir1 value="1 0 0"/>
         <material>Gazebo/Black</material>
     </gazebo>
 

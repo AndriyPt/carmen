@@ -1,18 +1,19 @@
-gazebo_ros_control:
-  pid_gains:
-    front_left_wheel_joint:
-      p: 0.01
-      i: 0.0
-      d: 0.0
-    front_right_wheel_joint:
-      p: 0.01
-      i: 0.0
-      d: 0.0
-    rear_left_wheel_joint:
-      p: 0.01
-      i: 0.0
-      d: 0.0
-    rear_right_wheel_joint:
-      p: 0.01
-      i: 0.0
-      d: 0.0
+# Need to be tuned in order to remove error message in Gazebo
+#gazebo_ros_control:
+#  pid_gains:
+#    front_left_wheel_joint:
+#      p: 0.01
+#      i: 0.0
+#      d: 0.0
+#    front_right_wheel_joint:
+#      p: 0.01
+#      i: 0.0
+#      d: 0.0
+#    rear_left_wheel_joint:
+#      p: 0.01
+#      i: 0.0
+#      d: 0.0
+#    rear_right_wheel_joint:
+#      p: 0.01
+#      i: 0.0
+#      d: 0.0
