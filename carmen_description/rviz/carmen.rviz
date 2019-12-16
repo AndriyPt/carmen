@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /TF1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 768
   - Class: rviz/Selection
@@ -27,6 +29,8 @@ Panels:
     Name: Time
     SyncMode: 0
     SyncSource: ""
+Toolbars:
+  toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
@@ -67,42 +71,42 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_bearing_link:
+        front_left_bearing:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_left_wheel_link:
+        front_left_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_right_bearing_link:
+        front_right_bearing:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        front_right_wheel_link:
+        front_right_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_left_bearing_link:
+        rear_left_bearing:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_left_wheel_link:
+        rear_left_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_right_bearing_link:
+        rear_right_bearing:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rear_right_wheel_link:
+        rear_right_wheel:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -113,6 +117,53 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        All Enabled: false
+        base_footprint:
+          Value: false
+        base_link:
+          Value: true
+        front_left_bearing:
+          Value: false
+        front_left_wheel:
+          Value: false
+        front_right_bearing:
+          Value: false
+        front_right_wheel:
+          Value: false
+        rear_left_bearing:
+          Value: false
+        rear_left_wheel:
+          Value: false
+        rear_right_bearing:
+          Value: false
+        rear_right_wheel:
+          Value: false
+      Marker Scale: 1
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        base_footprint:
+          base_link:
+            front_left_bearing:
+              front_left_wheel:
+                {}
+            front_right_bearing:
+              front_right_wheel:
+                {}
+            rear_left_bearing:
+              rear_left_wheel:
+                {}
+            rear_right_bearing:
+              rear_right_wheel:
+                {}
+      Update Interval: 0
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -138,25 +189,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.696194291
+      Distance: 0.973753333
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: -0.0607785285
+        Y: 0.0179300569
+        Z: -0.109090589
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.685397625
+      Pitch: 1.23979652
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.905398786
+      Yaw: 2.79859924
     Saved: ~
 Window Geometry:
   Displays:

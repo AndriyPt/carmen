@@ -9,7 +9,7 @@ catkin_package(
     robot_localization
     controller_manager
     teleop_twist_keyboard
-    four_wheel_steering_controller
+    diff_drive_controller
     velocity_controllers
     effort_controllers
 )
@@ -20,7 +20,7 @@ install(FILES
   config/common/state_controller.yml
   config/common/twist_mux.yml
   config/common/velocity_controllers.yml
-  config/gazebo/four_wheel_controller.yml
+  config/gazebo/diff_drive_controller.yml
   config/gazebo/gazebo_controller.yml
   launch/control.launch
   launch/teleop.launch

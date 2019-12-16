@@ -2,7 +2,7 @@
 
   <xacro:macro name="wheel"
          params="prefix direction bearing_radius radius width mass distance_between_wheels x z">
-    <link name="${prefix}_bearing_link">>
+    <link name="${prefix}_bearing">
       <visual>
         <xacro:cylinder_geometry radius="${bearing_radius}" height="${2 * wheel_width}"/>
         <xacro:blue_material/>
@@ -14,33 +14,32 @@
       <origin rpy="${-pi / 2} 0 0"
           xyz="${x} ${direction * (distance_between_wheels/2 + wheel_width)} ${z}"/>
       <parent link="base_link"/>
-      <child link="${prefix}_bearing_link"/>
+      <child link="${prefix}_bearing"/>
     </joint>
-    <link name="${prefix}_wheel_link">
+    <link name="${prefix}_wheel">
       <visual>
-        <origin rpy="${pi / 2} 0 0 " xyz="0 0 0"/>
+        <origin rpy="0 0 0 " xyz="0 0 0"/>
           <xacro:cylinder_geometry radius="${radius}" height="${width}"/>
-          <xacro:blue_material/>
-        <xacro:red_material/>
+          <xacro:black_material/>
       </visual>
       <xacro:cylinder_collision radius="${radius}" height="${width}"/>
       <xacro:cylinder_inertia mass="${mass}" radius="${radius}" height="${width}"/>
     </link>
-    <joint name="${prefix}_wheel_bearing_joint" type="continuous">
+    <joint name="${prefix}_wheel_joint" type="continuous">
       <origin rpy="0 0 0" xyz="0 0 ${direction * wheel_width/2}"/>
-      <parent link="${prefix}_bearing_link"/>
-      <child link="${prefix}_wheel_link"/>
+      <parent link="${prefix}_bearing"/>
+      <child link="${prefix}_wheel"/>
       <axis xyz="0 0 1"/>
     </joint>
     <transmission name="${prefix}_wheel_transmission">
       <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${prefix}_wheel_bearing_joint">
+      <joint name="${prefix}_wheel_joint">
         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
       </joint>
       <actuator name="${prefix}_wheel_motor">
         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-        <mechanicalReduction>500</mechanicalReduction>
-        <motorTorqueConstant>0.5</motorTorqueConstant>
+        <mechanicalReduction>1</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
       </actuator>
     </transmission>
   </xacro:macro>
