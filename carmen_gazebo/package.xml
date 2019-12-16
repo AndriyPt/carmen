@@ -16,9 +16,4 @@
   <exec_depend>ridgeback_gazebo_plugins</exec_depend>
   <exec_depend>carmen_description</exec_depend>
 
-  <export>
-    <gazebo_ros
-        gazebo_plugin_path="${prefix}/lib"
-        gazebo_model_path="${prefix}/.." />
-  </export>
 </package>

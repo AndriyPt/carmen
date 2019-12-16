@@ -18,204 +18,68 @@
         <material>Gazebo/White</material>
     </gazebo>
 
-    <gazebo reference="head_link">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <gazebo reference="neck_link">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <gazebo reference="camera_stick_link">
-        <material>Gazebo/Yellow</material>
-    </gazebo>
-
-    <gazebo reference="imu_link">
-        <material>Gazebo/Green</material>
-    </gazebo>
-
-    <gazebo reference="front_left_wheel_link">
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
-        <material>Gazebo/Blue</material>
-    </gazebo>
-
-    <gazebo reference="front_right_wheel_link">
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
-        <material>Gazebo/Blue</material>
-    </gazebo>
-
-    <gazebo reference="rear_left_wheel_link">
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
-        <material>Gazebo/Blue</material>
-    </gazebo>
-
-    <gazebo reference="rear_right_wheel_link">
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
-        <material>Gazebo/Blue</material>
-    </gazebo>
-
-    <gazebo reference="front_right_motor_holder">
+    <gazebo reference="front_left_wheel">
         <mu1 value="1.0"/>
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="front_left_motor_holder">
+    <gazebo reference="front_right_wheel">
         <mu1 value="1.0"/>
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="rear_left_motor_holder">
+    <gazebo reference="rear_left_wheel">
         <mu1 value="1.0"/>
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="rear_right_motor_holder">
+    <gazebo reference="rear_right_wheel">
         <mu1 value="1.0"/>
         <mu2 value="1.0"/>
         <kp value="10000000.0"/>
         <kd value="1.0"/>
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Black</material>
     </gazebo>
 
-    <gazebo reference="left_camera_link">
-        <material>Gazebo/Green</material>
-        <sensor type="multicamera" name="stereo_camera">
-            <update_rate>30.0</update_rate>
-            <camera name="left">
-                <horizontal_fov>1.3962634</horizontal_fov>
-                <image>
-                    <width>800</width>
-                    <height>800</height>
-                    <format>R8G8B8</format>
-                </image>
-                <clip>
-                    <near>0.02</near>
-                    <far>300</far>
-                </clip>
-                <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.007</stddev>
-                </noise>
-            </camera>
-            <camera name="right">
-                <pose>0 -0.07 0 0 0 0</pose>
-                <horizontal_fov>1.3962634</horizontal_fov>
-                <image>
-                    <width>800</width>
-                    <height>800</height>
-                    <format>R8G8B8</format>
-                </image>
-                <clip>
-                    <near>0.02</near>
-                    <far>300</far>
-                </clip>
-                <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.007</stddev>
-                </noise>
-            </camera>
-            <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
-                <alwaysOn>true</alwaysOn>
-                <updateRate>0.0</updateRate>
-                <cameraName>stereocamera</cameraName>
-                <imageTopicName>image_raw</imageTopicName>
-                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-                <frameName>left_camera_link</frameName>
-                <rightFrameName>right_camera_link</rightFrameName>
-                <hackBaseline>0.07</hackBaseline>
-                <distortionK1>0.0</distortionK1>
-                <distortionK2>0.0</distortionK2>
-                <distortionK3>0.0</distortionK3>
-                <distortionT1>0.0</distortionT1>
-                <distortionT2>0.0</distortionT2>
-            </plugin>
-        </sensor>
+    <gazebo reference="front_right_bearing">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp value="10000000.0"/>
+        <kd value="1.0"/>
+        <material>Gazebo/Blue</material>
     </gazebo>
 
-    <gazebo reference="right_camera_link">
-        <material>Gazebo/Green</material>
+    <gazebo reference="front_left_bearing">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp value="10000000.0"/>
+        <kd value="1.0"/>
+        <material>Gazebo/Blue</material>
     </gazebo>
 
-    <!-- Hokuyo LIDAR for simulation -->
-    <gazebo reference="laser_link">
-        <material>Gazebo/Green</material>
-        <sensor type="ray" name="laser">
-            <pose>0 0 0 0 0 0</pose>
-            <visualize>false</visualize>
-            <update_rate>40</update_rate>
-            <ray>
-                <scan>
-                    <horizontal>
-                        <samples>1081</samples>
-                        <resolution>1</resolution>
-                        <min_angle>-1.570796</min_angle>
-                        <max_angle>1.570796</max_angle>
-                    </horizontal>
-                </scan>
-                <range>
-                    <min>0.60</min>
-                    <max>10.0</max>
-                    <resolution>0.01</resolution>
-                </range>
-                <noise>
-                    <type>gaussian</type>
-                    <mean>0.0</mean>
-                    <stddev>0.01</stddev>
-                </noise>
-            </ray>
-            <plugin name="gazebo_ros_hokuyo_controller" filename="libgazebo_ros_laser.so">
-                <topicName>laser/scan</topicName>
-                <frameName>laser_link</frameName>
-            </plugin>
-        </sensor>
+    <gazebo reference="rear_left_bearing">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp value="10000000.0"/>
+        <kd value="1.0"/>
+        <material>Gazebo/Blue</material>
     </gazebo>
 
-    <gazebo>
-        <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
-            <robotNamespace>/</robotNamespace>
-            <updateRate>50.0</updateRate>
-            <bodyName>base_footprint</bodyName>
-            <frameId>imu_link</frameId>
-            <topicName>imu/data</topicName>
-            <accelDrift>0.005 0.005 0.005</accelDrift>
-            <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
-            <rateDrift>0.00005 0.00005 0.00005</rateDrift>
-            <rateGaussianNoise>0.00005 0.00005 0.00005</rateGaussianNoise>
-            <headingDrift>0.005</headingDrift>
-            <headingGaussianNoise>0.005</headingGaussianNoise>
-        </plugin>
-    </gazebo>
-
-    <gazebo>
-         <plugin name="ridgeback_ros_force_based_move" filename="libridgeback_ros_force_based_move.so">
-            <robotNamespace>/</robotNamespace>
-            <commandTopic>/mecanum_velocity_controller/cmd_vel</commandTopic>
-            <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
-            <odometryRate>25.0</odometryRate>
-            <robotBaseFrame>base_footprint</robotBaseFrame>
-            <cmdVelTimeOut>0.25</cmdVelTimeOut>
-            <!-- Don't publish a transform: the controller does it. -->
-            <publishOdometryTf>0</publishOdometryTf>
-            <yaw_velocity_p_gain>100.0</yaw_velocity_p_gain>
-            <x_velocity_p_gain>100.0</x_velocity_p_gain>
-            <y_velocity_p_gain>100.0</y_velocity_p_gain>
-        </plugin>
+    <gazebo reference="rear_right_bearing">
+        <mu1 value="1.0"/>
+        <mu2 value="1.0"/>
+        <kp value="10000000.0"/>
+        <kd value="1.0"/>
+        <material>Gazebo/Blue</material>
     </gazebo>
 
 </robot>

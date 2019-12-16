@@ -8,6 +8,9 @@
   <arg name="gzweb" default="false"/>
   <arg name="world_file" default="office"/>
 
+  <param name="robot_description"
+         command="$(find xacro)/xacro --inorder '$(find carmen_description)/robot/carmen.gazebo.xacro'"/>
+
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find carmen_gazebo)/worlds/$(arg world_file).world"/>
     <arg name="debug" value="$(arg debug)"/>
@@ -18,10 +21,6 @@
     <arg name="verbose" value="$(arg verbose)"/>
   </include>
 
-  <param name="robot_description"
-         command="$(find xacro)/xacro --inorder '$(find carmen_description)/robot/carmen.gazebo.xacro'"/>
-
-        
   <group unless="$(arg gzweb)">
     <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
           args="-urdf -model carmen -param robot_description"/>

@@ -2,7 +2,7 @@
 
 Carmen Robot Car project
 
-[![License](https://img.shields.io/github/license/AndriyPt/carment.svg)](https://github.com/AndriyPt/carmen/blob/kinetic-devel/LICENSE)
+[![License](https://img.shields.io/github/license/AndriyPt/carmen.svg)](https://github.com/AndriyPt/carmen/blob/kinetic-devel/LICENSE)
 
 
 # Linux
