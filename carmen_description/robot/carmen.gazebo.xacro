@@ -88,14 +88,133 @@
 
     <gazebo reference="left_sonar_link">
         <material>Gazebo/White</material>
+        <sensor type="ray" name="left_sonar">
+            <always_on>true</always_on>
+            <update_rate>40</update_rate>
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>false</visualize>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>1</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.13</min_angle>
+                        <max_angle>0.13</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>1</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.13</min_angle>
+                        <max_angle>0.13</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.02</min>
+                    <max>4</max>
+                    <resolution>0.003</resolution>
+                </range>
+            </ray>
+
+            <plugin name="gazebo_ros_left_sonar_controller" filename="libhector_gazebo_ros_sonar.so">
+                <gaussianNoise>0.005</gaussianNoise>
+                <topicName>left_sonar</topicName>
+                <frameId>left_sonar_link</frameId>
+            </plugin>
+        </sensor>
     </gazebo>
 
     <gazebo reference="right_sonar_link">
         <material>Gazebo/White</material>
+        <sensor type="ray" name="right_sonar">
+            <always_on>true</always_on>
+            <update_rate>40</update_rate>
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>false</visualize>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>1</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.13</min_angle>
+                        <max_angle>0.13</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>1</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.13</min_angle>
+                        <max_angle>0.13</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.02</min>
+                    <max>4</max>
+                    <resolution>0.003</resolution>
+                </range>
+            </ray>
+
+            <plugin name="gazebo_ros_right_sonar_controller" filename="libhector_gazebo_ros_sonar.so">
+                <gaussianNoise>0.005</gaussianNoise>
+                <topicName>right_sonar</topicName>
+                <frameId>right_sonar_link</frameId>
+            </plugin>
+        </sensor>
     </gazebo>
 
     <gazebo reference="left_camera_link">
         <material>Gazebo/Green</material>
+        <sensor type="multicamera" name="stereo_camera">
+            <update_rate>30.0</update_rate>
+            <camera name="left">
+                <horizontal_fov>1.3962634</horizontal_fov>
+                <image>
+                    <width>800</width>
+                    <height>800</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.02</near>
+                    <far>300</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <camera name="right">
+                <pose>0 -0.07 0 0 0 0</pose>
+                <horizontal_fov>1.3962634</horizontal_fov>
+                <image>
+                    <width>800</width>
+                    <height>800</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.02</near>
+                    <far>300</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <mean>0.0</mean>
+                    <stddev>0.007</stddev>
+                </noise>
+            </camera>
+            <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
+                <alwaysOn>true</alwaysOn>
+                <updateRate>0.0</updateRate>
+                <cameraName>stereocamera</cameraName>
+                <imageTopicName>image_raw</imageTopicName>
+                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+                <frameName>left_camera_link</frameName>
+                <rightFrameName>right_camera_link</rightFrameName>
+                <hackBaseline>0.07</hackBaseline>
+                <distortionK1>0.0</distortionK1>
+                <distortionK2>0.0</distortionK2>
+                <distortionK3>0.0</distortionK3>
+                <distortionT1>0.0</distortionT1>
+                <distortionT2>0.0</distortionT2>
+            </plugin>
+        </sensor>
     </gazebo>
 
     <gazebo reference="right_camera_link">
@@ -105,4 +224,21 @@
     <gazebo reference="imu_link">
         <material>Gazebo/Black</material>
     </gazebo>
+
+    <gazebo>
+        <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+            <robotNamespace>/</robotNamespace>
+            <updateRate>50.0</updateRate>
+            <bodyName>base_footprint</bodyName>
+            <frameId>imu_link</frameId>
+            <topicName>imu/data</topicName>
+            <accelDrift>0.005 0.005 0.005</accelDrift>
+            <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+            <rateDrift>0.00005 0.00005 0.00005</rateDrift>
+            <rateGaussianNoise>0.00005 0.00005 0.00005</rateGaussianNoise>
+            <headingDrift>0.005</headingDrift>
+            <headingGaussianNoise>0.005</headingGaussianNoise>
+        </plugin>
+    </gazebo>
+
 </robot>
