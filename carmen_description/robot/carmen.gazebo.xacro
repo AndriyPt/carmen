@@ -15,7 +15,7 @@
     </gazebo>
 
     <gazebo reference="base_link">
-        <material>Gazebo/White</material>
+        <material>Gazebo/Yellow</material>
     </gazebo>
 
     <gazebo reference="front_left_wheel">
@@ -86,4 +86,23 @@
         <material>Gazebo/Blue</material>
     </gazebo>
 
+    <gazebo reference="left_sonar_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="right_sonar_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <gazebo reference="left_camera_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+    <gazebo reference="right_camera_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+    <gazebo reference="imu_link">
+        <material>Gazebo/Black</material>
+    </gazebo>
 </robot>
