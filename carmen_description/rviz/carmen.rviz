@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /RobotModel1
         - /TF1
         - /TF1/Frames1
       Splitter Ratio: 0.5
@@ -91,6 +92,25 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        inertial_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        left_camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_sonar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         rear_left_bearing:
           Alpha: 1
           Show Axes: false
@@ -107,6 +127,16 @@ Visualization Manager:
           Show Trail: false
           Value: true
         rear_right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_sonar_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -134,6 +164,14 @@ Visualization Manager:
           Value: false
         front_right_wheel:
           Value: false
+        imu_link:
+          Value: false
+        inertial_link:
+          Value: false
+        left_camera_link:
+          Value: false
+        left_sonar_link:
+          Value: false
         rear_left_bearing:
           Value: false
         rear_left_wheel:
@@ -142,26 +180,43 @@ Visualization Manager:
           Value: false
         rear_right_wheel:
           Value: false
+        right_camera_link:
+          Value: false
+        right_sonar_link:
+          Value: false
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: true
       Tree:
-        base_footprint:
-          base_link:
-            front_left_bearing:
-              front_left_wheel:
-                {}
-            front_right_bearing:
-              front_right_wheel:
-                {}
-            rear_left_bearing:
-              rear_left_wheel:
-                {}
-            rear_right_bearing:
-              rear_right_wheel:
-                {}
+        base_link:
+          base_footprint:
+            {}
+          front_left_bearing:
+            front_left_wheel:
+              {}
+          front_right_bearing:
+            front_right_wheel:
+              {}
+          imu_link:
+            {}
+          inertial_link:
+            {}
+          left_camera_link:
+            {}
+          left_sonar_link:
+            {}
+          rear_left_bearing:
+            rear_left_wheel:
+              {}
+          rear_right_bearing:
+            rear_right_wheel:
+              {}
+          right_camera_link:
+            {}
+          right_sonar_link:
+            {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -189,25 +244,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.973753333
+      Distance: 0.731234372
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.0607785285
-        Y: 0.0179300569
-        Z: -0.109090589
+        X: 0.110702626
+        Y: 0.0138541562
+        Z: -0.046938993
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.23979652
+      Pitch: 0.869796693
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.79859924
+      Yaw: 1.08359444
     Saved: ~
 Window Geometry:
   Displays:

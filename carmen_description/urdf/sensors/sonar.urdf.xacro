@@ -1,0 +1,24 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:property name="sonar_size" value="0.03"/>
+    <xacro:property name="sonar_mass" value="0.1"/>
+
+    <xacro:macro name="simple_sonar" params="prefix parent_link_name x y z x_side:=1 y_side:=1">
+        <link name="${prefix}_sonar_link">
+            <visual>
+              <xacro:cube_geometry size="${sonar_size}"/>
+              <xacro:white_material/>
+            </visual>
+            <xacro:cube_collision size="${sonar_size}"/>
+            <xacro:cube_inertia mass="${sonar_mass}" size="${sonar_size}"/>
+        </link>
+
+        <joint name="${prefix}_sonar_joint" type="fixed">
+            <origin xyz="${x - x_side * sonar_size / 2} ${y - y_side * sonar_size / 2} ${z + sonar_size / 2}"
+                    rpy="0 0 0"/>
+            <parent link="${parent_link_name}"/>
+            <child link="${prefix}_sonar_link"/>
+        </joint>
+    </xacro:macro>
+
+</robot>
