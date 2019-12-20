@@ -13,6 +13,7 @@
         </group>
         <group unless="$(arg velocity_control)">
             <rosparam file="$(find carmen_control)/config/gazebo/diff_drive_controller.yml" command="load" ns="/"/>
+            <rosparam file="$(find carmen_control)/config/gazebo/localization.yml" command="load" ns="/"/>
             <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/"
                   args="joint_state_controller diff_drive_controller"/>
         </group>
@@ -30,6 +31,9 @@
                   args="joint_state_controller diff_drive_controller"/>
         </group>
     </group>
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization"
+      unless="$(arg velocity_control)"/>
 
     <node pkg="twist_mux" type="twist_mux" name="twist_mux" unless="$(arg velocity_control)">
         <rosparam command="load" file="$(find carmen_control)/config/common/twist_mux.yml"/>

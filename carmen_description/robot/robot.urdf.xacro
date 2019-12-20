@@ -20,22 +20,31 @@
 
   <xacro:property name="bearing_radius" value="0.005"/>
 
-  <link name="base_footprint"/>
-
-  <joint name="base_footprint_joint" type="fixed">
-    <origin rpy="0 0 0" xyz="0 0 ${base_height / 2 + wheel_radius - bearing_radius}"/>
-    <parent link="base_footprint"/>
-    <child link="base_link"/>
-  </joint>
-
   <link name="base_link">
     <visual>
       <xacro:box_geometry width="${base_width}" length="${base_length}" height="${base_height}"/>
       <xacro:yellow_material/>
     </visual>
     <xacro:box_collision width="${base_width}" length="${base_length}" height="${base_height}"/>
+  </link>
+
+  <link name="base_footprint"/>
+
+  <joint name="base_footprint_joint" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 ${- base_height / 2 - wheel_radius + bearing_radius}"/>
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+  </joint>
+
+  <link name="inertial_link">
     <xacro:box_inertia width="${base_width}" length="${base_length}" height="${base_height}" mass="${base_mass}"/>
   </link>
+
+  <joint name="inertial_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="inertial_link" />
+  </joint>
 
   <link name="imu_link">
     <visual>

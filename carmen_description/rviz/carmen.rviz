@@ -97,6 +97,10 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        inertial_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         left_camera_link:
           Alpha: 1
           Show Axes: false
@@ -162,6 +166,8 @@ Visualization Manager:
           Value: false
         imu_link:
           Value: false
+        inertial_link:
+          Value: false
         left_camera_link:
           Value: false
         left_sonar_link:
@@ -184,30 +190,33 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_footprint:
-          base_link:
-            front_left_bearing:
-              front_left_wheel:
-                {}
-            front_right_bearing:
-              front_right_wheel:
-                {}
-            imu_link:
+        base_link:
+          base_footprint:
+            {}
+          front_left_bearing:
+            front_left_wheel:
               {}
-            left_camera_link:
+          front_right_bearing:
+            front_right_wheel:
               {}
-            left_sonar_link:
+          imu_link:
+            {}
+          inertial_link:
+            {}
+          left_camera_link:
+            {}
+          left_sonar_link:
+            {}
+          rear_left_bearing:
+            rear_left_wheel:
               {}
-            rear_left_bearing:
-              rear_left_wheel:
-                {}
-            rear_right_bearing:
-              rear_right_wheel:
-                {}
-            right_camera_link:
+          rear_right_bearing:
+            rear_right_wheel:
               {}
-            right_sonar_link:
-              {}
+          right_camera_link:
+            {}
+          right_sonar_link:
+            {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -235,25 +244,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.07885098
+      Distance: 0.731234372
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.0247292686
-        Y: 0.025942523
-        Z: -0.0290479157
+        X: 0.110702626
+        Y: 0.0138541562
+        Z: -0.046938993
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.1597966
+      Pitch: 0.869796693
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.938595057
+      Yaw: 1.08359444
     Saved: ~
 Window Geometry:
   Displays:
