@@ -346,7 +346,7 @@ namespace carmen_msgs
     }
 
     const char * getType(){ return "carmen_msgs/FirmwareCommandWrite"; };
-    const char * getMD5(){ return "3fc1e386055fce07b1eb02500bb1ca44"; };
+    const char * getMD5(){ return "385694835b4556c81693e9df676d8c64"; };
 
   };
 
