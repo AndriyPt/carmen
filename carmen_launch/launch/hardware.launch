@@ -1,0 +1,9 @@
+<launch>
+    <arg name="port" default="/dev/ttyACM0"/>
+    <arg name="baud" default="115200"/>
+
+    <include file="$(find carmen_hardware)/launch/hardware.launch">
+        <arg name="port" value="$(arg port)"/>
+        <arg name="baud" value="$(arg baud)"/>
+    </include>
+</launch>

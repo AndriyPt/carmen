@@ -80,6 +80,40 @@ To have a look on the state of the robot in RViz run
 roslaunch carmen_launch rviz.launch
 ```
 
+## Hardware
+
+In order to launch ROS Serial node which will be communicating with MCU run the following command
+```bash
+roslaunch carmen_launch hardware.launch
+```
+Default port is */dev/ttyACM0* and baud is *115200*.
+
+In order to run command with custom port and\or baud please use parameters to pass these values e.g.
+```bash
+roslaunch carmen_launch hardware.launch port:=/dev/ttyUSB0 baud:=57600
+```
+
+Messages from MCU could be received using [rostopic](http://wiki.ros.org/rostopic#rostopic_command-line_tool) command.
+
+In case if sensor reading need to checked from MCU.
+You need to know in which topic there readings are published.
+Let's assume it is */mcu_sensor_data*.
+Please start hardware nodes as described above.
+After that please run this command
+```bash
+rostopic echo /mcu_sensor_data
+```
+
+In order to publish messages to MCU please use **rostopic pub** command.
+
+Header files for messages could be found in [this](https://github.com/AndriyPt/carmen/tree/kinetic-devel/carmen_hardware/firmware/rosserial) folder.
+
+The following command will regenerate these headers with most recent changes in message files
+```bash
+rosrun carmen_hardware generate_messages.sh
+```
+
+
 # Windows
 
 ## Docker Desktop
@@ -105,4 +139,3 @@ docker start carmen_dev
 
 In Docker Desktop only Cloud9 web IDE is available.
 Open http://localhost:8181 in your browser.
-
