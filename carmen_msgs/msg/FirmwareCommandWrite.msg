@@ -14,7 +14,7 @@ float32 motor_4_p
 float32 motor_4_i
 float32 motor_4_d
 
-float32 motor_1_velocity_command
-float32 motor_2_velocity_command
-float32 motor_3_velocity_command
-float32 motor_4_velocity_command
+uint8 motor_1_velocity_command
+uint8 motor_2_velocity_command
+uint8 motor_3_velocity_command
+uint8 motor_4_velocity_command
