@@ -10,6 +10,7 @@ catkin_package(
 install(FILES
   launch/rviz.launch
   launch/simulation.launch
+  launch/hardware.launch
   launch/teleop.launch
   launch/view_urdf.launch
   launch/gzweb.launch
