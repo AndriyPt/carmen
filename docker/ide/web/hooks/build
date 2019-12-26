@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
-set -e
-
 docker build \
     --file "${DOCKERFILE_PATH}" \
     --build-arg BUILD_DATE="$(date -u +"%Y-%m-%dT%H:%M:%SZ")" \
