@@ -8,11 +8,19 @@ find_package(catkin REQUIRED COMPONENTS
     controller_manager
     roscpp
     dynamic_reconfigure
+    sensor_msgs
     carmen_msgs
 )
 
 catkin_package(
-  CATKIN_DEPENDS hardware_interface controller_manager roscpp dynamic_reconfigure carmen_msgs rosserial_mbed
+  CATKIN_DEPENDS
+    hardware_interface
+    controller_manager
+    roscpp
+    dynamic_reconfigure
+    sensor_msgs
+    carmen_msgs
+    rosserial_mbed
 )
 
 install(FILES

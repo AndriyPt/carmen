@@ -12,56 +12,32 @@ namespace carmen_msgs
   class FirmwareCommandWrite : public ros::Msg
   {
     public:
-      typedef float _motor_1_p_type;
-      _motor_1_p_type motor_1_p;
-      typedef float _motor_1_i_type;
-      _motor_1_i_type motor_1_i;
-      typedef float _motor_1_d_type;
-      _motor_1_d_type motor_1_d;
-      typedef float _motor_2_p_type;
-      _motor_2_p_type motor_2_p;
-      typedef float _motor_2_i_type;
-      _motor_2_i_type motor_2_i;
-      typedef float _motor_2_d_type;
-      _motor_2_d_type motor_2_d;
-      typedef float _motor_3_p_type;
-      _motor_3_p_type motor_3_p;
-      typedef float _motor_3_i_type;
-      _motor_3_i_type motor_3_i;
-      typedef float _motor_3_d_type;
-      _motor_3_d_type motor_3_d;
-      typedef float _motor_4_p_type;
-      _motor_4_p_type motor_4_p;
-      typedef float _motor_4_i_type;
-      _motor_4_i_type motor_4_i;
-      typedef float _motor_4_d_type;
-      _motor_4_d_type motor_4_d;
-      typedef uint8_t _motor_1_velocity_command_type;
-      _motor_1_velocity_command_type motor_1_velocity_command;
-      typedef uint8_t _motor_2_velocity_command_type;
-      _motor_2_velocity_command_type motor_2_velocity_command;
-      typedef uint8_t _motor_3_velocity_command_type;
-      _motor_3_velocity_command_type motor_3_velocity_command;
-      typedef uint8_t _motor_4_velocity_command_type;
-      _motor_4_velocity_command_type motor_4_velocity_command;
+      typedef float _left_motor_p_type;
+      _left_motor_p_type left_motor_p;
+      typedef float _left_motor_i_type;
+      _left_motor_i_type left_motor_i;
+      typedef float _left_motor_d_type;
+      _left_motor_d_type left_motor_d;
+      typedef float _right_motor_p_type;
+      _right_motor_p_type right_motor_p;
+      typedef float _right_motor_i_type;
+      _right_motor_i_type right_motor_i;
+      typedef float _right_motor_d_type;
+      _right_motor_d_type right_motor_d;
+      typedef float _left_motor_velocity_command_type;
+      _left_motor_velocity_command_type left_motor_velocity_command;
+      typedef float _right_motor_velocity_command_type;
+      _right_motor_velocity_command_type right_motor_velocity_command;
 
     FirmwareCommandWrite():
-      motor_1_p(0),
-      motor_1_i(0),
-      motor_1_d(0),
-      motor_2_p(0),
-      motor_2_i(0),
-      motor_2_d(0),
-      motor_3_p(0),
-      motor_3_i(0),
-      motor_3_d(0),
-      motor_4_p(0),
-      motor_4_i(0),
-      motor_4_d(0),
-      motor_1_velocity_command(0),
-      motor_2_velocity_command(0),
-      motor_3_velocity_command(0),
-      motor_4_velocity_command(0)
+      left_motor_p(0),
+      left_motor_i(0),
+      left_motor_d(0),
+      right_motor_p(0),
+      right_motor_i(0),
+      right_motor_d(0),
+      left_motor_velocity_command(0),
+      right_motor_velocity_command(0)
     {
     }
 
@@ -71,131 +47,83 @@ namespace carmen_msgs
       union {
         float real;
         uint32_t base;
-      } u_motor_1_p;
-      u_motor_1_p.real = this->motor_1_p;
-      *(outbuffer + offset + 0) = (u_motor_1_p.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_1_p.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_1_p.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_1_p.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_1_p);
+      } u_left_motor_p;
+      u_left_motor_p.real = this->left_motor_p;
+      *(outbuffer + offset + 0) = (u_left_motor_p.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_left_motor_p.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_left_motor_p.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_left_motor_p.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->left_motor_p);
       union {
         float real;
         uint32_t base;
-      } u_motor_1_i;
-      u_motor_1_i.real = this->motor_1_i;
-      *(outbuffer + offset + 0) = (u_motor_1_i.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_1_i.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_1_i.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_1_i.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_1_i);
+      } u_left_motor_i;
+      u_left_motor_i.real = this->left_motor_i;
+      *(outbuffer + offset + 0) = (u_left_motor_i.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_left_motor_i.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_left_motor_i.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_left_motor_i.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->left_motor_i);
       union {
         float real;
         uint32_t base;
-      } u_motor_1_d;
-      u_motor_1_d.real = this->motor_1_d;
-      *(outbuffer + offset + 0) = (u_motor_1_d.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_1_d.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_1_d.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_1_d.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_1_d);
+      } u_left_motor_d;
+      u_left_motor_d.real = this->left_motor_d;
+      *(outbuffer + offset + 0) = (u_left_motor_d.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_left_motor_d.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_left_motor_d.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_left_motor_d.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->left_motor_d);
       union {
         float real;
         uint32_t base;
-      } u_motor_2_p;
-      u_motor_2_p.real = this->motor_2_p;
-      *(outbuffer + offset + 0) = (u_motor_2_p.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_2_p.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_2_p.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_2_p.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_2_p);
+      } u_right_motor_p;
+      u_right_motor_p.real = this->right_motor_p;
+      *(outbuffer + offset + 0) = (u_right_motor_p.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_right_motor_p.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_right_motor_p.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_right_motor_p.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->right_motor_p);
       union {
         float real;
         uint32_t base;
-      } u_motor_2_i;
-      u_motor_2_i.real = this->motor_2_i;
-      *(outbuffer + offset + 0) = (u_motor_2_i.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_2_i.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_2_i.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_2_i.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_2_i);
+      } u_right_motor_i;
+      u_right_motor_i.real = this->right_motor_i;
+      *(outbuffer + offset + 0) = (u_right_motor_i.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_right_motor_i.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_right_motor_i.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_right_motor_i.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->right_motor_i);
       union {
         float real;
         uint32_t base;
-      } u_motor_2_d;
-      u_motor_2_d.real = this->motor_2_d;
-      *(outbuffer + offset + 0) = (u_motor_2_d.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_2_d.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_2_d.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_2_d.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_2_d);
+      } u_right_motor_d;
+      u_right_motor_d.real = this->right_motor_d;
+      *(outbuffer + offset + 0) = (u_right_motor_d.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_right_motor_d.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_right_motor_d.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_right_motor_d.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->right_motor_d);
       union {
         float real;
         uint32_t base;
-      } u_motor_3_p;
-      u_motor_3_p.real = this->motor_3_p;
-      *(outbuffer + offset + 0) = (u_motor_3_p.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_3_p.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_3_p.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_3_p.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_3_p);
+      } u_left_motor_velocity_command;
+      u_left_motor_velocity_command.real = this->left_motor_velocity_command;
+      *(outbuffer + offset + 0) = (u_left_motor_velocity_command.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_left_motor_velocity_command.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_left_motor_velocity_command.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_left_motor_velocity_command.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->left_motor_velocity_command);
       union {
         float real;
         uint32_t base;
-      } u_motor_3_i;
-      u_motor_3_i.real = this->motor_3_i;
-      *(outbuffer + offset + 0) = (u_motor_3_i.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_3_i.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_3_i.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_3_i.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_3_i);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_3_d;
-      u_motor_3_d.real = this->motor_3_d;
-      *(outbuffer + offset + 0) = (u_motor_3_d.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_3_d.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_3_d.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_3_d.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_3_d);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_4_p;
-      u_motor_4_p.real = this->motor_4_p;
-      *(outbuffer + offset + 0) = (u_motor_4_p.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_4_p.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_4_p.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_4_p.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_4_p);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_4_i;
-      u_motor_4_i.real = this->motor_4_i;
-      *(outbuffer + offset + 0) = (u_motor_4_i.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_4_i.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_4_i.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_4_i.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_4_i);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_4_d;
-      u_motor_4_d.real = this->motor_4_d;
-      *(outbuffer + offset + 0) = (u_motor_4_d.base >> (8 * 0)) & 0xFF;
-      *(outbuffer + offset + 1) = (u_motor_4_d.base >> (8 * 1)) & 0xFF;
-      *(outbuffer + offset + 2) = (u_motor_4_d.base >> (8 * 2)) & 0xFF;
-      *(outbuffer + offset + 3) = (u_motor_4_d.base >> (8 * 3)) & 0xFF;
-      offset += sizeof(this->motor_4_d);
-      *(outbuffer + offset + 0) = (this->motor_1_velocity_command >> (8 * 0)) & 0xFF;
-      offset += sizeof(this->motor_1_velocity_command);
-      *(outbuffer + offset + 0) = (this->motor_2_velocity_command >> (8 * 0)) & 0xFF;
-      offset += sizeof(this->motor_2_velocity_command);
-      *(outbuffer + offset + 0) = (this->motor_3_velocity_command >> (8 * 0)) & 0xFF;
-      offset += sizeof(this->motor_3_velocity_command);
-      *(outbuffer + offset + 0) = (this->motor_4_velocity_command >> (8 * 0)) & 0xFF;
-      offset += sizeof(this->motor_4_velocity_command);
+      } u_right_motor_velocity_command;
+      u_right_motor_velocity_command.real = this->right_motor_velocity_command;
+      *(outbuffer + offset + 0) = (u_right_motor_velocity_command.base >> (8 * 0)) & 0xFF;
+      *(outbuffer + offset + 1) = (u_right_motor_velocity_command.base >> (8 * 1)) & 0xFF;
+      *(outbuffer + offset + 2) = (u_right_motor_velocity_command.base >> (8 * 2)) & 0xFF;
+      *(outbuffer + offset + 3) = (u_right_motor_velocity_command.base >> (8 * 3)) & 0xFF;
+      offset += sizeof(this->right_motor_velocity_command);
       return offset;
     }
 
@@ -205,148 +133,96 @@ namespace carmen_msgs
       union {
         float real;
         uint32_t base;
-      } u_motor_1_p;
-      u_motor_1_p.base = 0;
-      u_motor_1_p.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_1_p.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_1_p.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_1_p.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_1_p = u_motor_1_p.real;
-      offset += sizeof(this->motor_1_p);
+      } u_left_motor_p;
+      u_left_motor_p.base = 0;
+      u_left_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_left_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_left_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_left_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->left_motor_p = u_left_motor_p.real;
+      offset += sizeof(this->left_motor_p);
       union {
         float real;
         uint32_t base;
-      } u_motor_1_i;
-      u_motor_1_i.base = 0;
-      u_motor_1_i.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_1_i.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_1_i.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_1_i.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_1_i = u_motor_1_i.real;
-      offset += sizeof(this->motor_1_i);
+      } u_left_motor_i;
+      u_left_motor_i.base = 0;
+      u_left_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_left_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_left_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_left_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->left_motor_i = u_left_motor_i.real;
+      offset += sizeof(this->left_motor_i);
       union {
         float real;
         uint32_t base;
-      } u_motor_1_d;
-      u_motor_1_d.base = 0;
-      u_motor_1_d.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_1_d.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_1_d.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_1_d.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_1_d = u_motor_1_d.real;
-      offset += sizeof(this->motor_1_d);
+      } u_left_motor_d;
+      u_left_motor_d.base = 0;
+      u_left_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_left_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_left_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_left_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->left_motor_d = u_left_motor_d.real;
+      offset += sizeof(this->left_motor_d);
       union {
         float real;
         uint32_t base;
-      } u_motor_2_p;
-      u_motor_2_p.base = 0;
-      u_motor_2_p.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_2_p.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_2_p.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_2_p.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_2_p = u_motor_2_p.real;
-      offset += sizeof(this->motor_2_p);
+      } u_right_motor_p;
+      u_right_motor_p.base = 0;
+      u_right_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_right_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_right_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_right_motor_p.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->right_motor_p = u_right_motor_p.real;
+      offset += sizeof(this->right_motor_p);
       union {
         float real;
         uint32_t base;
-      } u_motor_2_i;
-      u_motor_2_i.base = 0;
-      u_motor_2_i.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_2_i.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_2_i.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_2_i.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_2_i = u_motor_2_i.real;
-      offset += sizeof(this->motor_2_i);
+      } u_right_motor_i;
+      u_right_motor_i.base = 0;
+      u_right_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_right_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_right_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_right_motor_i.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->right_motor_i = u_right_motor_i.real;
+      offset += sizeof(this->right_motor_i);
       union {
         float real;
         uint32_t base;
-      } u_motor_2_d;
-      u_motor_2_d.base = 0;
-      u_motor_2_d.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_2_d.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_2_d.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_2_d.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_2_d = u_motor_2_d.real;
-      offset += sizeof(this->motor_2_d);
+      } u_right_motor_d;
+      u_right_motor_d.base = 0;
+      u_right_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_right_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_right_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_right_motor_d.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->right_motor_d = u_right_motor_d.real;
+      offset += sizeof(this->right_motor_d);
       union {
         float real;
         uint32_t base;
-      } u_motor_3_p;
-      u_motor_3_p.base = 0;
-      u_motor_3_p.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_3_p.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_3_p.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_3_p.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_3_p = u_motor_3_p.real;
-      offset += sizeof(this->motor_3_p);
+      } u_left_motor_velocity_command;
+      u_left_motor_velocity_command.base = 0;
+      u_left_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_left_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_left_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_left_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->left_motor_velocity_command = u_left_motor_velocity_command.real;
+      offset += sizeof(this->left_motor_velocity_command);
       union {
         float real;
         uint32_t base;
-      } u_motor_3_i;
-      u_motor_3_i.base = 0;
-      u_motor_3_i.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_3_i.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_3_i.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_3_i.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_3_i = u_motor_3_i.real;
-      offset += sizeof(this->motor_3_i);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_3_d;
-      u_motor_3_d.base = 0;
-      u_motor_3_d.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_3_d.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_3_d.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_3_d.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_3_d = u_motor_3_d.real;
-      offset += sizeof(this->motor_3_d);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_4_p;
-      u_motor_4_p.base = 0;
-      u_motor_4_p.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_4_p.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_4_p.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_4_p.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_4_p = u_motor_4_p.real;
-      offset += sizeof(this->motor_4_p);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_4_i;
-      u_motor_4_i.base = 0;
-      u_motor_4_i.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_4_i.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_4_i.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_4_i.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_4_i = u_motor_4_i.real;
-      offset += sizeof(this->motor_4_i);
-      union {
-        float real;
-        uint32_t base;
-      } u_motor_4_d;
-      u_motor_4_d.base = 0;
-      u_motor_4_d.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
-      u_motor_4_d.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
-      u_motor_4_d.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
-      u_motor_4_d.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
-      this->motor_4_d = u_motor_4_d.real;
-      offset += sizeof(this->motor_4_d);
-      this->motor_1_velocity_command =  ((uint8_t) (*(inbuffer + offset)));
-      offset += sizeof(this->motor_1_velocity_command);
-      this->motor_2_velocity_command =  ((uint8_t) (*(inbuffer + offset)));
-      offset += sizeof(this->motor_2_velocity_command);
-      this->motor_3_velocity_command =  ((uint8_t) (*(inbuffer + offset)));
-      offset += sizeof(this->motor_3_velocity_command);
-      this->motor_4_velocity_command =  ((uint8_t) (*(inbuffer + offset)));
-      offset += sizeof(this->motor_4_velocity_command);
+      } u_right_motor_velocity_command;
+      u_right_motor_velocity_command.base = 0;
+      u_right_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 0))) << (8 * 0);
+      u_right_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 1))) << (8 * 1);
+      u_right_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 2))) << (8 * 2);
+      u_right_motor_velocity_command.base |= ((uint32_t) (*(inbuffer + offset + 3))) << (8 * 3);
+      this->right_motor_velocity_command = u_right_motor_velocity_command.real;
+      offset += sizeof(this->right_motor_velocity_command);
      return offset;
     }
 
     const char * getType(){ return "carmen_msgs/FirmwareCommandWrite"; };
-    const char * getMD5(){ return "385694835b4556c81693e9df676d8c64"; };
+    const char * getMD5(){ return "d9ce22517fbab8435fa14c41f2ff63d6"; };
 
   };
 
