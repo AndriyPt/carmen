@@ -1,15 +1,5 @@
-float32 motor_1_position
-float32 motor_1_velocity
-float32 motor_1_effort
+float32 left_motor_position
+float32 left_motor_velocity
 
-float32 motor_2_position
-float32 motor_2_velocity
-float32 motor_2_effort
-
-float32 motor_3_position
-float32 motor_3_velocity
-float32 motor_3_effort
-
-float32 motor_4_position
-float32 motor_4_velocity
-float32 motor_4_effort
+float32 right_motor_position
+float32 right_motor_velocity
