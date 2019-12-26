@@ -1,0 +1,35 @@
+FROM ros:kinetic-ros-core-xenial
+
+MAINTAINER "Andriy Petlovanyy"
+
+LABEL Description="This ROS Kinetic image for Carmen development with Cloud 9 Web IDE for Raspberry PI" Vendor="Andriy Petlovanyy" Version="1.0"
+
+ARG carmen_aurora_branch
+
+ENV carmen_aurora_branch ${carmen_aurora_branch:-"master"}
+
+ENV carmen_aurora_script "https://raw.githubusercontent.com/ros-ukraine/aurora/$carmen_aurora_branch/bin/run-ansible.sh"
+
+ENV DISPLAY :1.0
+
+ENV QT_X11_NO_MITSHM 1
+
+RUN set -x && \
+    \
+    echo "Downloading one-liner" && \
+    wget -O /tmp/oneliner "$( echo "$carmen_aurora_script" | sed 's/#/%23/g' )" && \
+    chmod 755 /tmp/oneliner && \
+    \
+    echo "Installing Cloud9" && \
+    /tmp/oneliner install_software --debug-branch $carmen_aurora_branch software=[cloud9] && \
+    \
+    echo "Clean up" && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.ansible /root/.gitconfig /root/.cache
+
+USER root
+
+EXPOSE 8080 8181 8282 8090 9090
+
+#CMD node /home/user/c9sdk/server.js --listen 0.0.0.0 --port 8181 -w /home/user/workspace/carmen/base/src/carmen/ -a :
+CMD node /home/user/c9sdk/server.js --listen 0.0.0.0 --port 8181 -w /root -a :
