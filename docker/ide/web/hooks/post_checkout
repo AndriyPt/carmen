@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
-set -e
-
-echo "DOCKERFILE_PATH ==> ${DOCKERFILE_PATH}"
-
 BUILD_ARCH=$(echo "${DOCKERFILE_PATH}" | cut -d '.' -f 2)
 
 [ "${BUILD_ARCH}" == "Dockerfile" ] && \
