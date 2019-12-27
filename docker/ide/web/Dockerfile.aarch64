@@ -17,6 +17,8 @@ ENV QT_X11_NO_MITSHM 1
 RUN set -x && \
     \
     echo "Downloading one-liner" && \
+    apt-get update && \
+    apt-get install wget sudo -y && \
     wget -O /tmp/oneliner "$( echo "$carmen_aurora_script" | sed 's/#/%23/g' )" && \
     chmod 755 /tmp/oneliner && \
     \
@@ -26,8 +28,6 @@ RUN set -x && \
     echo "Clean up" && \
     sudo apt-get clean && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.ansible /root/.gitconfig /root/.cache
-
-USER root
 
 EXPOSE 8080 8181 8282 8090 9090
 
