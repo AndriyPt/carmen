@@ -16,6 +16,9 @@ ENV QT_X11_NO_MITSHM 1
 
 RUN set -x && \
     \
+    echo "Changing shell to bash" && \
+    ln -sf /bin/bash /bin/sh && \
+    \
     echo "Installing utilities" && \
     apt-get update && \
     apt-get install -y \
