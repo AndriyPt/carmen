@@ -16,14 +16,33 @@ ENV QT_X11_NO_MITSHM 1
 
 RUN set -x && \
     \
-    echo "Downloading one-liner" && \
+    echo "Installing utilities" && \
     apt-get update && \
-    apt-get install wget sudo -y && \
+    apt-get install -y \
+          wget \
+          sudo \
+          git && \
+    \
+    echo "Setting up ROS workspace" && \
+    mkdir -p /root/workspace/carmen/base/src && \
+    cd /root/workspace/carmen/base && \
+    source /opt/ros/kinetic/setup.bash && catkin_init_workspace src && \
+    source /opt/ros/kinetic/setup.bash && catkin_make && \
+    \
+    echo "Getting and compiling source code" && \
+    pushd /root/workspace/carmen/base/src && \
+    git clone https://github.com/AndriyPt/carmen.git && \
+    popd && \
+    source /opt/ros/kinetic/setup.bash && rosdep install --from-paths src --ignore-src --rosdistro kinetic -y && \
+    source /opt/ros/kinetic/setup.bash && catkin_make && \
+    echo 'source /root/workspace/carmen/base/devel/setup.bash' >> /root/.bashrc && \     
+    \
+    echo "Downloading one-liner" && \
     wget -O /tmp/oneliner "$( echo "$carmen_aurora_script" | sed 's/#/%23/g' )" && \
     chmod 755 /tmp/oneliner && \
     \
     echo "Installing Cloud9" && \
-    /tmp/oneliner install_software --debug-branch $carmen_aurora_branch software=[cloud9] && \
+#    /tmp/oneliner install_software --debug-branch $carmen_aurora_branch software=[cloud9] && \
     \
     echo "Clean up" && \
     sudo apt-get clean && \
@@ -31,5 +50,4 @@ RUN set -x && \
 
 EXPOSE 8080 8181 8282 8090 9090
 
-#CMD node /home/user/c9sdk/server.js --listen 0.0.0.0 --port 8181 -w /home/user/workspace/carmen/base/src/carmen/ -a :
-CMD node /home/user/c9sdk/server.js --listen 0.0.0.0 --port 8181 -w /root -a :
+#CMD node /home/user/c9sdk/server.js --listen 0.0.0.0 --port 8181 -w /root/workspace/carmen/base/src/carmen/ -a :
