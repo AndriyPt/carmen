@@ -170,7 +170,7 @@ After that run the following steps:
  ```
   2. Run container
 ```bash
- docker run -it --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 --entrypoint /usr/bin/qemu-aarch64-static andriyp/carmen-rpi:latest /bin/bash 
+ docker run -it --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 --entrypoint /usr/bin/qemu-aarch64-static andriyp/carmen-dev-rpi:latest /bin/bash 
 ```
 
 ## IDEs
