@@ -139,3 +139,41 @@ docker start carmen_dev
 
 In Docker Desktop only Cloud9 web IDE is available.
 Open http://localhost:8181 in your browser.
+
+# Raspberry PI
+
+## Docker
+
+Please follow these steps to run Docker container on your machine.
+
+ 1. Install Raspbian on your machine
+ 2. Install Docker using these [instructions](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-engine---community-1)
+ 3. For development [the following](https://hub.docker.com/r/andriyp/carmen-dev-rpi) docker image will be used.
+ 4. Use the following command to start ordinary Docker container
+```bash
+docker run -d --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 andriyp/carmen-dev-rpi:latest
+```
+ 5. Command will spawn Docker container and exit.
+
+In order to relaunch docker container please run
+```bash
+docker start carmen_dev
+```
+
+## QEMU Docker
+
+In case if you want to test Docker containers on Linux using QEMU install Docker as it is described in Linux section steps (1-4).
+After that run the following steps:
+ 1. Execute command
+ ```bash
+ docker run --rm --privileged multiarch/qemu-user-static:register --reset
+ ```
+  2. Run container
+```bash
+ docker run -it --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 --entrypoint /usr/bin/qemu-aarch64-static andriyp/carmen-dev-rpi:latest /bin/bash 
+```
+
+## IDEs
+
+In Docker Desktop only Cloud9 web IDE is available.
+Open http://localhost:8181 in your browser.

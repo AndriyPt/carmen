@@ -53,4 +53,4 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 EXPOSE 8080 8181 8282 8090 9090
 
-CMD node /home/user/c9sdk/server.js --listen 0.0.0.0 --port 8181 -w /home/user/workspace/carmen/base/src/carmen/ -a :
+CMD nodejs /home/user/c9sdk/server.js --listen 0.0.0.0 --port 8181 -w /home/user/workspace/carmen/base/src/carmen/ -a :
