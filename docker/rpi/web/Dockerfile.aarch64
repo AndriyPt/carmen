@@ -1,4 +1,4 @@
-FROM arm64v8/andriyp:carmen-rpi
+FROM andriyp/carmen-rpi:latest
 
 MAINTAINER "Andriy Petlovanyy"
 
