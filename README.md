@@ -140,6 +140,16 @@ docker start carmen_dev
 In Docker Desktop only Cloud9 web IDE is available.
 Open http://localhost:8181 in your browser.
 
+## Visualization
+
+Run the following command in Cloud9 web IDE terminal windows
+```bash
+roslaunch carmen_launch web_server.launch
+```
+Open web browser and go to [WebViz application page](https://webviz.io/app/).
+It will connect to your local web socket server running in Docker container.
+You will be able to plot data, view rosout and more.
+
 # Raspberry PI
 
 ## Docker
@@ -177,3 +187,14 @@ After that run the following steps:
 
 In Docker Desktop only Cloud9 web IDE is available.
 Open http://localhost:8181 in your browser.
+
+## Visualization
+
+Run the following command in Cloud9 web IDE terminal windows
+```bash
+roslaunch carmen_launch web_server.launch
+```
+Open web browser and go to [WebViz application page](https://webviz.io/app/).
+It will connect to your local web socket server running in Docker container.
+You will be able to plot data, view rosout and more.
+In case if you want to see data running on remote Raspberry PI please click on Help sign in WebViz page to see how to change WebViz URL.
