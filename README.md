@@ -4,6 +4,10 @@ Carmen Robot Car project
 
 [![License](https://img.shields.io/github/license/AndriyPt/carmen.svg)](https://github.com/AndriyPt/carmen/blob/kinetic-devel/LICENSE)
 
+# Table of Content
+- [Linux](#linux)
+- [Windows](#windows)
+- [Raspberry Pi](#raspberry-pi)
 
 # Linux
 
@@ -159,9 +163,15 @@ Please follow these steps to run Docker container on your machine.
  1. Install Raspbian on your machine
  2. Install Docker using these [instructions](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-engine---community-1)
  3. For development [the following](https://hub.docker.com/r/andriyp/carmen-dev-rpi) docker image will be used.
- 4. Use the following command to start ordinary Docker container
+ 4. Use the following command to start ordinary Docker container  
+
+*ARM 32 bit*
 ```bash
-docker run -d --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 andriyp/carmen-dev-rpi:latest
+docker run -d --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 andriyp/carmen-dev-rpi:armhf
+```
+*ARM 64 bit*
+```bash
+docker run -d --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 andriyp/carmen-dev-rpi:arm64
 ```
  5. Command will spawn Docker container and exit.
 
@@ -178,9 +188,15 @@ After that run the following steps:
  ```bash
  docker run --rm --privileged multiarch/qemu-user-static:register --reset
  ```
-  2. Run container
+  2. Run container  
+  
+*ARM 32 bit*
 ```bash
- docker run -it --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 --entrypoint /usr/bin/qemu-aarch64-static andriyp/carmen-dev-rpi:latest /bin/bash 
+ docker run -it --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 --entrypoint /usr/bin/qemu-arm-static andriyp/carmen-dev-rpi:armhf /bin/bash 
+```
+*ARM 64 bit*
+```bash
+ docker run -it --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 --entrypoint /usr/bin/qemu-aarch64-static andriyp/carmen-dev-rpi:arm64 /bin/bash 
 ```
 
 ## IDEs
