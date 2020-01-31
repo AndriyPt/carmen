@@ -188,6 +188,7 @@ After that run the following steps:
  docker run --rm --privileged multiarch/qemu-user-static:register --reset
  ```
   2. Run container  
+  
 *ARM 32 bit*
 ```bash
  docker run -it --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 --entrypoint /usr/bin/qemu-arm-static andriyp/carmen-dev-rpi:armhf /bin/bash 
