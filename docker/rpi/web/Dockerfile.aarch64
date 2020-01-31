@@ -1,8 +1,8 @@
-FROM andriyp/carmen-rpi:latest
+FROM andriyp/carmen-rpi:arm64
 
 MAINTAINER "Andriy Petlovanyy"
 
-LABEL Description="This ROS Kinetic image for Carmen development with Cloud 9 Web IDE for Raspberry PI" Vendor="Andriy Petlovanyy" Version="1.0"
+LABEL Description="This ROS Kinetic image for Carmen development with Cloud 9 Web IDE for Raspberry PI 64-bit" Vendor="Andriy Petlovanyy" Version="1.0"
 
 ARG carmen_aurora_branch
 
