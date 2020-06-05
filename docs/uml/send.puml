@@ -1,0 +1,8 @@
+@startuml
+
+Client -> Master: Send Buffer
+note over Client: hello
+Master -> "Data Link Layer": Send
+"Data Link Layer" -> UART: Send
+
+@enduml

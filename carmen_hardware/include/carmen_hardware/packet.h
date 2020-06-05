@@ -1,19 +1,10 @@
+#include "orion_packet.h"
 
-
-struct _Header
-{
-   uint8_t version;
-   uint8_t messageType;
-   uint8_t errorCode;
-
-   // Error ?
-}
-
-typedef struct _Header Header;
+enum MessageType { ReadSettings = 1, ExecuteCommand = 2 };
 
 struct _ReadSettingsCommand
 {
-    Header header;
+    OrionDataHeader header = {1, ReadSettings};
 
     uint16_t p;
     uint16_t i;
@@ -24,7 +15,7 @@ typedef struct _ReadSettingsCommand ReadSettingsCommand;
 
 struct _ReadSettingsResult
 {
-    Header header;
+    OrionDataHeader header = {1, ReadSettings};
 
     uint16_t p;
     uint16_t i;

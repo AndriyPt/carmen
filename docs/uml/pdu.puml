@@ -1,0 +1,45 @@
+@startuml
+
+title Protocol data unit structure per layer
+
+class UART {
+  +uint8_t data
+}
+
+note top of UART: Physical Layer
+
+class DataLink {
+  +uint16_t start_delimeter
+  +uint16_t size
+  +uint16_t crc
+  +uint8_t[] data
+  +uint16_t end_delimeter
+}
+
+note top of DataLink: Data Link Layer
+
+class Network {
+}
+
+note top of Network: Network Layer
+
+newpage
+
+class Transport {
+  +uint16_t sequence_id
+  +uint8_t[] data
+}
+
+note top of Transport: Transport Layer
+
+class Application {
+  +uint8_t message_id
+  +uint8_t version
+  +uint8_t error_code
+  +uint8_t[] data
+}
+
+note top of Application: Application Layer
+
+
+@enduml
