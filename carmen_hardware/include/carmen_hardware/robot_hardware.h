@@ -5,6 +5,7 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
+#include <orion_protocol/orion_master.h>
 
 namespace carmen_hardware
 {
@@ -19,6 +20,9 @@ public:
   void write(const ros::Time& time, const ros::Duration& period);
 
 private:
+  void sendHandshake();
+  void initParameters(const ros::NodeHandle& node_handle);
+
   hardware_interface::JointStateInterface joint_state_interface_;
   hardware_interface::VelocityJointInterface joint_velocity_interface_;
 
@@ -28,12 +32,10 @@ private:
   double position_[JOINTS_COUNT];
   double velocity_[JOINTS_COUNT];
   double effort_[JOINTS_COUNT];
+
+  orion::Master orion_master_;
 };
 
 }  // carmen_hardware
 
 #endif  // CARMEN_HARDWARE_ROBOT_HARDWARE_H
-
-
-
-
