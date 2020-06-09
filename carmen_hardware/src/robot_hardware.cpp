@@ -16,6 +16,9 @@ namespace carmen_hardware
 
   void CarmenRobotHW::sendHandshake()
   {
+    HandshakeCommand command;
+    HandshakeResult result;
+    orion_master_.invoke(command, &result, orion::Master::Timeout::Second, 3);
   }
 
   void CarmenRobotHW::initParameters(const ros::NodeHandle& node_handle)
@@ -30,7 +33,7 @@ namespace carmen_hardware
     node_handle.param<int32_t>("left_front_i", command.data.left_front_i, command.data.left_front_i);
     node_handle.param<int32_t>("left_front_d", command.data.left_front_d, command.data.left_front_d);
 
-    orion_master_.invoke(command, &result, orion::Master::ONE_SECOND_TIMEOUT, 3);
+    orion_master_.invoke(command, &result, orion::Master::Timeout::Second, 3);
 
     node_handle.setParam("left_front_p", result.data.left_front_p);
     node_handle.setParam("left_front_i", result.data.left_front_i);
