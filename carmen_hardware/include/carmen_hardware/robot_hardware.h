@@ -33,7 +33,7 @@ private:
   double velocity_[JOINTS_COUNT];
   double effort_[JOINTS_COUNT];
 
-  orion::Master orion_master_;
+  orion::Master orion_master_ = orion::Master(nullptr);
 };
 
 }  // carmen_hardware

@@ -16,7 +16,8 @@ struct HandshakeCommand
   orion::CommandHeader header =
   {
     .message_id = static_cast<uint8_t>(MessageType::Handshake),
-    .version = 1
+    .version = 1,
+    .backward_compatible = 0
   };
 };
 
@@ -26,6 +27,7 @@ struct HandshakeResult
   {
     .message_id = static_cast<uint8_t>(MessageType::Handshake),
     .version = 1,
+    .backward_compatible = 0,
     .error_code = 0
   };
 };
@@ -42,7 +44,8 @@ struct ReadSettingsCommand
   orion::CommandHeader header =
   {
     .message_id = static_cast<uint8_t>(MessageType::ReadSettings),
-    .version = 1
+    .version = 1,
+    .backward_compatible = 0
   };
   ReadSettings data;
 };
@@ -53,6 +56,7 @@ struct ReadSettingsResult
   {
     .message_id = static_cast<uint8_t>(MessageType::ReadSettings),
     .version = 1,
+    .backward_compatible = 0,
     .error_code = 0
   };
   ReadSettings data;
