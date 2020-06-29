@@ -7,6 +7,7 @@
 #include <hardware_interface/robot_hw.h>
 #include <orion_protocol/orion_major.h>
 #include <orion_protocol/orion_frame_transport.h>
+#include <orion_protocol/orion_cobs_framer.h>
 
 namespace carmen_hardware
 {
@@ -34,7 +35,8 @@ private:
   double velocity_[JOINTS_COUNT];
   double effort_[JOINTS_COUNT];
 
-  orion::FrameTransport frame_transport_ = orion::FrameTransport(nullptr);
+  orion::COBSFramer cobs_framer_ = orion::COBSFramer();
+  orion::FrameTransport frame_transport_ = orion::FrameTransport(nullptr, &this->cobs_framer_);
   orion::Major orion_major_ = orion::Major(&this->frame_transport_);
 };
 

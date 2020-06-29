@@ -15,10 +15,17 @@ struct HandshakeCommand
 {
   orion::CommandHeader header =
   {
-    .message_id = static_cast<uint8_t>(MessageType::Handshake),
-    .version = 1,
-    .oldest_compatible_version = 1,
-    .sequence_id = 0
+    .frame =
+    {
+      .crc = 0
+    },
+    .common =
+    {
+      .message_id = static_cast<uint8_t>(MessageType::Handshake),
+      .version = 1,
+      .oldest_compatible_version = 1,
+      .sequence_id = 0
+    }
   };
 };
 
@@ -26,10 +33,17 @@ struct HandshakeResult
 {
   orion::ResultHeader header =
   {
-    .message_id = static_cast<uint8_t>(MessageType::Handshake),
-    .version = 1,
-    .oldest_compatible_version = 1,
-    .sequence_id = 0,
+    .frame =
+    {
+      .crc = 0
+    },
+    .common =
+    {
+      .message_id = static_cast<uint8_t>(MessageType::Handshake),
+      .version = 1,
+      .oldest_compatible_version = 1,
+      .sequence_id = 0,
+    },
     .error_code = 0
   };
 };
@@ -45,10 +59,17 @@ struct ReadSettingsCommand
 {
   orion::CommandHeader header =
   {
-    .message_id = static_cast<uint8_t>(MessageType::ReadSettings),
-    .version = 1,
-    .oldest_compatible_version = 1,
-    .sequence_id = 0
+    .frame =
+    {
+      .crc = 0
+    },
+    .common =
+    {
+      .message_id = static_cast<uint8_t>(MessageType::ReadSettings),
+      .version = 1,
+      .oldest_compatible_version = 1,
+      .sequence_id = 0
+    }
   };
   ReadSettings data;
 };
@@ -57,10 +78,17 @@ struct ReadSettingsResult
 {
   orion::ResultHeader header =
   {
-    .message_id = static_cast<uint8_t>(MessageType::ReadSettings),
-    .version = 1,
-    .oldest_compatible_version = 1,
-    .sequence_id = 0,
+    .frame =
+    {
+      .crc = 0
+    },
+    .common =
+    {
+      .message_id = static_cast<uint8_t>(MessageType::ReadSettings),
+      .version = 1,
+      .oldest_compatible_version = 1,
+      .sequence_id = 0,
+    },
     .error_code = 0
   };
   ReadSettings data;
