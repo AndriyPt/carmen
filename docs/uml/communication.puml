@@ -1,0 +1,10 @@
+@startuml
+salt
+{
+  {T
+    +      root
+    ++       sequence                  <color:blue>Second level comment
+    +++        even_lower_third_level      <color:green>Third level comment
+   }
+}
+@enduml
