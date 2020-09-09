@@ -18,7 +18,7 @@ void osal_thread_function(void *argument)
         for (;;)
         {
             ((osal_control_loop_function_t)argument)();
-            osDelay(500);
+            osDelay(100);
         }
     }
 }
@@ -26,7 +26,6 @@ void osal_thread_function(void *argument)
 void osal_control_loop_create_thread(osal_control_loop_function_t fp_thread_function, uint16_t queue_size)
 {
     thread_id = osThreadNew(osal_thread_function, (void*)fp_thread_function, &task_attributes);
-
     message_queue_id = osMessageQueueNew(queue_size, sizeof(osal_cl_message_t), NULL);
 }
 

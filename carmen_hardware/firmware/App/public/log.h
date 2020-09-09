@@ -23,7 +23,7 @@ typedef enum
 
 #define LOG_ERROR(MESSAGE)
 
-// TODO: Add trotle macro
+// TODO: Add trottle macro
 
 #ifdef __cplusplus
 }
