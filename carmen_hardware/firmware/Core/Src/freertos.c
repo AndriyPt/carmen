@@ -22,8 +22,8 @@
 #include "FreeRTOS.h"
 #include "task.h"
 #include "main.h"
-#include "cmsis_os.h"
-#include "imu.h"
+#include "cmsis_os2.h"
+#include "control_loop.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
@@ -98,12 +98,26 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  imu_create_thread();
+  control_loop_init();
   /* USER CODE END RTOS_THREADS */
 
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
+
+static void command_cb(uint16_t sequence_id, bool result);
+static void pid_cb(uint16_t sequence_id, bool result);
+
+static void command_cb(uint16_t sequence_id, bool result)
+{
+    HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
+}
+
+void pid_cb(uint16_t sequence_id, bool result)
+{
+    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+}
+
 /**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used 
@@ -115,10 +129,27 @@ void StartDefaultTask(void *argument)
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN StartDefaultTask */
+  control_loop_set_command_t command;
+  command.left_cmd = 10;
+  command.right_cmd = 20;
+  command.sequence_id = 1000;
+  command.result_callback = command_cb;
+
+  control_loop_set_pid_t pid;
+  pid.p = 1;
+  pid.i = 2;
+  pid.d = 3;
+  pid.sequence_id = 2001;
+  pid.result_callback = pid_cb;
+  osDelay(2000);
+
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+      control_loop_set_commands(&command);
+      osDelay(200);
+      control_loop_set_pid(&pid);
+      osDelay(200);
   }
   /* USER CODE END StartDefaultTask */
 }
