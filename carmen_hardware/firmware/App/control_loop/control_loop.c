@@ -1,12 +1,12 @@
 #include "control_loop.h"
 #include "osal_control_loop.h"
+#include "log.h"
+#include "error.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include <assert.h>
 
 #define QUEUE_SIZE (10)
-#define MESSAGE_DATA_SIZE (20)
 
 static void loop_function(void);
 
@@ -18,21 +18,14 @@ typedef enum
 
 typedef struct
 {
-    uint8_t message_type;
-    uint8_t data[MESSAGE_DATA_SIZE];
-} message_t;
-
-typedef struct
-{
-    message_t current_message;
+    osal_cl_message_t current_message;
 } state_t;
 
 static state_t state;
 
 void loop_function(void)
 {
-
-    if (false == osal_control_loop_queue_get(&state.current_message, 100))
+    if (OSAL_CL_STATUS_OK != osal_control_loop_queue_get(&state.current_message, 100))
     {
         return;
     }
@@ -61,15 +54,16 @@ void loop_function(void)
 
 void control_loop_init()
 {
-    osal_control_loop_create_thread(loop_function, QUEUE_SIZE, sizeof(message_t));
+    LOG_DEBUG("Control loop thread initializing...");
+    osal_control_loop_create_thread(loop_function, QUEUE_SIZE);
 }
 
 void control_loop_set_commands(const control_loop_set_command_t *p_message)
 {
-    assert((NULL != p_message) && "Empty message passed as parameter to function");
-    assert((MESSAGE_DATA_SIZE >= sizeof(&p_message)) && "No enough space to store message");
+    SOFTWARE_ERROR(NULL == p_message);
+    SOFTWARE_ERROR(OSAL_CL_MESSAGE_DATA_SIZE < sizeof(&p_message));
 
-    message_t queue_message;
+    osal_cl_message_t queue_message;
     queue_message.message_type = MSG_SET_COMMANDS;
     memcpy(queue_message.data, p_message, sizeof(*p_message));
     osal_control_loop_queue_put(&queue_message);
@@ -77,10 +71,10 @@ void control_loop_set_commands(const control_loop_set_command_t *p_message)
 
 void control_loop_set_pid(const control_loop_set_pid_t *p_message)
 {
-    assert((NULL != p_message) && "Empty message passed as parameter to function");
-    assert((MESSAGE_DATA_SIZE >= sizeof(&p_message)) && "No enough space to store message");
+    SOFTWARE_ERROR(NULL == p_message);
+    SOFTWARE_ERROR(OSAL_CL_MESSAGE_DATA_SIZE < sizeof(&p_message));
 
-    message_t queue_message;
+    osal_cl_message_t queue_message;
     queue_message.message_type = MSG_SET_PID;
     memcpy(queue_message.data, p_message, sizeof(*p_message));
     osal_control_loop_queue_put(&queue_message);
