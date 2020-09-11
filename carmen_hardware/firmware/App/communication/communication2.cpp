@@ -1,84 +1,33 @@
-//#include "communication.h"
-//#include "osal_communication.h"
-//#include "bt.h"
-//#include "orion_protocol/orion_serial_port.h"
-////#include "orion_protocol/orion_minor.h"
-//#include "orion_protocol/orion_header.h"
-//#include "carmen_hardware/protocol.h"
-//
-//#define COMMAND_BUFFER_SIZE (2048)
-//
-////static orion::ComPort com_port(USART1);
-////static orion::Minor minor(&com_port);
-////static uint8_t buffer[COMMAND_BUFFER_SIZE];
-//
-//class ReadMessage : public BrainTree::Leaf
-//{
-//public:
-//    ReadMessage() : Leaf() { };
-//    ReadMessage(Blackboard::Ptr blackboard) : Leaf(blackboard) { };
-//    Status update() override
-//    {
-//        Message message;
-//        if (osal_read_message(&message, 200))
-//        {
-//          return Node::Status::Running;
-//        }
-//        blackboard->setPointer("current_message", message);
-//        return Node::Status::Success;
-//    }
-//};
-//
-//static BrainTree::BehaviorTree behaviour_tree = BrainTree::Builder()
-//  .composite<BrainTree::Sequence>()
-//    .leaf<Action>()
-//    .leaf<Action>()
-//  .end()
-//  .build();
-//
-//static void thread_function(void);
-//
-//static void pid_read_callback(int32_t left_front_p, int32_t left_front_i, int32_t left_front_d);
-//
-//void communication_create_thread(void)
-//{
-//  osal_communication_create_thread(&thread_function);
-//}
-//
-//void thread_function(void)
-//{
-//  while (true)
-//  {
-//    if (minor.receiveCommand(buffer, COMMAND_BUFFER_SIZE))
-//    {
-//      orion::CommandHeader *command_header = reinterpret_cast<orion::CommandHeader*>(buffer);
-//      switch(command_header->common.message_id)
-//      {
-//        case carmen_hardware::HandshakeCommand:
-//          carmen_hardware::HandshakeResult handshake_result;
-//          handshake_result.header.common.sequence_id = command_header->common.sequence_id;
-//          //TODO: Add code to validate that protocol versions coincide else send error code e.g. minor.validate method
-//          minor.sendResult(handshake_result);
-//          break;
-//
-//        case carmen_hardware::ReadSettingsCommand:
-//          eeprom_read_pid(&pid_read_callback);
-//          break;
-//
-//        default:
-//          // unknown command
-//      }
-//    }
-//    HAL_Delay(100);
-//  }
-//}
-//
-//void pid_read_callback(int32_t left_front_p, int32_t left_front_i, int32_t left_front_d)
-//{
-//  //TODO: Determine how to pass corresponding sequence id to response
-//  carmen_hardware::ReadSettingsResult result;
-//  result.data.left_front_p = left_front_p;
-//  result.data.left_front_i = left_front_i;
-//  result.data.left_front_d = left_front_d;
-//  minor.sendResult(result);
-//}
+#include "communication.h"
+#include "osal_communication.h"
+#include "log.h"
+#include "error.h"
+
+#define QUEUE_SIZE (10)
+
+static void loop_function(void);
+
+typedef enum
+{
+    MSG_COMMAND_RECEIVED,
+    MSG_PID_RESULT_RECEIVED,
+    MSG_COMMANDS_RESULT_RECEIVED
+} message_type_t;
+
+
+void loop_function(void)
+{
+}
+
+void send_new_command_event(void)
+{
+    osal_communication_message_t queue_message;
+    queue_message.message_type = MSG_COMMAND_RECEIVED;
+    osal_communication_queue_put(&queue_message);
+}
+
+void communication_init(void)
+{
+    LOG_DEBUG("Communication thread initializing...");
+    osal_communication_create_thread(loop_function, QUEUE_SIZE);
+}

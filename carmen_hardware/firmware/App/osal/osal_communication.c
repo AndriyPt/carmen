@@ -28,7 +28,7 @@ void osal_communication_create_thread(osal_communication_function_t fp_thread_fu
     message_queue_id = osMessageQueueNew(queue_size, sizeof(osal_communication_message_t), NULL);
 }
 
-osal_communication_status_t osal_communication_loop_queue_put(const osal_communication_message_t *p_message)
+osal_communication_status_t osal_communication_queue_put(const osal_communication_message_t *p_message)
 {
     osal_communication_status_t result = OSAL_COM_STATUS_OK;
     osStatus_t status = osMessageQueuePut(message_queue_id, p_message, 1, 100);

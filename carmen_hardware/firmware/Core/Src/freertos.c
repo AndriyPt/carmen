@@ -23,11 +23,11 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os2.h"
-#include "control_loop.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */     
-
+#include "control_loop.h"
+#include "communication.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -99,6 +99,7 @@ void MX_FREERTOS_Init(void) {
 
   /* USER CODE BEGIN RTOS_THREADS */
   control_loop_init();
+  communication_init();
   /* USER CODE END RTOS_THREADS */
 
 }
