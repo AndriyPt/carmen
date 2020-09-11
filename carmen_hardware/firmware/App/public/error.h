@@ -13,7 +13,7 @@ typedef enum
     ERROR_SOFTWARE,
     ERROR_HARDWARE,
     ERROR_CRC_CHECK
-} error_t;
+} error_types_t;
 
 // TODO: Implement error handling
 
