@@ -1,0 +1,21 @@
+@startuml
+salt
+{
+  {T
+    +      <color:blue>sequence
+    ++       <color:green>ReadQueuAction
+    ++       <color:brown>selector
+    +++        <color:blue>sequence
+    ++++         <color:green>ReadNewMessageAction
+    ++++         <color:brown>selector
+    +++++          <color:blue>sequence
+    ++++++           <color:green>IsMessageTypeAction -> Set Commands
+    ++++++           <color:green>SendSetCommandAction
+    +++++          <color:blue>sequence
+    ++++++           <color:green>IsMessageTypeAction -> Set PID
+    ++++++           <color:green>SendSetPIDAction
+
+
+   }
+}
+@enduml

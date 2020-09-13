@@ -1,0 +1,39 @@
+@startuml
+
+(*) -down-> "<b><color:blue>Sequence</color></b>" as Seq1
+
+Seq1  -down-> "<color:green>ReadQueueAction</color>" as ReadQueueAction
+
+Seq1  -down-> "<b><color:brown>Selector</color></b>" as Sel1
+
+Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq2
+
+Seq2  -down-> "<color:green>IsMessageTypeAction</color>
+               (Set Commands)" as SetCommandsAction
+
+Seq2  -down-> "<color:green>SendSetCommandAction</color>" as SendSetCommandAction
+
+Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq3
+
+Seq3  -down-> "<color:green>IsMessageTypeAction</color>
+               (Set PID)" as SetPIDAction
+
+Seq3  -down-> "<color:green>SendSetPIDAction</color>" as SendSetPIDAction
+
+Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq4
+
+Seq4  -down-> "<color:green>IsMessageTypeAction</color>
+               (Set Commands Result)" as SetCommandsResultAction
+
+Seq4  -down-> "<color:green>SendReply</color>
+               (Commands Result)" as SetReplyCommandsResultAction
+
+Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq5
+
+Seq5  -down-> "<color:green>IsMessageTypeAction</color>
+               (Set PID Result)" as SetPIDResultAction
+
+Seq5  -down-> "<color:green>SendReply</color>
+               (PID Result)" as SetReplyPIDResultAction
+
+@enduml
