@@ -25,6 +25,36 @@ static state_t state;
 
 static BrainTree::BehaviorTree tree;
 
+class StatefulAction : public BrainTree::Node
+{
+public:
+    StatefulAction(state_t * state)
+    {
+        SOFTWARE_ERROR(NULL == state);
+        m_state = state;
+    }
+protected:
+    state_t * m_state;
+};
+
+class ReadQueueAction : public StatefulAction
+{
+public:
+    ReadQueueAction(state_t * state) : StatefulAction(state)
+    {
+    }
+
+    Status update() override
+    {
+        osal_communication_status_t status = osal_communication_queue_get(&m_state->current_message, 100);
+        if (OSAL_COM_STATUS_OK == status)
+        {
+            return Node::Status::Success;
+        }
+        return Node::Status::Failure;
+    }
+};
+
 void loop_function(void)
 {
 
@@ -39,12 +69,12 @@ void send_new_command_event(void)
 
 void communication_init(void)
 {
-    auto sequence = std::make_shared<BrainTree::Sequence>();
-//    auto sayHello = std::make_shared<Action>();
-//    auto sayHelloAgain = std::make_shared<Action>();
-//    sequence->addChild(sayHello);
-//    sequence->addChild(sayHelloAgain);
-    tree.setRoot(sequence);
+    auto sequence_1 = std::make_shared<BrainTree::Sequence>();
+    auto read_queue_action = std::make_shared<ReadQueueAction>(&state);
+    auto selector_1 = std::make_shared<BrainTree::Selector>();
+    sequence_1->addChild(read_queue_action);
+    sequence_1->addChild(selector_1);
+    tree.setRoot(sequence_1);
 
     LOG_DEBUG("Communication thread initializing...");
     osal_communication_create_thread(loop_function, QUEUE_SIZE);
