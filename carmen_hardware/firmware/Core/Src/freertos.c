@@ -137,9 +137,9 @@ void StartDefaultTask(void *argument)
   command.result_callback = command_cb;
 
   control_loop_set_pid_t pid;
-  pid.p = 1;
-  pid.i = 2;
-  pid.d = 3;
+//  pid.p = 1;
+//  pid.i = 2;
+//  pid.d = 3;
   pid.sequence_id = 2001;
   pid.result_callback = pid_cb;
   osDelay(2000);

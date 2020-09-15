@@ -6,34 +6,20 @@ Seq1  -down-> "<color:green>ReadQueueAction</color>" as ReadQueueAction
 
 Seq1  -down-> "<b><color:brown>Selector</color></b>" as Sel1
 
-Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq2
+Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq6
 
-Seq2  -down-> "<color:green>IsMessageTypeAction</color>
-               (Set Commands)" as SetCommandsAction
+Seq6  -down-> "<color:green>ReadCommandAction</color>" as ReadCommandAction
 
-Seq2  -down-> "<color:green>SendSetCommandAction</color>" as SendSetCommandAction
+Seq6  -down-> "<b><color:brown>Selector</color></b>" as Sel2
 
-Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq3
+Sel2  -down-> "<color:green>ProcessHandshakeReceiveAction</color>" as ProcessHandshakeReceiveAction
 
-Seq3  -down-> "<color:green>IsMessageTypeAction</color>
-               (Set PID)" as SetPIDAction
+Sel2  -down-> "<color:green>ProcessSetCommandsReceiveAction</color>" as ProcessSetCommandsReceiveAction
 
-Seq3  -down-> "<color:green>SendSetPIDAction</color>" as SendSetPIDAction
+Sel2  -down-> "<color:green>ProcessSetPIDReceiveAction</color>" as SendSetPIDAction
 
-Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq4
+Sel1  -down-> "<color:green>ReplySetCommandsReceiveAction</color>" as ReplySetCommandsReceiveAction
 
-Seq4  -down-> "<color:green>IsMessageTypeAction</color>
-               (Set Commands Result)" as SetCommandsResultAction
-
-Seq4  -down-> "<color:green>SendReply</color>
-               (Commands Result)" as SetReplyCommandsResultAction
-
-Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq5
-
-Seq5  -down-> "<color:green>IsMessageTypeAction</color>
-               (Set PID Result)" as SetPIDResultAction
-
-Seq5  -down-> "<color:green>SendReply</color>
-               (PID Result)" as SetReplyPIDResultAction
+Sel1  -down-> "<color:green>ReplySetPIDReceiveAction</color>" as ReplySetPIDReceiveAction
 
 @enduml

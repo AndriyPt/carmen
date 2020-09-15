@@ -22,9 +22,12 @@ typedef struct
 typedef struct
 {
     uint16_t sequence_id;
-    uint16_t p;
-    uint16_t i;
-    uint16_t d;
+    uint16_t left_p;
+    uint16_t left_i;
+    uint16_t left_d;
+    uint16_t right_p;
+    uint16_t right_i;
+    uint16_t right_d;
     control_loop_result_t result_callback;
 } control_loop_set_pid_t;
 
