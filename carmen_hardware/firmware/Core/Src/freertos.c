@@ -28,6 +28,7 @@
 /* USER CODE BEGIN Includes */     
 #include "control_loop.h"
 #include "communication.h"
+#include "osal_communication.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -106,19 +107,6 @@ void MX_FREERTOS_Init(void) {
 
 /* USER CODE BEGIN Header_StartDefaultTask */
 
-static void command_cb(uint16_t sequence_id, bool result);
-static void pid_cb(uint16_t sequence_id, bool result);
-
-static void command_cb(uint16_t sequence_id, bool result)
-{
-    HAL_GPIO_TogglePin(LD1_GPIO_Port, LD1_Pin);
-}
-
-void pid_cb(uint16_t sequence_id, bool result)
-{
-    HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-}
-
 /**
   * @brief  Function implementing the defaultTask thread.
   * @param  argument: Not used 
@@ -130,27 +118,14 @@ void StartDefaultTask(void *argument)
   /* init code for USB_DEVICE */
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN StartDefaultTask */
-  control_loop_set_command_t command;
-  command.left_cmd = 10;
-  command.right_cmd = 20;
-  command.sequence_id = 1000;
-  command.result_callback = command_cb;
-
-  control_loop_set_pid_t pid;
-//  pid.p = 1;
-//  pid.i = 2;
-//  pid.d = 3;
-  pid.sequence_id = 2001;
-  pid.result_callback = pid_cb;
-  osDelay(2000);
 
   /* Infinite loop */
   for(;;)
   {
-      control_loop_set_commands(&command);
-      osDelay(200);
-      control_loop_set_pid(&pid);
-      osDelay(200);
+      osal_communication_message_t message;
+      message.message_type = 1; // MSG_COMMAND_RECEIVED
+      osal_communication_queue_put(&message);
+      osDelay(500);
   }
   /* USER CODE END StartDefaultTask */
 }

@@ -16,7 +16,7 @@ static void loop_function(void);
 
 typedef enum
 {
-    MSG_COMMAND_RECEIVED,
+    MSG_COMMAND_RECEIVED = 1,
     MSG_SET_PID_REQUEST_RECEIVED,
     MSG_SET_PID_RESULT_RECEIVED,
     MSG_SET_COMMANDS_REQUEST_RECEIVED,
@@ -68,7 +68,7 @@ static Node::Status read_queue_action()
 
 static Node::Status read_command_action()
 {
-    if (state.current_message.message_type == MSG_COMMAND_RECEIVED)
+    if (MSG_COMMAND_RECEIVED == state.current_message.message_type)
     {
         if (minor.receiveCommand(state.command_buffer, COMMAND_BUFFER_SIZE, COMMAND_RECEIVE_TIMEOUT,
                 state.command_size))
@@ -213,27 +213,42 @@ void send_new_command_event(void)
 void communication_init(void)
 {
     auto p_sequence_1 = std::make_shared<BrainTree::Sequence>();
-    auto p_read_queue_action = std::make_shared<FunctionalAction>(read_queue_action);
-    auto p_selector_1 = std::make_shared<BrainTree::Selector>();
-    p_sequence_1->addChild(p_read_queue_action);
-    p_sequence_1->addChild(p_selector_1);
-    auto p_sequence_2 = std::make_shared<BrainTree::Sequence>();
-    p_selector_1->addChild(p_sequence_2);
-    auto p_read_command_action = std::make_shared<FunctionalAction>(read_command_action);
-    auto p_selector_2 = std::make_shared<BrainTree::Selector>();
-    auto p_reply_set_commands_action = std::make_shared<FunctionalAction>(reply_set_commands_action);
-    auto p_reply_set_pid_action = std::make_shared<FunctionalAction>(reply_set_pid_action);
-    p_sequence_2->addChild(p_read_command_action);
-    p_sequence_2->addChild(p_selector_2);
-    p_sequence_2->addChild(p_reply_set_commands_action);
-    p_sequence_2->addChild(p_reply_set_pid_action);
-    auto p_process_handshake_receive_action = std::make_shared<FunctionalAction>(process_handshake_receive_action);
-    auto p_process_set_commands_receive_action = std::make_shared<FunctionalAction>(
-            process_set_commands_receive_action);
-    auto p_process_set_pid_receive_action = std::make_shared<FunctionalAction>(process_set_pid_receive_action);
-    p_selector_2->addChild(p_process_handshake_receive_action);
-    p_selector_2->addChild(p_process_set_commands_receive_action);
-    p_selector_2->addChild(p_process_set_pid_receive_action);
+    {
+        auto p_read_queue_action = std::make_shared<FunctionalAction>(read_queue_action);
+        p_sequence_1->addChild(p_read_queue_action);
+        auto p_selector_1 = std::make_shared<BrainTree::Selector>();
+        p_sequence_1->addChild(p_selector_1);
+        {
+            auto p_sequence_2 = std::make_shared<BrainTree::Sequence>();
+            p_selector_1->addChild(p_sequence_2);
+            {
+                {
+                    auto p_read_command_action = std::make_shared<FunctionalAction>(read_command_action);
+                    p_sequence_2->addChild(p_read_command_action);
+                }
+                {
+                    auto p_selector_2 = std::make_shared<BrainTree::Selector>();
+                    p_sequence_2->addChild(p_selector_2);
+                    {
+                        auto p_process_handshake_receive_action = std::make_shared<FunctionalAction>(
+                                process_handshake_receive_action);
+                        p_selector_2->addChild(p_process_handshake_receive_action);
+                        auto p_process_set_commands_receive_action = std::make_shared<FunctionalAction>(
+                                process_set_commands_receive_action);
+                        p_selector_2->addChild(p_process_set_commands_receive_action);
+                        auto p_process_set_pid_receive_action = std::make_shared<FunctionalAction>(
+                                process_set_pid_receive_action);
+                        p_selector_2->addChild(p_process_set_pid_receive_action);
+                    }
+                }
+            }
+            auto p_reply_set_commands_action = std::make_shared<FunctionalAction>(
+                    reply_set_commands_action);
+            p_selector_1->addChild(p_reply_set_commands_action);
+            auto p_reply_set_pid_action = std::make_shared<FunctionalAction>(reply_set_pid_action);
+            p_selector_1->addChild(p_reply_set_pid_action);
+        }
+    }
     behaviour_tree.setRoot(p_sequence_1);
 
     LOG_DEBUG("Communication thread initializing...");

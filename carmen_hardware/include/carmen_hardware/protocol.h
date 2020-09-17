@@ -125,7 +125,7 @@ struct SetCommandsResult
     },
     .common =
     {
-      .message_id = static_cast<uint8_t>(MessageType::ReadSettings),
+      .message_id = static_cast<uint8_t>(MessageType::SetCommands),
       .version = 1,
       .oldest_compatible_version = 1,
       .sequence_id = 0,
