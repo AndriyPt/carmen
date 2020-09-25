@@ -21,6 +21,10 @@ typedef enum
 
 #define HARDWARE_ERROR(X) assert(!(X))
 
+#define SOFTWARE_ASSERT(X) assert((X))
+
+#define HARDWARE_ASSERT(X) assert((X))
+
 #define CHECK_ERROR(X, Y) assert(!(X))
 
 #ifdef __cplusplus

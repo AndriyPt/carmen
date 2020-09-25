@@ -20,7 +20,7 @@ typedef enum
 
 typedef struct
 {
-    uint8_t message_type;
+    uint8_t event;
     uint16_t sequence_id;
     uint8_t data[OSAL_COM_MESSAGE_DATA_SIZE];
 } osal_communication_message_t;

@@ -123,7 +123,7 @@ void StartDefaultTask(void *argument)
   for(;;)
   {
       osal_communication_message_t message;
-      message.message_type = 1; // MSG_COMMAND_RECEIVED
+      message.event = 1; // MSG_COMMAND_RECEIVED
       osal_communication_queue_put(&message);
       osDelay(500);
   }
