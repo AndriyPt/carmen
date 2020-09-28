@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include "gmock-global/gmock-global.h"
 #include <string>
 #include "communication.h"
 
