@@ -59,21 +59,21 @@ if (CATKIN_ENABLE_TESTING)
 
   include_directories(
     include
-    firmware/App/public
+    firmware/include/public
     firmware/test/include
     ${catkin_INCLUDE_DIRS}
   )
 
 #  catkin_add_gmock(${PROJECT_NAME}_test_fw_communication
 #    firmware/test/test_communication.cpp
-#    firmware/App/communication/communication.cpp
+#    firmware/src/communication/communication.cpp
 #  )
 #  add_dependencies(${PROJECT_NAME}_test_fw_communication ${catkin_EXPORTED_TARGETS})
 #  target_link_libraries(${PROJECT_NAME}_test_fw_communication)
 
   catkin_add_gmock(${PROJECT_NAME}_test_fw_control_loop
     firmware/test/test_control_loop.cpp
-    firmware/App/control_loop/control_loop.c
+    firmware/src/control_loop/control_loop.c
   )
   add_dependencies(${PROJECT_NAME}_test_fw_control_loop ${catkin_EXPORTED_TARGETS})
   target_link_libraries(${PROJECT_NAME}_test_fw_control_loop)
