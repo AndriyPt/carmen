@@ -23,7 +23,9 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-
+#include "communication.h"
+#include "circular_buffer.h"
+#include "error.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -80,6 +82,8 @@
 
 /* USER CODE BEGIN PRIVATE_MACRO */
 
+#define INPUT_BUFFER_SIZE (1024)
+
 /* USER CODE END PRIVATE_MACRO */
 
 /**
@@ -100,6 +104,12 @@ uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
 
 /* USER CODE BEGIN PRIVATE_VARIABLES */
 
+uint8_t input_buffer[INPUT_BUFFER_SIZE] = { 0 };
+circular_buffer_t circular_buffer = {
+        .p_buffer = input_buffer,
+        .buffer_size = INPUT_BUFFER_SIZE,
+        .head_index = 0,
+        .tail_index = 0 };
 /* USER CODE END PRIVATE_VARIABLES */
 
 /**
@@ -133,7 +143,6 @@ static int8_t CDC_Receive_FS(uint8_t* pbuf, uint32_t *Len);
 static int8_t CDC_TransmitCplt_FS(uint8_t *pbuf, uint32_t *Len, uint8_t epnum);
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_DECLARATION */
-
 /* USER CODE END PRIVATE_FUNCTIONS_DECLARATION */
 
 /**
@@ -267,6 +276,10 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+
+  circular_buffer_add(&circular_buffer, Buf, *Len);
+  send_new_command_event();
+
   return (USBD_OK);
   /* USER CODE END 6 */
 }
@@ -320,6 +333,12 @@ static int8_t CDC_TransmitCplt_FS(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 }
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */
+
+uint32_t dequeue_input_buffer(uint8_t * p_buffer, uint32_t size)
+{
+    uint32_t result = circular_buffer_dequeue(&circular_buffer, p_buffer, size);
+    return result;
+}
 
 /* USER CODE END PRIVATE_FUNCTIONS_IMPLEMENTATION */
 
