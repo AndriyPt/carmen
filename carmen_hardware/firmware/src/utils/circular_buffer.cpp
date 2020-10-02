@@ -33,7 +33,6 @@ void circular_buffer_add(circular_buffer_t * p_this, const uint8_t * p_buffer, u
         memcpy(&p_this->p_buffer[p_this->tail_index], &p_buffer[0], size);
         p_this->tail_index += size;
     }
-
 }
 
 uint32_t circular_buffer_dequeue(circular_buffer_t * p_this, uint8_t * p_buffer, uint32_t size)
