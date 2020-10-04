@@ -105,11 +105,7 @@ uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
 /* USER CODE BEGIN PRIVATE_VARIABLES */
 
 uint8_t input_buffer[INPUT_BUFFER_SIZE] = { 0 };
-circular_buffer_t circular_buffer = {
-        .p_buffer = input_buffer,
-        .buffer_size = INPUT_BUFFER_SIZE,
-        .head_index = 0,
-        .tail_index = 0 };
+circular_buffer_t circular_buffer;
 /* USER CODE END PRIVATE_VARIABLES */
 
 /**
@@ -169,6 +165,7 @@ static int8_t CDC_Init_FS(void)
   /* Set Application Buffers */
   USBD_CDC_SetTxBuffer(&hUsbDeviceFS, UserTxBufferFS, 0);
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, UserRxBufferFS);
+  circular_buffer_init(&circular_buffer, input_buffer, INPUT_BUFFER_SIZE);
   return (USBD_OK);
   /* USER CODE END 3 */
 }
