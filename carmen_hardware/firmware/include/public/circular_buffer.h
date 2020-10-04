@@ -7,6 +7,7 @@ extern "C"
 #endif
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct
 {
@@ -14,7 +15,10 @@ typedef struct
     uint32_t buffer_size;
     uint32_t head_index;
     uint32_t tail_index;
+    bool is_full;
 } circular_buffer_t;
+
+void circular_buffer_init(circular_buffer_t * p_this, uint8_t * p_buffer, uint32_t size);
 
 void circular_buffer_add(circular_buffer_t * p_this, const uint8_t * p_buffer, uint32_t size);
 

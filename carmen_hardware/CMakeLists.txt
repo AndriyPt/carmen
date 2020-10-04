@@ -80,7 +80,7 @@ if (CATKIN_ENABLE_TESTING)
 
   catkin_add_gmock(${PROJECT_NAME}_test_fw_circular_buffer
     firmware/test/test_circular_buffer.cpp
-    firmware/src/utils/circular_buffer.cpp
+    firmware/src/utils/circular_buffer.c
   )
   add_dependencies(${PROJECT_NAME}_test_fw_circular_buffer ${catkin_EXPORTED_TARGETS})
   target_link_libraries(${PROJECT_NAME}_test_fw_circular_buffer)

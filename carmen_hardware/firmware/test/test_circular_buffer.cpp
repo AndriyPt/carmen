@@ -48,25 +48,29 @@ TEST(TestSuite, happyPath)
   const uint32_t circular_buffer_length = 2 * sizeof(buffer);
   uint8_t circular_buffer[circular_buffer_length] = { 0 };
   uint8_t output_buffer[circular_buffer_length] = { 0 };
-
   circular_buffer_t circular_buff_struct;
-  circular_buff_struct.head_index = 0;
-  circular_buff_struct.tail_index = 0;
-  circular_buff_struct.buffer_size = circular_buffer_length;
-  circular_buff_struct.p_buffer = circular_buffer;
+  uint32_t actual_size = 0;
 
   ON_GLOBAL_CALL(generate_error, generate_error(ERROR_SOFTWARE, NotNull(), Gt(0))).WillByDefault(Throw(
     std::exception()));
+  circular_buffer_init(&circular_buff_struct, circular_buffer, circular_buffer_length);
   circular_buffer_add(&circular_buff_struct, buffer, sizeof(buffer));
   ASSERT_EQ(circular_buff_struct.tail_index - circular_buff_struct.head_index, sizeof(buffer));
   ASSERT_STREQ((char*)circular_buffer, (char*)buffer);
 
-  uint32_t actual_size = circular_buffer_dequeue(&circular_buff_struct, output_buffer, sizeof(buffer) + 2);
+  actual_size = circular_buffer_dequeue(&circular_buff_struct, output_buffer, sizeof(buffer) + 2);
   ASSERT_EQ(circular_buff_struct.tail_index, circular_buff_struct.head_index);
   ASSERT_STREQ((char*)output_buffer, (char*)buffer);
   ASSERT_EQ(sizeof(buffer), actual_size);
 
-
+  circular_buffer_add(&circular_buff_struct, buffer, sizeof(buffer));
+  circular_buffer_add(&circular_buff_struct, buffer, sizeof(buffer));
+  ASSERT_ANY_THROW(circular_buffer_add(&circular_buff_struct, buffer, 1));
+  actual_size = circular_buffer_dequeue(&circular_buff_struct, output_buffer, sizeof(buffer) + 2);
+  ASSERT_EQ(sizeof(buffer) + 2, actual_size);
+  actual_size = circular_buffer_dequeue(&circular_buff_struct, output_buffer, sizeof(buffer) - 2);
+  ASSERT_EQ(circular_buff_struct.tail_index, circular_buff_struct.head_index);
+  ASSERT_EQ(sizeof(buffer) - 2, actual_size);
 }
 
 int main(int argc, char **argv)
