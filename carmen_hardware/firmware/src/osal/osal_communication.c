@@ -34,7 +34,7 @@ osal_communication_status_t osal_communication_queue_put(const osal_communicatio
     osStatus_t status = osMessageQueuePut(message_queue_id, p_message, 1, 100);
     if (osOK != status)
     {
-        SOFTWARE_ERROR(osErrorTimeout != status);
+        SOFTWARE_ASSERT(osErrorTimeout == status);
         result = OSAL_COM_STATUS_TIMEOUT;
     }
     return (result);
@@ -57,7 +57,7 @@ osal_communication_status_t osal_communication_queue_get(osal_communication_mess
         }
         else
         {
-            SOFTWARE_ERROR(true);
+            SOFTWARE_ASSERT(false);
         }
     }
     return (result);

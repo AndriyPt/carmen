@@ -1,6 +1,15 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include "gmock-global/gmock-global.h"
+#include "error.h"
 #include "circular_buffer.h"
+#include <stdexcept>
+
+using ::testing::NotNull;
+using ::testing::Gt;
+using ::testing::Throw;
+
+MOCK_GLOBAL_FUNC3(generate_error, void(error_types_t, uint8_t*, uint32_t));
 
 TEST(TestSuite, parametersValidation)
 {
@@ -16,6 +25,7 @@ TEST(TestSuite, parametersValidation)
   circular_buff_struct.buffer_size = 10;
   circular_buff_struct.p_buffer = NULL;
 
+  ON_GLOBAL_CALL(generate_error, generate_error(ERROR_SOFTWARE, NotNull(), Gt(0))).WillByDefault(Throw(std::exception()));
   ASSERT_ANY_THROW(circular_buffer_add(NULL, NULL, 10));
   ASSERT_ANY_THROW(circular_buffer_add(NULL, buffer, buffer_length));
   ASSERT_ANY_THROW(circular_buffer_add(&circular_buff_struct, buffer, buffer_length));

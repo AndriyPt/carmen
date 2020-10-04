@@ -60,8 +60,8 @@ void control_loop_init()
 
 void control_loop_set_commands(const control_loop_set_command_t *p_message)
 {
-    SOFTWARE_ERROR(NULL == p_message);
-    SOFTWARE_ERROR(OSAL_CL_MESSAGE_DATA_SIZE < sizeof(&p_message));
+    SOFTWARE_ASSERT(NULL != p_message);
+    SOFTWARE_ASSERT(OSAL_CL_MESSAGE_DATA_SIZE >= sizeof(&p_message));
 
     osal_cl_message_t queue_message;
     queue_message.message_type = MSG_SET_COMMANDS;
@@ -71,8 +71,8 @@ void control_loop_set_commands(const control_loop_set_command_t *p_message)
 
 void control_loop_set_pid(const control_loop_set_pid_t *p_message)
 {
-    SOFTWARE_ERROR(NULL == p_message);
-    SOFTWARE_ERROR(OSAL_CL_MESSAGE_DATA_SIZE < sizeof(&p_message));
+    SOFTWARE_ASSERT(NULL != p_message);
+    SOFTWARE_ASSERT(OSAL_CL_MESSAGE_DATA_SIZE >= sizeof(&p_message));
 
     osal_cl_message_t queue_message;
     queue_message.message_type = MSG_SET_PID;
