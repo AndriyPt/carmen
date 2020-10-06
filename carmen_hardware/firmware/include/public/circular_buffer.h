@@ -20,6 +20,8 @@ typedef struct
 
 void circular_buffer_init(circular_buffer_t * p_this, uint8_t * p_buffer, uint32_t size);
 
+bool circular_buffer_is_empty(circular_buffer_t * p_this);
+
 void circular_buffer_add(circular_buffer_t * p_this, const uint8_t * p_buffer, uint32_t size);
 
 uint32_t circular_buffer_dequeue(circular_buffer_t * p_this, uint8_t * p_buffer, uint32_t size);

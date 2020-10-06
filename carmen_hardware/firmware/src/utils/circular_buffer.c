@@ -2,6 +2,7 @@
 #include "error.h"
 #include <string.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 void circular_buffer_init(circular_buffer_t * p_this, uint8_t * p_buffer, uint32_t size)
 {
@@ -14,6 +15,17 @@ void circular_buffer_init(circular_buffer_t * p_this, uint8_t * p_buffer, uint32
     p_this->head_index = 0;
     p_this->tail_index = 0;
     p_this->is_full = false;
+}
+
+bool circular_buffer_is_empty(circular_buffer_t * p_this)
+{
+    SOFTWARE_ASSERT(NULL != p_this);
+    bool result = false;
+    if (!p_this->is_full)
+    {
+        result = (p_this->head_index == p_this->tail_index);
+    }
+    return (result);
 }
 
 void circular_buffer_add(circular_buffer_t * p_this, const uint8_t * p_buffer, uint32_t size)
@@ -65,7 +77,7 @@ uint32_t circular_buffer_dequeue(circular_buffer_t * p_this, uint8_t * p_buffer,
 
     if ((p_this->head_index == p_this->tail_index) && !p_this->is_full)
     {
-        return result;
+        return (result);
     }
     if (p_this->head_index < p_this->tail_index)
     {
@@ -105,5 +117,5 @@ uint32_t circular_buffer_dequeue(circular_buffer_t * p_this, uint8_t * p_buffer,
         }
         p_this->is_full = false;
     }
-    return result;
+    return (result);
 }

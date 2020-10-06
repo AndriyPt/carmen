@@ -3,6 +3,9 @@
 #include "log.h"
 #include "error.h"
 #include "control_loop.h"
+#include "virtual_com_port.h"
+#include "orion_protocol/orion_frame_transport.h"
+#include "orion_protocol/orion_cobs_framer.h"
 #include "orion_protocol/orion_header.h"
 #include "orion_protocol/orion_minor.h"
 #include "carmen_hardware/protocol.h"
@@ -28,6 +31,9 @@ typedef struct
 
 static context_t context;
 
+static carmen_hardware::VirtualComPort com_port;
+static orion::COBSFramer cobs_framer;
+static orion::FrameTransport frame_transport = orion::FrameTransport(&com_port, &cobs_framer);
 static orion::Minor minor;
 
 static void loop_function(void);

@@ -104,8 +104,8 @@ uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
 
 /* USER CODE BEGIN PRIVATE_VARIABLES */
 
-uint8_t input_buffer[INPUT_BUFFER_SIZE] = { 0 };
-circular_buffer_t circular_buffer;
+static uint8_t input_buffer[INPUT_BUFFER_SIZE] = { 0 };
+static circular_buffer_t circular_buffer;
 /* USER CODE END PRIVATE_VARIABLES */
 
 /**
@@ -335,6 +335,12 @@ uint32_t dequeue_input_buffer(uint8_t * p_buffer, uint32_t size)
 {
     uint32_t result = circular_buffer_dequeue(&circular_buffer, p_buffer, size);
     return result;
+}
+
+bool has_items_input_buffer()
+{
+    bool result = circular_buffer_is_empty(&circular_buffer);
+    return (!result);
 }
 
 /* USER CODE END PRIVATE_FUNCTIONS_IMPLEMENTATION */
