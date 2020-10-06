@@ -34,7 +34,7 @@ static context_t context;
 static carmen_hardware::VirtualComPort com_port;
 static orion::COBSFramer cobs_framer;
 static orion::FrameTransport frame_transport = orion::FrameTransport(&com_port, &cobs_framer);
-static orion::Minor minor;
+static orion::Minor minor(&frame_transport);
 
 static void loop_function(void);
 static void process_handshake_receive(void);
@@ -64,8 +64,7 @@ void loop_function(void)
         switch (context.current_message.event)
         {
         case EVT_COMMAND_RECEIVED:
-            if (minor.receiveCommand(context.command_buffer, COMMAND_BUFFER_SIZE, COMMAND_RECEIVE_TIMEOUT,
-                    context.command_size))
+            if (minor.receiveCommand(context.command_buffer, COMMAND_BUFFER_SIZE, context.command_size))
             {
                 SOFTWARE_ASSERT(NULL != context.command_buffer);
                 SOFTWARE_ASSERT(context.command_size >= sizeof(orion::CommandHeader));
