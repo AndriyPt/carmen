@@ -28,7 +28,6 @@
 /* USER CODE BEGIN Includes */     
 #include "control_loop.h"
 #include "communication.h"
-#include "osal_communication.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -122,9 +121,6 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
-      osal_communication_message_t message;
-      message.event = 1; // MSG_COMMAND_RECEIVED
-      osal_communication_queue_put(&message);
       osDelay(500);
   }
   /* USER CODE END StartDefaultTask */

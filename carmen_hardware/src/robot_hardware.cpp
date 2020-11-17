@@ -1,4 +1,5 @@
 #include "carmen_hardware/robot_hardware.h"
+#include <termios.h>
 #include "carmen_hardware/protocol.h"
 #include <hardware_interface/robot_hw.h>
 
@@ -18,7 +19,15 @@ namespace carmen_hardware
   {
     HandshakeCommand command;
     HandshakeResult result;
-    orion_major_.invoke(command, &result, orion::Major::Interval::Second, 3);
+    try
+    {
+      orion_major_.invoke(command, &result, orion::Major::Interval::Second, 3);
+      ROS_INFO("Handshake success!");
+    }
+    catch(const std::exception& e)
+    {
+      ROS_ERROR_STREAM("Error during hand shake: " << e.what() << "\n");
+    }
   }
 
   void CarmenRobotHW::initParameters(const ros::NodeHandle& node_handle)
@@ -49,20 +58,27 @@ namespace carmen_hardware
     command.right_i = 0;
     command.right_d = 0;
 
-    orion_major_.invoke(command, &result, 500 * orion::Major::Interval::Millisecond, 2);
-
-    if (result.result)
+    try
     {
-      ROS_INFO("Set PID success!");
+      orion_major_.invoke(command, &result, 200 * orion::Major::Interval::Millisecond, 2);
+      if (result.result)
+      {
+        ROS_INFO("Set PID success!");
+      }
+      else
+      {
+        ROS_INFO("Set PID failed!");
+      }
     }
-    else
+    catch(const std::exception& e)
     {
-      ROS_INFO("Set PID failed!");
+      ROS_ERROR_STREAM("Error during set PID parameters: " << e.what() << "\n");
     }
   }
 
   bool CarmenRobotHW::init(ros::NodeHandle& root_nh)
   {
+    this->serial_port.connect("/dev/ttyACM1", B230400);
     this->sendHandshake();
     this->initParameters(root_nh);
   }
@@ -77,11 +93,21 @@ namespace carmen_hardware
     SetCommandsResult result;
     command.left_cmd = 10000;
     command.right_cmd = 20;
-
-    orion_major_.invoke(command, &result, 100 * orion::Major::Interval::Millisecond, 1);
-    if (!result.result)
+    try
     {
-      ROS_INFO_THROTTLE(1, "Jitter error on commands");
+      orion_major_.invoke(command, &result, 250 * orion::Major::Interval::Millisecond, 1);
+      if (result.result)
+      {
+        ROS_INFO_THROTTLE(1, "Control loop running as expected");
+      }
+      else
+      {
+        ROS_INFO_THROTTLE(1, "Jitter error on commands");
+      }
+    }
+    catch(const std::exception& e)
+    {
+      ROS_ERROR_STREAM_THROTTLE(1, "Error during control loop: " << e.what() << "\n");
     }
   }
 

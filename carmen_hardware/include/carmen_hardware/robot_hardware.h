@@ -8,6 +8,7 @@
 #include <orion_protocol/orion_major.h>
 #include <orion_protocol/orion_frame_transport.h>
 #include <orion_protocol/orion_cobs_framer.h>
+#include <orion_protocol/orion_serial_port.h>
 
 namespace carmen_hardware
 {
@@ -35,8 +36,9 @@ private:
   double velocity_[JOINTS_COUNT];
   double effort_[JOINTS_COUNT];
 
+  orion::SerialPort serial_port = orion::SerialPort();
   orion::COBSFramer cobs_framer_ = orion::COBSFramer();
-  orion::FrameTransport frame_transport_ = orion::FrameTransport(nullptr, &this->cobs_framer_);
+  orion::FrameTransport frame_transport_ = orion::FrameTransport(&this->serial_port, &this->cobs_framer_);
   orion::Major orion_major_ = orion::Major(&this->frame_transport_);
 };
 

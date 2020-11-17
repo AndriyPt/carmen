@@ -149,6 +149,7 @@ void reply_set_commands(void)
     if (context.current_sequence_id == context.current_message.sequence_id)
     {
         carmen_hardware::SetCommandsResult reply;
+        reply.header.common.sequence_id = context.current_message.sequence_id;
         reply.result = (bool)context.current_message.data[0];
         // TODO: Add code to validate that protocol versions coincide else send error code e.g. minor.validate method
         minor.sendResult((uint8_t*)&reply, sizeof(reply));
@@ -170,7 +171,7 @@ static void set_pid_callback(uint16_t sequence_id, bool result)
 void process_set_pid_receive(void)
 {
     SOFTWARE_ASSERT(NULL != context.command_buffer);
-    SOFTWARE_ASSERT(context.command_size >= sizeof(carmen_hardware::SetCommandsCommand));
+    SOFTWARE_ASSERT(context.command_size >= sizeof(carmen_hardware::SetPIDCommand));
     carmen_hardware::SetPIDCommand * command =
             reinterpret_cast<carmen_hardware::SetPIDCommand*>(context.command_buffer);
     SOFTWARE_ASSERT(carmen_hardware::MessageType::SetPID ==
@@ -193,6 +194,7 @@ void reply_set_pid(void)
     if (context.current_sequence_id == context.current_message.sequence_id)
     {
         carmen_hardware::SetPIDResult reply;
+        reply.header.common.sequence_id = context.current_message.sequence_id;
         reply.result = (bool)context.current_message.data[0];
         // TODO: Add code to validate that protocol versions coincide else send error code e.g. minor.validate method
         minor.sendResult((uint8_t*)&reply, sizeof(reply));
