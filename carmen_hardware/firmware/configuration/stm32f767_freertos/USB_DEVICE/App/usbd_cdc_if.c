@@ -24,7 +24,7 @@
 
 /* USER CODE BEGIN INCLUDE */
 #include "communication.h"
-#include "circular_buffer.h"
+#include "orion_protocol/orion_circular_buffer.h"
 #include "error.h"
 /* USER CODE END INCLUDE */
 
@@ -105,7 +105,7 @@ uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
 /* USER CODE BEGIN PRIVATE_VARIABLES */
 
 static uint8_t input_buffer[INPUT_BUFFER_SIZE] = { 0 };
-static circular_buffer_t circular_buffer;
+static orion_circular_buffer_t circular_buffer;
 /* USER CODE END PRIVATE_VARIABLES */
 
 /**
@@ -165,7 +165,7 @@ static int8_t CDC_Init_FS(void)
   /* Set Application Buffers */
   USBD_CDC_SetTxBuffer(&hUsbDeviceFS, UserTxBufferFS, 0);
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, UserRxBufferFS);
-  circular_buffer_init(&circular_buffer, input_buffer, INPUT_BUFFER_SIZE);
+  orion_circular_buffer_init(&circular_buffer, input_buffer, INPUT_BUFFER_SIZE);
   return (USBD_OK);
   /* USER CODE END 3 */
 }
@@ -274,7 +274,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
 
-  circular_buffer_add(&circular_buffer, Buf, *Len);
+  orion_circular_buffer_add(&circular_buffer, Buf, *Len);
   send_new_command_event();
 
   return (USBD_OK);
@@ -333,13 +333,13 @@ static int8_t CDC_TransmitCplt_FS(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 
 uint32_t dequeue_input_buffer(uint8_t * p_buffer, uint32_t size)
 {
-    uint32_t result = circular_buffer_dequeue(&circular_buffer, p_buffer, size);
+    uint32_t result = orion_circular_buffer_dequeue(&circular_buffer, p_buffer, size);
     return result;
 }
 
 bool has_items_input_buffer()
 {
-    bool result = circular_buffer_is_empty(&circular_buffer);
+    bool result = orion_circular_buffer_is_empty(&circular_buffer);
     return (!result);
 }
 
