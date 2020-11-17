@@ -1,0 +1,25 @@
+@startuml
+
+(*) -down-> "<b><color:blue>Sequence</color></b>" as Seq1
+
+Seq1  -down-> "<color:green>ReadQueueAction</color>" as ReadQueueAction
+
+Seq1  -down-> "<b><color:brown>Selector</color></b>" as Sel1
+
+Sel1 -down-> "<b><color:blue>Sequence</color></b>" as Seq6
+
+Seq6  -down-> "<color:green>ReadCommandAction</color>" as ReadCommandAction
+
+Seq6  -down-> "<b><color:brown>Selector</color></b>" as Sel2
+
+Sel2  -down-> "<color:green>ProcessHandshakeReceiveAction</color>" as ProcessHandshakeReceiveAction
+
+Sel2  -down-> "<color:green>ProcessSetCommandsReceiveAction</color>" as ProcessSetCommandsReceiveAction
+
+Sel2  -down-> "<color:green>ProcessSetPIDReceiveAction</color>" as SendSetPIDAction
+
+Sel1  -down-> "<color:green>ReplySetCommandsReceiveAction</color>" as ReplySetCommandsReceiveAction
+
+Sel1  -down-> "<color:green>ReplySetPIDReceiveAction</color>" as ReplySetPIDReceiveAction
+
+@enduml

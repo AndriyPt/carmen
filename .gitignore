@@ -1,4 +1,5 @@
 build/
+Debug/
 bin/
 lib/
 msg_gen/
