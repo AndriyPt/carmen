@@ -1,17 +1,23 @@
-#ifndef COMMUNICATION_H_
-#define COMMUNICATION_H_
+#include "communication_base.h"
 
-#ifdef __cplusplus
-extern "C"
+namespace carmen_hardware 
 {
-#endif
 
-void send_new_command_event(void);
+class Communication : public CommunicationBase 
+{
+protected:
+    application::ImuData imu;
+    encoder_t[] encoders;
 
-void communication_init(void);
+protected:
+    virtual void setImuHandler();
+    virtual void setEncodersHandler();
 
-#ifdef __cplusplus
-}
-#endif
+public:
+    bool setImu(ImuData* data);
+    Communication() = delete;
+    Communication& operator=(const Communication& object) = delete;
+    Communication(const Communication& object) = delete;
+};
 
-#endif /* COMMUNICATION_H_ */
+} // namespace carmen_hardware
