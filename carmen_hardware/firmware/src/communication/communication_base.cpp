@@ -18,6 +18,8 @@
 //
 //.$endhead${../src::communication::communication_base.cpp} ^^^^^^^^^^^^^^^^^^
 #include "communication_base.h"
+#include "communication_events.h"
+#include "common_signals.h"
 
 //.$skip${QP_VERSION} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 //. Check for the minimum required QP version
@@ -40,7 +42,7 @@ Q_STATE_DEF(CommunicationBase, idle) {
     switch (e->sig) {
         //.${application::CommunicationBas~::SM::idle::COM_SET_IMU}
         case COM_SET_IMU_SIG: {
-            this->setImu();
+            this->setImuHandler(Q_EVT_CAST(SetImuEvt));
             status_ = Q_RET_HANDLED;
             break;
         }

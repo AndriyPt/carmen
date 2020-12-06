@@ -6,6 +6,7 @@
    <operation name="setImuHandler" type="void" visibility="0x01" properties="0x04">
     <specifiers>= 0</specifiers>
     <documentation>Sets IMU data</documentation>
+    <parameter name="event" type="SetImuEvt const*"/>
    </operation>
    <operation name="setEncodersHandler" type="void" visibility="0x01" properties="0x04">
     <specifiers>= 0</specifiers>
@@ -19,7 +20,7 @@
     <state name="idle">
      <entry brief="init_orion"/>
      <tran trig="COM_SET_IMU">
-      <action>this-&gt;setImu();</action>
+      <action>this-&gt;setImuHandler(Q_EVT_CAST(SetImuEvt));</action>
       <tran_glyph conn="31,15,1,-1,29">
        <action box="0,-2,20,2"/>
       </tran_glyph>
@@ -73,23 +74,11 @@
     <state_diagram size="80,50"/>
    </statechart>
   </class>
-  <class name="ImuData">
-   <attribute name="velocity_x" type="uint8_t" visibility="0x00" properties="0x00"/>
-   <attribute name="acceleration_y" type="uint16_t" visibility="0x00" properties="0x00"/>
-  </class>
- </package>
- <package name="events" stereotype="0x01" namespace="carmen_hardware">
-  <class name="SetImuEvt" superclass="qpcpp::QEvt">
-   <attribute name="data" type="application::ImuData" visibility="0x00" properties="0x00"/>
-  </class>
  </package>
  <directory name="../include">
   <directory name="public">
    <file name="communication_base.h" properties="external"/>
-   <file name="types.h" properties="external"/>
-   <file name="signals.h" properties="external"/>
    <file name="business_logic_base.h" properties="external"/>
-   <file name="commands_executor.h" properties="external"/>
   </directory>
  </directory>
  <directory name="../src">

@@ -1,20 +1,22 @@
 #include "communication.h"
 #include "qpcpp.h"
+#include "communication_events.h"
+#include "error.h"
 
 namespace carmen_hardware
 {
 
-bool Communication::setImu(ImuData* data)
+Communication::Communication(orion::Minor *minor, QActive *commands_executor): CommunicationBase(), 
+    minor_(minor), commands_executor_(commands_executor)
 {
-    SetImuEvt *pe = Q_NEW(SetImuEvt, SET_IMU_SIG);
-    pe->data.velocity_x = data->velocity_x;
-    pe->data.acceleration_y = data->acceleration_y;
-    QF_PUBLISH(&pe->super, this);
+
 }
 
-void Communication::setImuHandler()
+void Communication::setImuHandler(SetImuEvt const* event)
 {
-
+    SOFTWARE_ASSERT(NULL != event);
+    this->imu_.velocity_x = event->data.velocity_x; 
+    this->imu_.acceleration_y = event->data.acceleration_y; 
 }
 
 void Communication::setEncodersHandler()

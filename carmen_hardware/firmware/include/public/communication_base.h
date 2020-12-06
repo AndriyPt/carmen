@@ -20,7 +20,7 @@
 #include <stdint.h>
 #include "qpcpp.h"
 #include "types.h"
-#include "signals.h"
+#include "events.h"
 
 //.$declare${application::CommunicationBase} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 namespace carmen_hardware {
@@ -28,7 +28,7 @@ namespace carmen_hardware {
 //.${application::CommunicationBase} .........................................
 class CommunicationBase : public QP::QActive {
 protected:
-    virtual void setImuHandler() = 0;
+    virtual void setImuHandler(SetImuEvt const* event) = 0;
     virtual void setEncodersHandler() = 0;
 
 protected:
