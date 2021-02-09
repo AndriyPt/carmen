@@ -18,6 +18,19 @@
 //
 //.$endhead${../src::business_logic::business_logic_base.cpp} ^^^^^^^^^^^^^^^^
 #include "business_logic_base.h"
+#include "common_types.h"
+
+namespace carmen_hardware 
+{
+
+enum Signal
+{
+   BL_SET_IMU_SIG = Q_USER_SIG,
+   BL_SET_ENCODERS_SIG,
+   BL_COMMAND_SIG
+};
+
+} // namespace carmen_hardware
 
 //.$skip${QP_VERSION} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 //. Check for the minimum required QP version
@@ -32,21 +45,27 @@ namespace carmen_hardware {
 //.${application::BusinessLogicBas~::SM} .....................................
 Q_STATE_DEF(BusinessLogicBase, initial) {
     //.${application::BusinessLogicBas~::SM::initial}
-    return tran(&init);
+    return tran(&idle);
 }
-//.${application::BusinessLogicBas~::SM::init} ...............................
-Q_STATE_DEF(BusinessLogicBase, init) {
+//.${application::BusinessLogicBas~::SM::idle} ...............................
+Q_STATE_DEF(BusinessLogicBase, idle) {
     QP::QState status_;
     switch (e->sig) {
-        //.${application::BusinessLogicBas~::SM::init::BL_SET_MOTORS_SPEED}
-        case BL_SET_MOTORS_SPEED_SIG: {
-            this->setMotorsSpeedHandler();
+        //.${application::BusinessLogicBas~::SM::idle::BL_SET_IMU}
+        case BL_SET_IMU_SIG: {
+            this->setImuHandler(Q_EVT_CAST(SetImuEvt));
             status_ = Q_RET_HANDLED;
             break;
         }
-        //.${application::BusinessLogicBas~::SM::init::BL_SET_MOTORS_PID}
-        case BL_SET_MOTORS_PID_SIG: {
-            this->setMotorsPidHandler();
+        //.${application::BusinessLogicBas~::SM::idle::BL_SET_ENCODERS}
+        case BL_SET_ENCODERS_SIG: {
+            this->setEncodersHandler();
+            status_ = Q_RET_HANDLED;
+            break;
+        }
+        //.${application::BusinessLogicBas~::SM::idle::BL_COMMAND}
+        case BL_COMMAND_SIG: {
+            this->commandHandler();
             status_ = Q_RET_HANDLED;
             break;
         }

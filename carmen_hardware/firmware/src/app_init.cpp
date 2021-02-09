@@ -12,10 +12,16 @@ static orion::COBSFramer cobs_framer;
 static orion::FrameTransport frame_transport = orion::FrameTransport(&com_port, &cobs_framer);
 static orion::Minor minor(&frame_transport);
 
-static carmen_hardware::BusinessLogic business_logic;
-static carmen_hardware::Communication communication(&minor, &business_logic);
+static carmen_hardware::BusinessLogic business_logic(&minor);
+// static carmen_hardware::MotorObject motor_object;
 
 void app_init(void)
 {
-  business_logic.setCommunication(&communication);
+  // business_logic.setMotor(&motor_object);
 }
+
+void send_new_command_event(void)
+{
+  communication.sendNewCommandEvent();
+}
+

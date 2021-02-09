@@ -30,6 +30,7 @@ class CommunicationBase : public QP::QActive {
 protected:
     virtual void setImuHandler(SetImuEvt const* event) = 0;
     virtual void setEncodersHandler() = 0;
+    virtual void commandHandler() = 0;
 
 protected:
     Q_STATE_DECL(initial);

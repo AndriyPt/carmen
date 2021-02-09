@@ -9,7 +9,6 @@ namespace carmen_hardware
 
 VirtualComPort::VirtualComPort()
 {
-
 }
 
 size_t VirtualComPort::receiveAvailableBuffer(uint8_t *buffer, uint32_t size)

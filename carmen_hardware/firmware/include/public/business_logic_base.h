@@ -19,18 +19,30 @@
 //.$endhead${../include::public::business_logic_base.h} ^^^^^^^^^^^^^^^^^^^^^^
 #include "qpcpp.h"
 
+namespace carmen_hardware 
+{
+
+class SetImuEvt : public QP::QEvt 
+{
+public:
+    ImuData data;
+};
+
+} // namespace carmen_hardware
+
 //.$declare${application::BusinessLogicBase} vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 namespace carmen_hardware {
 
 //.${application::BusinessLogicBase} .........................................
 class BusinessLogicBase : public QP::QActive {
 protected:
-    virtual void setMotorsSpeedHandler() = 0;
-    virtual void setMotorsPidHandler() = 0;
+    virtual void setImuHandler(SetImuEvt const* event) = 0;
+    virtual void setEncodersHandler() = 0;
+    virtual void commandHandler() = 0;
 
 protected:
     Q_STATE_DECL(initial);
-    Q_STATE_DECL(init);
+    Q_STATE_DECL(idle);
 };
 
 } // namespace carmen_hardware

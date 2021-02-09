@@ -8,6 +8,8 @@
 namespace carmen_hardware
 {
 
+enum class ErrorType: uint8_t { TimeoutExpired = 1 };
+
 enum class MessageType: uint8_t { Handshake = 1, ReadSettings = 2, SetCommands = 3, SetPID = 4 };
 
 #pragma pack(push, 1)
@@ -51,9 +53,13 @@ struct HandshakeResult
 
 struct ReadSettings
 {
-  int32_t left_front_p; // multiplied on 10000 and rounded
-  int32_t left_front_i; // multiplied on 10000 and rounded
-  int32_t left_front_d; // multiplied on 10000 and rounded
+  int32_t left_p; // multiplied on 10000 and rounded
+  int32_t left_i; // multiplied on 10000 and rounded
+  int32_t left_d; // multiplied on 10000 and rounded
+
+  int32_t right_p; // multiplied on 10000 and rounded
+  int32_t right_i; // multiplied on 10000 and rounded
+  int32_t right_d; // multiplied on 10000 and rounded
 };
 
 struct ReadSettingsCommand
@@ -132,7 +138,11 @@ struct SetCommandsResult
     },
     .error_code = 0
   };
-  bool result;
+  int32_t encoder_left;
+  int32_t encoder_right;
+  int32_t imu_angle_alpha;
+  int32_t imu_angle_beta;
+  int32_t imu_angle_gamma;
 };
 
 struct SetPIDCommand

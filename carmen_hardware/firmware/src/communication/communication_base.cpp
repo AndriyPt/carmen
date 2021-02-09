@@ -54,6 +54,7 @@ Q_STATE_DEF(CommunicationBase, idle) {
         }
         //.${application::CommunicationBas~::SM::idle::COM_COMMAND}
         case COM_COMMAND_SIG: {
+            this->commandHandler();
             status_ = Q_RET_HANDLED;
             break;
         }

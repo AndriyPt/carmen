@@ -23,7 +23,7 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
-#include "communication.h"
+#include "app_init.h"
 #include "orion_protocol/orion_circular_buffer.h"
 #include "error.h"
 /* USER CODE END INCLUDE */

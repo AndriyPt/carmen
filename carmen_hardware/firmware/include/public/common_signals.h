@@ -8,11 +8,9 @@ namespace carmen_hardware
 
 enum Signal
 {
-   COM_SET_IMU_SIG = Q_USER_SIG,
-   COM_SET_ENCODERS_SIG,
-   COM_COMMAND_SIG,
-   BL_SET_MOTORS_SPEED_SIG,
-   BL_SET_MOTORS_PID_SIG
+   BL_SET_IMU_SIG = Q_USER_SIG,
+   BL_SET_ENCODERS_SIG,
+   BL_COMMAND_SIG
 };
 
 } // namespace carmen_hardware

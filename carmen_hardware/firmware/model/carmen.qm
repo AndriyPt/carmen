@@ -2,13 +2,16 @@
 <model version="5.1.0" links="0">
  <framework name="qpcpp"/>
  <package name="application" stereotype="0x02" namespace="carmen_hardware">
-  <class name="CommunicationBase" superclass="qpcpp::QActive">
+  <class name="BusinessLogicBase" superclass="qpcpp::QActive">
    <operation name="setImuHandler" type="void" visibility="0x01" properties="0x04">
     <specifiers>= 0</specifiers>
     <documentation>Sets IMU data</documentation>
     <parameter name="event" type="SetImuEvt const*"/>
    </operation>
    <operation name="setEncodersHandler" type="void" visibility="0x01" properties="0x04">
+    <specifiers>= 0</specifiers>
+   </operation>
+   <operation name="commandHandler" type="void" visibility="0x01" properties="0x04">
     <specifiers>= 0</specifiers>
    </operation>
    <statechart properties="0x00">
@@ -19,57 +22,27 @@
     </initial>
     <state name="idle">
      <entry brief="init_orion"/>
-     <tran trig="COM_SET_IMU">
+     <tran trig="BL_SET_IMU">
       <action>this-&gt;setImuHandler(Q_EVT_CAST(SetImuEvt));</action>
       <tran_glyph conn="31,15,1,-1,29">
        <action box="0,-2,20,2"/>
       </tran_glyph>
      </tran>
-     <tran trig="COM_SET_ENCODERS">
+     <tran trig="BL_SET_ENCODERS">
       <action>this-&gt;setEncodersHandler();</action>
       <tran_glyph conn="31,19,1,-1,25">
        <action box="0,-2,20,2"/>
       </tran_glyph>
      </tran>
-     <tran trig="COM_COMMAND">
+     <tran trig="BL_COMMAND">
+      <action>this-&gt;commandHandler();</action>
       <tran_glyph conn="31,23,1,-1,26">
        <action box="0,-2,18,2"/>
       </tran_glyph>
      </tran>
      <state_glyph node="14,9,17,19">
-      <entry box="1,2,10,2"/>
+      <entry box="1,2,12,2"/>
      </state_glyph>
-    </state>
-    <state_diagram size="80,50"/>
-   </statechart>
-  </class>
-  <class name="BusinessLogicBase" superclass="qpcpp::QActive">
-   <operation name="setMotorsSpeedHandler" type="void" visibility="0x01" properties="0x04">
-    <specifiers>= 0</specifiers>
-   </operation>
-   <operation name="setMotorsPidHandler" type="void" visibility="0x01" properties="0x04">
-    <specifiers>= 0</specifiers>
-   </operation>
-   <statechart properties="0x00">
-    <initial target="../1">
-     <initial_glyph conn="13,3,5,0,14,7">
-      <action box="0,-2,10,2"/>
-     </initial_glyph>
-    </initial>
-    <state name="init">
-     <tran trig="BL_SET_MOTORS_SPEED">
-      <action>this-&gt;setMotorsSpeedHandler();</action>
-      <tran_glyph conn="38,16,1,-1,31">
-       <action box="0,-2,22,2"/>
-      </tran_glyph>
-     </tran>
-     <tran trig="BL_SET_MOTORS_PID">
-      <action>this-&gt;setMotorsPidHandler();</action>
-      <tran_glyph conn="38,22,1,-1,31">
-       <action box="0,-2,22,2"/>
-      </tran_glyph>
-     </tran>
-     <state_glyph node="15,10,23,20"/>
     </state>
     <state_diagram size="80,50"/>
    </statechart>
@@ -77,14 +50,10 @@
  </package>
  <directory name="../include">
   <directory name="public">
-   <file name="communication_base.h" properties="external"/>
    <file name="business_logic_base.h" properties="external"/>
   </directory>
  </directory>
  <directory name="../src">
-  <directory name="communication">
-   <file name="communication_base.cpp" properties="external"/>
-  </directory>
   <directory name="business_logic">
    <file name="business_logic_base.cpp" properties="external"/>
   </directory>
