@@ -1,9 +1,16 @@
 <launch>
     <arg name="port" default="/dev/ttyACM0"/>
-    <arg name="baud" default="115200"/>
+    <arg name="baud" default="230400"/>
 
     <include file="$(find carmen_hardware)/launch/hardware.launch">
         <arg name="port" value="$(arg port)"/>
         <arg name="baud" value="$(arg baud)"/>
     </include>
+
+    <include file="$(find carmen_control)/launch/control.launch">
+        <arg name="sim" value="false"/>
+        <arg name="velocity_control" value="true"/>
+        <!-- <arg name="velocity_control" value="false"/> -->
+    </include>
+
 </launch>

@@ -53,6 +53,10 @@ namespace carmen_hardware
     joint_velocity_interface_.registerHandle(rear_left_wheel_joint_velocity_handler);
 
     registerInterface(&joint_velocity_interface_);
+
+    // TODO: Add IMUHandle for IMU Controller
+    // more info on EKF localization http://docs.ros.org/en/melodic/api/robot_localization/html/preparing_sensor_data.html
+    // http://docs.ros.org/en/melodic/api/robot_localization/html/configuring_robot_localization.html
   }
 
   void CarmenRobotHW::sendHandshake()
@@ -90,20 +94,21 @@ namespace carmen_hardware
     SetCommandsCommand command;
     SetCommandsResult result;
 
-    //TODO (Andriy): Implement
-    command.left_cmd = 10000;
-    command.right_cmd = 20;
+    command.right_cmd = static_cast<int16_t>(command_[0] * 1000);
+    command.left_cmd = static_cast<int16_t>(command_[1] * 1000);
     try
     {
       orion_major_.invoke(command, &result, 250 * orion::Major::Interval::Millisecond, 1);
-      if (0 == result.header.error_code)
-      {
-        ROS_INFO_THROTTLE(1, "Control loop running as expected");
-      }
-      else
-      {
-        ROS_INFO_THROTTLE(1, "Jitter error on commands");
-      }
+      velocity_[0] = result.encoder_right / 1000.0;
+      velocity_[1] = result.encoder_left / 1000.0;
+      velocity_[2] = velocity_[0]; 
+      velocity_[3] = velocity_[1]; 
+
+      position_[0] = 0.0;
+      position_[1] = 0.0;
+      position_[2] = 0.0;
+      position_[3] = 0.0;
+
     }
     catch(const std::exception& e)
     {
