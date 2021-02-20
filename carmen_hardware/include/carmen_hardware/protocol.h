@@ -5,8 +5,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// ROS Units https://www.ros.org/reps/rep-0103.html
+
 namespace carmen_hardware
 {
+
+enum class ErrorType: uint8_t { TimeoutExpired = 1 };
 
 enum class MessageType: uint8_t { Handshake = 1, ReadSettings = 2, SetCommands = 3, SetPID = 4 };
 
@@ -51,9 +55,13 @@ struct HandshakeResult
 
 struct ReadSettings
 {
-  int32_t left_front_p; // multiplied on 10000 and rounded
-  int32_t left_front_i; // multiplied on 10000 and rounded
-  int32_t left_front_d; // multiplied on 10000 and rounded
+  int32_t left_p; // multiplied by 10000 and rounded
+  int32_t left_i; // multiplied by 10000 and rounded
+  int32_t left_d; // multiplied by 10000 and rounded
+
+  int32_t right_p; // multiplied by 10000 and rounded
+  int32_t right_i; // multiplied by 10000 and rounded
+  int32_t right_d; // multiplied by 10000 and rounded
 };
 
 struct ReadSettingsCommand
@@ -111,8 +119,8 @@ struct SetCommandsCommand
       .sequence_id = 0
     }
   };
-  uint16_t left_cmd;
-  uint16_t right_cmd;
+  int16_t left_cmd; // multiplied by 1000 and rounded
+  int16_t right_cmd; // multiplied by 1000 and rounded
 };
 
 struct SetCommandsResult
@@ -132,7 +140,11 @@ struct SetCommandsResult
     },
     .error_code = 0
   };
-  bool result;
+  int32_t encoder_left; // multiplied by 1000 and rounded
+  int32_t encoder_right; // multiplied by 1000 and rounded
+  int32_t imu_angle_alpha; // multiplied by 1000 and rounded
+  int32_t imu_angle_beta; // multiplied by 1000 and rounded
+  int32_t imu_angle_gamma; // multiplied by 1000 and rounded
 };
 
 struct SetPIDCommand

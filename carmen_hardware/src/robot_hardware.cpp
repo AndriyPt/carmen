@@ -1,5 +1,6 @@
 #include "carmen_hardware/robot_hardware.h"
 #include <termios.h>
+#include <string.h>
 #include "carmen_hardware/protocol.h"
 #include <hardware_interface/robot_hw.h>
 
@@ -13,6 +14,49 @@ namespace carmen_hardware
 
   CarmenRobotHW::~CarmenRobotHW()
   {
+  }
+
+  void CarmenRobotHW::setupHardwareInterfaces()
+  {
+    hardware_interface::JointStateHandle front_right_wheel_joint_state_handle("front_right_wheel_joint",
+      &position_[0], &velocity_[0], &effort_[0]);
+    joint_state_interface_.registerHandle(front_right_wheel_joint_state_handle);
+
+    hardware_interface::JointStateHandle front_left_wheel_joint_state_handle("front_left_wheel_joint",
+      &position_[1], &velocity_[1], &effort_[1]);
+    joint_state_interface_.registerHandle(front_left_wheel_joint_state_handle);
+
+    hardware_interface::JointStateHandle rear_right_wheel_joint_state_handle("rear_right_wheel_joint",
+      &position_[2], &velocity_[2], &effort_[2]);
+    joint_state_interface_.registerHandle(rear_right_wheel_joint_state_handle);
+
+    hardware_interface::JointStateHandle rear_left_wheel_joint_state_handle("rear_left_wheel_joint",
+      &position_[3], &velocity_[3], &effort_[3]);
+    joint_state_interface_.registerHandle(rear_left_wheel_joint_state_handle);
+
+    registerInterface(&joint_state_interface_);
+
+    hardware_interface::JointHandle front_right_wheel_joint_velocity_handler(
+        joint_state_interface_.getHandle("front_right_wheel_joint"), &command_[0]);
+    joint_velocity_interface_.registerHandle(front_right_wheel_joint_velocity_handler);
+
+    hardware_interface::JointHandle front_left_wheel_joint_velocity_handler(
+        joint_state_interface_.getHandle("front_left_wheel_joint"), &command_[1]);
+    joint_velocity_interface_.registerHandle(front_left_wheel_joint_velocity_handler);
+
+    hardware_interface::JointHandle rear_right_wheel_joint_velocity_handler(
+        joint_state_interface_.getHandle("rear_right_wheel_joint"), &command_[2]);
+    joint_velocity_interface_.registerHandle(rear_right_wheel_joint_velocity_handler);
+
+    hardware_interface::JointHandle rear_left_wheel_joint_velocity_handler(
+        joint_state_interface_.getHandle("rear_left_wheel_joint"), &command_[3]);
+    joint_velocity_interface_.registerHandle(rear_left_wheel_joint_velocity_handler);
+
+    registerInterface(&joint_velocity_interface_);
+
+    // TODO: Add IMUHandle for IMU Controller
+    // more info on EKF localization http://docs.ros.org/en/melodic/api/robot_localization/html/preparing_sensor_data.html
+    // http://docs.ros.org/en/melodic/api/robot_localization/html/configuring_robot_localization.html
   }
 
   void CarmenRobotHW::sendHandshake()
@@ -30,57 +74,16 @@ namespace carmen_hardware
     }
   }
 
-  void CarmenRobotHW::initParameters(const ros::NodeHandle& node_handle)
-  {
-    // ReadSettingsCommand command;
-    // ReadSettingsResult result;
-    // command.data.left_front_p = 10000;
-    // command.data.left_front_i = 0;
-    // command.data.left_front_d = 0;
-
-    // node_handle.param<int32_t>("left_front_p", command.data.left_front_p, command.data.left_front_p);
-    // node_handle.param<int32_t>("left_front_i", command.data.left_front_i, command.data.left_front_i);
-    // node_handle.param<int32_t>("left_front_d", command.data.left_front_d, command.data.left_front_d);
-
-    // orion_major_.invoke(command, &result, orion::Major::Interval::Second, 3);
-
-    // node_handle.setParam("left_front_p", result.data.left_front_p);
-    // node_handle.setParam("left_front_i", result.data.left_front_i);
-    // node_handle.setParam("left_front_d", result.data.left_front_d);
-
-    SetPIDCommand command;
-    SetPIDResult result;
-    command.left_p = 10000;
-    command.left_i = 0;
-    command.left_d = 0;
-
-    command.right_p = 10000;
-    command.right_i = 0;
-    command.right_d = 0;
-
-    try
-    {
-      orion_major_.invoke(command, &result, 200 * orion::Major::Interval::Millisecond, 2);
-      if (result.result)
-      {
-        ROS_INFO("Set PID success!");
-      }
-      else
-      {
-        ROS_INFO("Set PID failed!");
-      }
-    }
-    catch(const std::exception& e)
-    {
-      ROS_ERROR_STREAM("Error during set PID parameters: " << e.what() << "\n");
-    }
-  }
-
   bool CarmenRobotHW::init(ros::NodeHandle& root_nh)
   {
-    this->serial_port.connect("/dev/ttyACM1", B230400);
+    this->setupHardwareInterfaces();
+
+    std::string default_port = "/dev/ttyACM1";
+    std::string port;
+    root_nh.param<std::string>("port", port, default_port);
+    // TODO(Andriy): Add reading of baud
+    this->serial_port.connect(port.c_str(), B230400);
     this->sendHandshake();
-    this->initParameters(root_nh);
   }
 
   void CarmenRobotHW::read(const ros::Time& time, const ros::Duration& period)
@@ -91,19 +94,22 @@ namespace carmen_hardware
   {
     SetCommandsCommand command;
     SetCommandsResult result;
-    command.left_cmd = 10000;
-    command.right_cmd = 20;
+
+    command.right_cmd = static_cast<int16_t>(command_[0] * 1000);
+    command.left_cmd = static_cast<int16_t>(command_[1] * 1000);
     try
     {
       orion_major_.invoke(command, &result, 250 * orion::Major::Interval::Millisecond, 1);
-      if (result.result)
-      {
-        ROS_INFO_THROTTLE(1, "Control loop running as expected");
-      }
-      else
-      {
-        ROS_INFO_THROTTLE(1, "Jitter error on commands");
-      }
+      velocity_[0] = result.encoder_right / 1000.0;
+      velocity_[1] = result.encoder_left / 1000.0;
+      velocity_[2] = velocity_[0]; 
+      velocity_[3] = velocity_[1]; 
+
+      position_[0] = 0.0;
+      position_[1] = 0.0;
+      position_[2] = 0.0;
+      position_[3] = 0.0;
+
     }
     catch(const std::exception& e)
     {

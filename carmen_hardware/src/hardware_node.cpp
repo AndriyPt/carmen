@@ -1,4 +1,5 @@
 #include <ros/ros.h>
+#include <stdint.h>
 #include "carmen_hardware/robot_hardware.h"
 #include <controller_manager/controller_manager.h>
 
@@ -9,13 +10,19 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "carmen_hardware_node");
   ros::NodeHandle node_handle;
 
+  ros::AsyncSpinner spinner(3);
+  spinner.start();
+
   CarmenRobotHW robot;
   robot.init(node_handle);
   controller_manager::ControllerManager controller_manager(&robot, node_handle);
 
   ros::Time ts = ros::Time::now();
 
-  ros::Rate rate(10);
+  int32_t rate_value = 10;
+  node_handle.param<int32_t>("rate", rate_value, rate_value);
+
+  ros::Rate rate(rate_value);
   while (ros::ok())
   {
      ros::Duration d = ros::Time::now() - ts;

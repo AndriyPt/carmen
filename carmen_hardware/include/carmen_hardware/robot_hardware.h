@@ -24,7 +24,7 @@ public:
 
 private:
   void sendHandshake();
-  void initParameters(const ros::NodeHandle& node_handle);
+  void setupHardwareInterfaces();
 
   hardware_interface::JointStateInterface joint_state_interface_;
   hardware_interface::VelocityJointInterface joint_velocity_interface_;
