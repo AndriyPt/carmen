@@ -140,10 +140,10 @@ struct SetCommandsResult
     },
     .error_code = 0
   };
-  int32_t encoder_pos_left; // multiplied by 1000 and rounded
-  int32_t encoder_pos_right; // multiplied by 1000 and rounded
-  int32_t encoder_left; // multiplied by 1000 and rounded
-  int32_t encoder_right; // multiplied by 1000 and rounded
+  int32_t wheel_pos_left; // multiplied by 1000 and rounded
+  int32_t wheel_pos_right; // multiplied by 1000 and rounded
+  int32_t wheel_vel_left; // multiplied by 1000 and rounded
+  int32_t wheel_vel_right; // multiplied by 1000 and rounded
 
   int32_t ultra_sonic_left; // multiplied by 1000 and rounded
   int32_t ultra_sonic_center; // multiplied by 1000 and rounded
