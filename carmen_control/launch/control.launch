@@ -37,8 +37,8 @@
     <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization"
       unless="$(arg velocity_control)"/> -->
 
-    <node pkg="twist_mux" type="twist_mux" name="twist_mux" unless="$(arg velocity_control)">
-        <rosparam command="load" file="$(find carmen_control)/config/common/twist_mux.yml"/>
-        <remap from="cmd_vel_out" to="/diff_drive_controller/cmd_vel"/>
-    </node>
+    <!--<node pkg="twist_mux" type="twist_mux" name="twist_mux" unless="$(arg velocity_control)">-->
+        <!--<rosparam command="load" file="$(find carmen_control)/config/common/twist_mux.yml"/>-->
+        <!--<remap from="cmd_vel_out" to="/diff_drive_controller/cmd_vel"/>-->
+    <!--</node>-->
 </launch>

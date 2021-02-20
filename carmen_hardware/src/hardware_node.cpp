@@ -10,6 +10,9 @@ int main(int argc, char** argv)
   ros::init(argc, argv, "carmen_hardware_node");
   ros::NodeHandle node_handle;
 
+  ros::AsyncSpinner spinner(3);
+  spinner.start();
+
   CarmenRobotHW robot;
   robot.init(node_handle);
   controller_manager::ControllerManager controller_manager(&robot, node_handle);

@@ -23,10 +23,11 @@ diff_drive_controller:
   base_frame_id: base_link
 
   # Wheel separation and radius multipliers
-  wheel_separation_multiplier: 1.5 # default: 1.0
+  wheel_separation_multiplier: 1.0 # default: 1.0
   wheel_radius_multiplier: 1.0 # default: 1.0
 
   wheel_separation: 0.26
+  wheel_radius: 0.035
 
   # Velocity and acceleration limits
   # Whenever a min_* is unspecified, default to -max_*
