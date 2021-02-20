@@ -105,10 +105,10 @@ namespace carmen_hardware
       velocity_[2] = velocity_[0]; 
       velocity_[3] = velocity_[1]; 
 
-      position_[0] = 0.0;
-      position_[1] = 0.0;
-      position_[2] = 0.0;
-      position_[3] = 0.0;
+      position_[0] = result.encoder_pos_right / 1000.0;
+      position_[1] = result.encoder_pos_left / 1000.0;
+      position_[2] = position_[0];
+      position_[3] = position_[1];
 
     }
     catch(const std::exception& e)
