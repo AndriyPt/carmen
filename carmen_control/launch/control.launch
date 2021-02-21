@@ -21,7 +21,7 @@
 
     <group unless="$(arg sim)">
 
-        <rosparam file="$(find carmen_control)/config/hardware/sonar_controller.yml" command="load" ns="/"/>
+        <rosparam file="$(find carmen_control)/config/hardware/sonar_controllers.yml" command="load" ns="/"/>
 
         <group if="$(arg velocity_control)">
             <rosparam file="$(find carmen_control)/config/common/velocity_controllers.yml" command="load" ns="/"/>
