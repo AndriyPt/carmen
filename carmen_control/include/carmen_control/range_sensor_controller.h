@@ -8,6 +8,7 @@
 #include <realtime_tools/realtime_publisher.h>
 #include <stdint.h>
 #include <memory>
+#include <string>
 
 namespace carmen_control
 {
@@ -29,6 +30,7 @@ private:
   ros::Time last_publish_time_;
 
   double publish_rate_;     // Publish rate
+  std::string frame_id_;    // Frame Id of the range
   uint8_t radiation_type_;  // The type of radiation used by the sensor (0 = sound, 1 = IR)
   double field_of_view_;    // The size of the arc that the distance reading is valid for
   double min_range_;        // Minimum range value

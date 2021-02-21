@@ -15,6 +15,13 @@ namespace carmen_control
     }
     sensor_ = hw->getHandle(sensor_name);
 
+    std::string frame_id;
+    if (!controller_nh.getParam("frame_id", frame_id))
+    {
+      frame_id = sensor_name;
+    }
+    frame_id_ = frame_id;
+
     if (!controller_nh.getParam("publish_rate", publish_rate_)) {
       ROS_ERROR("Parameter 'publish_rate' not set");
       return false;
@@ -61,7 +68,7 @@ namespace carmen_control
         last_publish_time_ += ros::Duration(1.0 / publish_rate_);
 
         realtime_pub_->msg_.header.stamp = time;
-        realtime_pub_->msg_.header.frame_id = sensor_.getFrameId();
+        realtime_pub_->msg_.header.frame_id = frame_id_;
 
         realtime_pub_->msg_.radiation_type = radiation_type_;
         realtime_pub_->msg_.field_of_view = field_of_view_;
