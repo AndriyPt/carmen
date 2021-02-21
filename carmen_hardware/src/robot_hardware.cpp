@@ -88,7 +88,7 @@ namespace carmen_hardware
   {
     this->setupHardwareInterfaces();
 
-    std::string default_port = "/dev/ttyACM1";
+    std::string default_port = "/dev/ttyACM0";
     std::string port;
     root_nh.param<std::string>("port", port, default_port);
     // TODO(Andriy): Add reading of baud

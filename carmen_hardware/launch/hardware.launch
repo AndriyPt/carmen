@@ -1,9 +1,9 @@
 <launch>
-  <arg name="port" default="/dev/ttyACM1"/>
+  <arg name="port" default="/dev/ttyACM0"/>
   <arg name="baud" default="230400"/>
   <arg name="rate" default="4"/>
 
-  <node pkg="carmen_hardware" type="carmen_hardware_node" name="rosserial" output="screen">
+  <node pkg="carmen_hardware" type="carmen_hardware_node" name="carmen_robot_hardware" output="screen">
     <param name="port" type="str" value="$(arg port)"/>
     <param name="baud" type="int" value="$(arg baud)"/>
     <param name="rate" type="int" value="$(arg rate)"/>

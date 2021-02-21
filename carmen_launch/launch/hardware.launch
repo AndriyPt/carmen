@@ -1,7 +1,11 @@
 <launch>
-    <arg name="port" default="/dev/ttyACM1"/>
+    <arg name="port" default="/dev/ttyACM0"/>
     <arg name="baud" default="230400"/>
     <arg name="velocity_control" value="false"/>
+
+    <param name="robot_description"
+           command="$(find xacro)/xacro --inorder '$(find carmen_description)/robot/robot.urdf.xacro'"/>
+
 
     <include file="$(find carmen_hardware)/launch/hardware.launch">
         <arg name="port" value="$(arg port)"/>
