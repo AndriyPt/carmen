@@ -1,29 +1,29 @@
 left_sonar_sensor_controller:
   type: carmen_control/RangeSensorController
-  name: left_sonar_link
+  name: left_sonar
   frame_id: left_sonar_link
   radiation_type: 0
   field_of_view: 1.0
   min_range: 0.03
   max_range: 1.0
-  publish_rate: 50
+  publish_rate: 5
 
 central_sonar_sensor_controller:
   type: carmen_control/RangeSensorController
-  name: central_sonar_link
+  name: central_sonar
   frame_id: central_sonar_link
   radiation_type: 0
   field_of_view: 1.0
   min_range: 0.03
   max_range: 1.0
-  publish_rate: 50
+  publish_rate: 5
 
 right_sonar_sensor_controller:
   type: carmen_control/RangeSensorController
-  name: right_sonar_link
+  name: right_sonar
   frame_id: right_sonar_link
   radiation_type: 0
   field_of_view: 1.0
   min_range: 0.03
   max_range: 1.0
-  publish_rate: 50
+  publish_rate: 5

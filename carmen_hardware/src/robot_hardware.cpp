@@ -54,13 +54,13 @@ namespace carmen_hardware
 
     registerInterface(&joint_velocity_interface_);
 
-    carmen_control::RangeSensorHandle left_sonar_handle("left_sonar_link", &sonar_[0]);
+    carmen_control::RangeSensorHandle left_sonar_handle("left_sonar", &sonar_[0]);
     range_sensor_interface_.registerHandle(left_sonar_handle);
 
-    carmen_control::RangeSensorHandle central_sonar_handle("central_sonar_link", &sonar_[1]);
+    carmen_control::RangeSensorHandle central_sonar_handle("central_sonar", &sonar_[1]);
     range_sensor_interface_.registerHandle(central_sonar_handle);
 
-    carmen_control::RangeSensorHandle right_sonar_handle("right_sonar_link", &sonar_[2]);
+    carmen_control::RangeSensorHandle right_sonar_handle("right_sonar", &sonar_[2]);
     range_sensor_interface_.registerHandle(right_sonar_handle);
     registerInterface(&range_sensor_interface_);
 
