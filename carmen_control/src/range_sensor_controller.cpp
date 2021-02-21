@@ -8,7 +8,7 @@ namespace carmen_control
   {
 
     std::string sensor_name;
-    if (!controller_nh.getParam("sensor", sensor_name))
+    if (!controller_nh.getParam("sensor_name", sensor_name))
     {
       ROS_ERROR("No sensor name given (namespace: %s)", controller_nh.getNamespace().c_str());
       return false;
