@@ -54,6 +54,16 @@ namespace carmen_hardware
 
     registerInterface(&joint_velocity_interface_);
 
+    carmen_control::RangeSensorHandle left_sonar_handle("left_sonar_link", &sonar_[0]);
+    range_sensor_interface_.registerHandle(left_sonar_handle);
+
+    carmen_control::RangeSensorHandle central_sonar_handle("central_sonar_link", &sonar_[1]);
+    range_sensor_interface_.registerHandle(central_sonar_handle);
+
+    carmen_control::RangeSensorHandle right_sonar_handle("right_sonar_link", &sonar_[2]);
+    range_sensor_interface_.registerHandle(right_sonar_handle);
+    registerInterface(&range_sensor_interface_);
+
     // TODO: Add IMUHandle for IMU Controller
     // more info on EKF localization http://docs.ros.org/en/melodic/api/robot_localization/html/preparing_sensor_data.html
     // http://docs.ros.org/en/melodic/api/robot_localization/html/configuring_robot_localization.html
@@ -110,6 +120,9 @@ namespace carmen_hardware
       position_[2] = position_[0];
       position_[3] = position_[1];
 
+      sonar_[0] = result.ultra_sonic_left / 1000.0;
+      sonar_[1] = result.ultra_sonic_center / 1000.0;
+      sonar_[2] = result.ultra_sonic_right / 1000.0;
     }
     catch(const std::exception& e)
     {

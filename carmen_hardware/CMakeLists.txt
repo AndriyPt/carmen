@@ -4,6 +4,7 @@ project(carmen_hardware)
 add_definitions(-std=c++11)
 
 find_package(catkin REQUIRED COMPONENTS
+    carmen_control
     hardware_interface
     controller_manager
     roscpp
@@ -13,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 catkin_package(
   CATKIN_DEPENDS
+    carmen_control
     hardware_interface
     controller_manager
     roscpp
@@ -53,7 +55,6 @@ install(FILES
   launch/hardware.launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-
 
 if (CATKIN_ENABLE_TESTING)
 

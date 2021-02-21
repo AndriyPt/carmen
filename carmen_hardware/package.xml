@@ -11,6 +11,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <depend>roscpp</depend>
+  <depend>carmen_control</depend>
   <depend>hardware_interface</depend>
   <depend>controller_manager</depend>
   <depend>dynamic_reconfigure</depend>

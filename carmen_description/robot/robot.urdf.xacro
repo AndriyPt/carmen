@@ -68,6 +68,8 @@
 
   <xacro:simple_sonar prefix="left" parent_link_name="base_link" x="${base_width / 2}" y="${base_length / 2}"
                       z="${base_height / 2}"/>
+  <xacro:simple_sonar prefix="central" parent_link_name="base_link" x="${base_width / 2}" y="0"
+                      z="${base_height / 2}"/>
   <xacro:simple_sonar prefix="right" parent_link_name="base_link" x="${base_width / 2}" y="${-base_length / 2}"
                       y_side="-1" z="${base_height / 2}"/>
 
