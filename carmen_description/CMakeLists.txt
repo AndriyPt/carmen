@@ -3,6 +3,11 @@ project(carmen_description)
 
 find_package(catkin REQUIRED)
 
+catkin_package(
+  CATKIN_DEPENDS
+    xacro
+)
+
 catkin_package()
 
 install(FILES

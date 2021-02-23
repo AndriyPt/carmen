@@ -9,6 +9,7 @@
 #include <orion_protocol/orion_frame_transport.h>
 #include <orion_protocol/orion_cobs_framer.h>
 #include <orion_protocol/orion_serial_port.h>
+#include <carmen_control/range_sensor_interface.h>
 
 namespace carmen_hardware
 {
@@ -27,6 +28,7 @@ private:
   void setupHardwareInterfaces();
 
   hardware_interface::JointStateInterface joint_state_interface_;
+  carmen_control::RangeSensorInterface range_sensor_interface_;
   hardware_interface::VelocityJointInterface joint_velocity_interface_;
 
   static const uint8_t JOINTS_COUNT = 4;
@@ -35,6 +37,9 @@ private:
   double position_[JOINTS_COUNT];
   double velocity_[JOINTS_COUNT];
   double effort_[JOINTS_COUNT];
+
+  static const uint8_t SONARS_COUNT = 3;
+  double sonar_[SONARS_COUNT];
 
   orion::SerialPort serial_port = orion::SerialPort();
   orion::COBSFramer cobs_framer_ = orion::COBSFramer();

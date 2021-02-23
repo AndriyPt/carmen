@@ -1,0 +1,8 @@
+
+<library path="lib/librage_sensor_controller">
+  <class name="carmen_control/RangeSensorController" type="carmen_control::RangeSensorController" base_class_type="controller_interface::ControllerBase">
+  <description>
+    This controller publishes the readings of range sensor as sensor_msgs/Range message. The controller expects a RangeSensorInterface type of hardware interface.
+  </description>
+  </class>
+</library>
