@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
     roscpp
     dynamic_reconfigure
     orion_protocol
+    rplidar_ros
 )
 
 catkin_package(
@@ -20,6 +21,7 @@ catkin_package(
     roscpp
     dynamic_reconfigure
     orion_protocol
+    rplidar_ros
 )
 
 include_directories(

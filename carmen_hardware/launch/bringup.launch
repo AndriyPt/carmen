@@ -1,5 +1,5 @@
 <launch>
-  <arg name="port" default="/dev/ttyACM0"/>
+  <arg name="port" default="/dev/nucleo_control"/>
   <arg name="baud" default="230400"/>
   <arg name="rate" default="4"/>
 

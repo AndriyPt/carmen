@@ -1,11 +1,18 @@
 <launch>
-    <arg name="port" default="/dev/ttyACM0"/>
+    <arg name="port" default="/dev/nucleo_control"/>
+    <arg name="lidar_port" default="/dev/lidar"/>
     <arg name="baud" default="230400"/>
     <arg name="velocity_control" default="false"/>
+    <arg name="lidar" default="true"/>
 
     <param name="robot_description"
            command="$(find xacro)/xacro --inorder '$(find carmen_description)/robot/robot.urdf.xacro'"/>
 
+    <group if="$(arg lidar)">
+        <include file="$(find carmen_hardware)/launch/lidar.launch">
+            <arg name="port" value="$(arg lidar_port)"/>
+        </include>
+    </group>
 
     <include file="$(find carmen_hardware)/launch/bringup.launch">
         <arg name="port" value="$(arg port)"/>
