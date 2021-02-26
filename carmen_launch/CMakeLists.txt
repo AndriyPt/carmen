@@ -4,7 +4,7 @@ project(carmen_launch)
 find_package(catkin REQUIRED)
 
 catkin_package(
-  CATKIN_DEPENDS carmen_gazebo carmen_description
+  CATKIN_DEPENDS carmen_gazebo carmen_description robot_state_publisher
 )
 
 install(FILES

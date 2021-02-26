@@ -16,4 +16,5 @@
   <depend>controller_manager</depend>
   <depend>dynamic_reconfigure</depend>
   <depend>orion_protocol</depend>
+  <depend>rplidar_ros</depend>
 </package>

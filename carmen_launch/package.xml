@@ -13,4 +13,5 @@
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>carmen_description</exec_depend>
   <exec_depend>carmen_gazebo</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
 </package>
