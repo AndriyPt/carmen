@@ -18,7 +18,7 @@
   <xacro:property name="imu_size" value="0.01"/>
   <xacro:property name="imu_mass" value="0.01"/>
 
-  <xacro:property name="lidar_size" value="0.01"/>
+  <xacro:property name="lidar_size" value="0.05"/>
   <xacro:property name="lidar_mass" value="0.1"/>
 
   <xacro:property name="bearing_radius" value="0.005"/>
@@ -74,7 +74,7 @@
   </link>
 
   <joint name="lidar_joint" type="fixed">
-      <origin xyz="-0.025 0 ${(base_height + lidar_size) / 2}" rpy="0 0 0"/>
+      <origin xyz="-0.025 0 ${(base_height + lidar_size + lidar_size) / 2}" rpy="0 0 0"/>
       <parent link="base_link"/>
       <child link="lidar_link"/>
   </joint>
