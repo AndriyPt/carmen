@@ -32,6 +32,7 @@ RUN set -x && \
     \
     echo "Getting and compiling source code" && \
     pushd /root/workspace/carmen/base/src && \
+    git clone https://github.com/ros-ukraine/orion.git && \
     git clone https://github.com/AndriyPt/carmen.git && \
     popd && \
     source /opt/ros/kinetic/setup.bash && rosdep install --from-paths src --ignore-src --rosdistro kinetic -y && \
