@@ -162,9 +162,31 @@ Please follow these steps to run Docker container on your machine.
 
  1. Install Raspbian on your machine
  2. Install Docker using these [instructions](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-engine---community-1)
- 3. For development [the following](https://hub.docker.com/r/andriyp/carmen-dev-rpi) docker image will be used.
+ 3. There are two docker images
+   * [Local UI](https://hub.docker.com/r/andriyp/carmen-ui-rpi)
+   * [Web UI](https://hub.docker.com/r/andriyp/carmen-dev-rpi)
  4. Use the following command to start ordinary Docker container  
 
+  * For Local UI
+  
+Before container spawning execute this command
+ ```bash
+xhost +local:root
+```
+
+*ARM 32 bit*
+```bash
+docker run --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw andriyp/carmen-ui-rpi:armhf
+```
+Terminator window will appear.
+
+*ARM 32 bit with Hardware*
+```bash
+docker run --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device /dev/nucleo_control --device /dev/lidar andriyp/carmen-ui-rpi:armhf
+```
+
+  * For Web UI
+  
 *ARM 32 bit*
 ```bash
 docker run -d --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 andriyp/carmen-dev-rpi:armhf
@@ -173,7 +195,7 @@ docker run -d --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8
 ```bash
 docker run -d --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 andriyp/carmen-dev-rpi:arm64
 ```
- 5. Command will spawn Docker container and exit.
+ Command will spawn Docker container and exit.
 
 In order to relaunch docker container please run
 ```bash

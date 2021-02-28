@@ -4,7 +4,7 @@ project(carmen_2dnav)
 find_package(catkin REQUIRED)
 
 catkin_package(
-  CATKIN_DEPENDS move_base gmapping amcl map_server rviz
+  CATKIN_DEPENDS move_base gmapping amcl map_server rviz rqt
 )
 
 install(FILES
