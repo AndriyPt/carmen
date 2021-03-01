@@ -37,7 +37,8 @@ RUN set -x && \
     popd && \
     source /opt/ros/kinetic/setup.bash && rosdep install --from-paths src --ignore-src --rosdistro kinetic -y && \
     source /opt/ros/kinetic/setup.bash && catkin_make && \
-    echo 'source /root/workspace/carmen/base/devel/setup.bash' >> /root/.bashrc && \     
+    echo "alias depkinetic='rosdep install --from-paths . --ignore-src --rosdistro kinetic -y'" >> /root/.bashrc && \
+    echo "source /root/workspace/carmen/base/devel/setup.bash" >> /root/.bashrc && \
     \
     echo "Clean up" && \
     sudo apt-get clean && \
