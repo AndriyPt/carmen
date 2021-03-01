@@ -1,0 +1,18 @@
+FROM andriyp/carmen-rpi:armhf
+
+MAINTAINER "Andriy Petlovanyy"
+
+LABEL Description="This ROS Kinetic image for Carmen development with Terminal  for Raspberry PI 32-bit" Vendor="Andriy Petlovanyy" Version="1.0"
+
+RUN set -x && \
+    \
+    echo "Installing Terminator" && \
+    apt update && \
+    apt install terminator -y && \
+    \
+    echo "Clean up" && \
+    sudo apt-get clean && \
+    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /root/.ansible /root/.gitconfig /root/.cache
+
+CMD ["/usr/bin/terminator"]
+
