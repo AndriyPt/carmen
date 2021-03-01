@@ -176,13 +176,13 @@ xhost +local:root
 
 *ARM 32 bit*
 ```bash
-docker run --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw andriyp/carmen-ui-rpi:armhf
+docker run --name carmen_dev -p 11311:11311 -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw andriyp/carmen-ui-rpi:armhf
 ```
 Terminator window will appear.
 
 *ARM 32 bit with Hardware*
 ```bash
-docker run --name carmen_dev -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device /dev/nucleo_control --device /dev/lidar andriyp/carmen-ui-rpi:armhf
+docker run --name carmen_dev -p 11311:11311 -p 8080:8080 -p 8181:8181 -p 8282:8282 -p 8090:8090 -p 9090:9090 -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw --device /dev/nucleo_control --device /dev/lidar andriyp/carmen-ui-rpi:armhf
 ```
 
   * For Web UI
@@ -236,3 +236,15 @@ Open web browser and go to [WebViz application page](https://webviz.io/app/).
 It will connect to your local web socket server running in Docker container.
 You will be able to plot data, view rosout and more.
 In case if you want to see data running on remote Raspberry PI please click on Help sign in WebViz page to see how to change WebViz URL.
+
+## Running ROS Hardware Container
+
+Bring up command
+```bash
+roslaunch carmen_launch hardware.launch
+```
+
+Launch SLAM with RViz
+```bash
+roslaunch carmen_launch slam.launch gui:=True
+```
