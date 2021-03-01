@@ -1,0 +1,7 @@
+<launch>
+    <arg name="gui" default="false"/>
+    <group if="$(arg gui)">
+        <include file="$(find carmen_2dnav)/launch/rviz.launch"/>
+    </group>
+    <include file="$(find carmen_2dnav)/launch/gmapping.launch"/>
+</launch>

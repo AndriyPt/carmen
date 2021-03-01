@@ -1,0 +1,4 @@
+- git:
+    uri: https://github.com/ros-ukraine/orion.git
+    version: kinetic-devel
+    local-name: orion

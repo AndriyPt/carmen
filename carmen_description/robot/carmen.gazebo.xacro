@@ -305,7 +305,7 @@
           </noise>
         </ray>
         <plugin name="gazebo_ros_lidar_controller" filename="libgazebo_ros_gpu_laser.so">
-          <topicName>/scan</topicName>
+          <topicName>/laser/scan</topicName>
           <frameName>lidar_link</frameName>
         </plugin>
       </sensor>
