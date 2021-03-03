@@ -6,6 +6,7 @@ find_package(catkin REQUIRED)
 catkin_package(
   CATKIN_DEPENDS
     xacro
+    joint_state_publisher_gui
 )
 
 catkin_package()
