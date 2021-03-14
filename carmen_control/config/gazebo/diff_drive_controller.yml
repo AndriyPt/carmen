@@ -15,12 +15,7 @@ diff_drive_controller:
   twist_covariance_diagonal: [0.001, 0.001, 0.001, 1000000.0, 1000000.0, 0.03]
   cmd_vel_timeout: 0.25
 
-  # TODO: Implement
-  # Odometry fused with IMU is published by robot_localization, so
-  # no need to publish a TF based on encoders alone.
-  #  enable_odom_tf: false
-
-  enable_odom_tf: true
+  enable_odom_tf: false
 
   # Base frame_id
   base_frame_id: base_link

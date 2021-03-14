@@ -17,4 +17,5 @@
   <depend>dynamic_reconfigure</depend>
   <depend>orion_protocol</depend>
   <depend>rplidar_ros</depend>
+  <depend>tf2</depend>
 </package>

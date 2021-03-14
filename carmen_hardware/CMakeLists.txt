@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
     dynamic_reconfigure
     orion_protocol
     rplidar_ros
+    tf2
 )
 
 catkin_package(
@@ -22,6 +23,7 @@ catkin_package(
     dynamic_reconfigure
     orion_protocol
     rplidar_ros
+    tf2
 )
 
 include_directories(

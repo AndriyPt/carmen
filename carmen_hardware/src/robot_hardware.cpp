@@ -3,7 +3,7 @@
 #include <string.h>
 #include "carmen_hardware/protocol.h"
 #include <hardware_interface/robot_hw.h>
-
+#include <tf2/LinearMath/Quaternion.h>
 
 namespace carmen_hardware
 {
@@ -64,9 +64,11 @@ namespace carmen_hardware
     range_sensor_interface_.registerHandle(right_sonar_handle);
     registerInterface(&range_sensor_interface_);
 
-    // TODO: Add IMUHandle for IMU Controller
-    // more info on EKF localization http://docs.ros.org/en/melodic/api/robot_localization/html/preparing_sensor_data.html
-    // http://docs.ros.org/en/melodic/api/robot_localization/html/configuring_robot_localization.html
+    hardware_interface::ImuSensorHandle imu_handle("imu", "imu_link", imu_orientation_, imu_orientation_covariances_,
+      imu_angular_velocity_, imu_angular_velocity_covariances_,
+      imu_linear_acceleration_, imu_linear_acceleration_covariances_);
+    imu_sensor_interface_.registerHandle(imu_handle);
+    registerInterface(&imu_sensor_interface_);
   }
 
   void CarmenRobotHW::sendHandshake()
@@ -123,6 +125,24 @@ namespace carmen_hardware
       sonar_[0] = result.ultra_sonic_left / 1000.0;
       sonar_[1] = result.ultra_sonic_center / 1000.0;
       sonar_[2] = result.ultra_sonic_right / 1000.0;
+
+      tf2::Quaternion quaternion;
+      quaternion.setRPY(result.imu_angle_alpha / 1000.0, result.imu_angle_beta / 1000.0,
+        result.imu_angle_gamma / 1000.0);
+      quaternion.normalize();
+
+      imu_orientation_[0] = quaternion.getX();
+      imu_orientation_[1] = quaternion.getY();
+      imu_orientation_[2] = quaternion.getZ();
+      imu_orientation_[3] = quaternion.getW();
+
+      imu_angular_velocity_[0] = result.imu_vel_alpha / 1000.0;
+      imu_angular_velocity_[1] = result.imu_vel_beta / 1000.0;
+      imu_angular_velocity_[2] = result.imu_vel_gamma / 1000.0;
+
+      imu_linear_acceleration_[0] = result.imu_acc_x / 1000.0;
+      imu_linear_acceleration_[1] = result.imu_acc_y / 1000.0;
+      imu_linear_acceleration_[2] = result.imu_acc_z / 1000.0;
     }
     catch(const std::exception& e)
     {
