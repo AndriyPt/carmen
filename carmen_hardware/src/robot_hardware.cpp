@@ -136,12 +136,12 @@ namespace carmen_hardware
       imu_orientation_[2] = quaternion.getZ();
       imu_orientation_[3] = quaternion.getW();
 
-      imu_angular_velocity_[0] = result.imu_vel_alpha / 1000.0;
-      imu_angular_velocity_[1] = result.imu_vel_beta / 1000.0;
+      imu_angular_velocity_[0] = result.imu_vel_beta / 1000.0;
+      imu_angular_velocity_[1] = -1.0 * result.imu_vel_alpha / 1000.0;
       imu_angular_velocity_[2] = result.imu_vel_gamma / 1000.0;
 
-      imu_linear_acceleration_[0] = result.imu_acc_x / 1000.0;
-      imu_linear_acceleration_[1] = result.imu_acc_y / 1000.0;
+      imu_linear_acceleration_[0] = result.imu_acc_y / 1000.0;
+      imu_linear_acceleration_[1] = -1.0 * result.imu_acc_x / 1000.0;
       imu_linear_acceleration_[2] = result.imu_acc_z / 1000.0;
     }
     catch(const std::exception& e)
