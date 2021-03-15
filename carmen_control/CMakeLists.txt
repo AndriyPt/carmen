@@ -28,6 +28,7 @@ catkin_package(
     imu_sensor_controller
     velocity_controllers
     effort_controllers
+    imu_tools
     INCLUDE_DIRS include
     LIBRARIES rage_sensor_controller
 )
