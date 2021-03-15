@@ -22,6 +22,7 @@
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>diff_drive_controller</exec_depend>
+  <exec_depend>imu_sensor_controller</exec_depend>
   <exec_depend>velocity_controllers</exec_depend>
   <exec_depend>effort_controllers</exec_depend>
   <exec_depend>robot_localization</exec_depend>

@@ -25,6 +25,7 @@ catkin_package(
     controller_manager
     teleop_twist_keyboard
     diff_drive_controller
+    imu_sensor_controller
     velocity_controllers
     effort_controllers
     INCLUDE_DIRS include
