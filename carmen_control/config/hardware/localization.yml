@@ -16,9 +16,9 @@ ekf_localization:
   odom0_differential: false
   odom0_queue_size: 10
 
-  imu0: imu
+  imu0: imu_with_orientation
   imu0_config: [false, false, false,
-                false, false, false,
+                true, true, true,
                 false, false, false,
                 true, true, true,
                 true, true, true]
@@ -26,14 +26,3 @@ ekf_localization:
   imu0_relative: true
   imu0_queue_size: 10
   imu0_remove_gravitational_acceleration: true
-
-  imu1: imu_with_orientation
-  imu1_config: [false, false, false,
-                true, true, true,
-                false, false, false,
-                false, false, false,
-                false, false, false]
-  imu1_differential: false
-  imu1_relative: true
-  imu1_queue_size: 10
-  imu1_remove_gravitational_acceleration: true
