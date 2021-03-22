@@ -90,6 +90,9 @@ namespace carmen_hardware
   {
     this->setupHardwareInterfaces();
 
+    realtime_magnetic_field_publisher_.reset(new realtime_tools::RealtimePublisher<sensor_msgs::MagneticField>(root_nh,
+      "/mag_field", 4));
+
     std::string default_port = "/dev/ttyACM0";
     std::string port;
     root_nh.param<std::string>("port", port, default_port);
@@ -126,15 +129,20 @@ namespace carmen_hardware
       sonar_[1] = result.ultra_sonic_center / 1000.0;
       sonar_[2] = result.ultra_sonic_right / 1000.0;
 
-      tf2::Quaternion quaternion;
-      quaternion.setRPY(result.imu_angle_alpha / 1000.0, result.imu_angle_beta / 1000.0,
-        result.imu_angle_gamma / 1000.0);
-      quaternion.normalize();
+      if (realtime_magnetic_field_publisher_->trylock()) {
 
-      imu_orientation_[0] = quaternion.getX();
-      imu_orientation_[1] = quaternion.getY();
-      imu_orientation_[2] = quaternion.getZ();
-      imu_orientation_[3] = quaternion.getW();
+        realtime_magnetic_field_publisher_->msg_.header.stamp = time;
+        realtime_magnetic_field_publisher_->msg_.header.frame_id = "imu_link";
+
+        realtime_magnetic_field_publisher_->msg_.magnetic_field.x = result.imu_angle_beta / 1000000000.0;
+        realtime_magnetic_field_publisher_->msg_.magnetic_field.y = result.imu_angle_alpha / 1000000000.0;
+        realtime_magnetic_field_publisher_->msg_.magnetic_field.z = -1.0 * result.imu_angle_gamma / 1000000000.0;
+        for (int i=0; i < realtime_magnetic_field_publisher_->msg_.magnetic_field_covariance.size(); i++) {
+          realtime_magnetic_field_publisher_->msg_.magnetic_field_covariance[i] = mag_sensor_covariances_[i];
+        }
+
+        realtime_magnetic_field_publisher_->unlockAndPublish();
+      }
 
       // TODO: Remove manual calibration values from IMU
       imu_angular_velocity_[0] = result.imu_vel_beta / 1000.0 - 0.01;

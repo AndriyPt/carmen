@@ -8,4 +8,11 @@
     <param name="baud" type="int" value="$(arg baud)"/>
     <param name="rate" type="int" value="$(arg rate)"/>
   </node>
+
+  <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen">
+    <param name="publish_debug_topics" type="bool" value="false"/>
+    <remap from="/imu_data" to="imu/data_raw"/>
+    <remap from="/mag_field" to="imu/mag"/>
+    <remap from="imu/data" to="/imu_with_orientation"/>
+  </node>
 </launch>

@@ -18,4 +18,5 @@
   <depend>orion_protocol</depend>
   <depend>rplidar_ros</depend>
   <depend>tf2</depend>
+  <depend>imu_filter_madgwick</depend>
 </package>
