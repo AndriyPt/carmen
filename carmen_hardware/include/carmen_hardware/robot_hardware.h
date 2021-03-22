@@ -46,8 +46,8 @@ private:
 //  double imu_orientation_covariances_[MATRIX_3_BY_3] = {0.0003, 0.0, 0.0, 0.0, 0.0003, 0.0, 0.0, 0.0, 0.0003};
   // TODO: Turned off orientation as derived data. Could get estimation from imu_complementary_filter
   double imu_orientation_covariances_[MATRIX_3_BY_3] = {-1.0, 0.0, 0.0, 0.0, 0.0003, 0.0, 0.0, 0.0, 0.0003};
-	double imu_angular_velocity_covariances_[MATRIX_3_BY_3] = {0.0076, 0.0, 0.0, 0.0, 0.0076, 0.0, 0.0, 0.0, 0.0076};
-	double imu_linear_acceleration_covariances_[MATRIX_3_BY_3] = {0.0036, 0.0, 0.0, 0.0, 0.0036, 0.0, 0.0, 0.0, 0.0064};
+	double imu_angular_velocity_covariances_[MATRIX_3_BY_3] = {0.01, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.01};
+	double imu_linear_acceleration_covariances_[MATRIX_3_BY_3] = {0.01, 0.0, 0.0, 0.0, 0.01, 0.0, 0.0, 0.0, 0.01};
 
   static const uint8_t WORLD_DIMENTION = 3;
   static const uint8_t QUATERNION_DIMENTION = 4;
