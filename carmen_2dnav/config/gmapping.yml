@@ -23,10 +23,10 @@
   str: 0.01 # Odometry error (rotation → translation)
   stt: 0.02 # Odometry error (rotation → rotation)
   resampleThreshold: 0.5 # Resampling threshold value
-  xmin: -100.0 # Initial map size (min x)
-  ymin: -100.0 # Initial map size (min y)
-  xmax: 100.0 # Initial map size (max x)
-  ymax: 100.0 # Initial map size (max y)
+  xmin: -5.0 # Initial map size (min x)
+  ymin: -5.0 # Initial map size (min y)
+  xmax: 5.0 # Initial map size (max x)
+  ymax: 5.0 # Initial map size (max y)
   llsamplerange: 0.01 # Translational sampling range for the likelihood
   llsamplestep: 0.01 #Translational sampling step for the likelihood
   lasamplerange: 0.005 # Angular sampling range for the likelihood
