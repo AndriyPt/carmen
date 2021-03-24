@@ -144,15 +144,13 @@ namespace carmen_hardware
         realtime_magnetic_field_publisher_->unlockAndPublish();
       }
 
-      // TODO: Remove manual calibration values from IMU
-      imu_angular_velocity_[0] = result.imu_vel_beta / 1000.0 - 0.01;
-      imu_angular_velocity_[1] = result.imu_vel_alpha / 1000.0 + 0.01;
-      imu_angular_velocity_[2] = -1.0 * result.imu_vel_gamma / 1000.0 + 0.2;
+      imu_angular_velocity_[0] = result.imu_vel_beta / 1000.0;
+      imu_angular_velocity_[1] = result.imu_vel_alpha / 1000.0;
+      imu_angular_velocity_[2] = -1.0 * result.imu_vel_gamma / 1000.0;
 
-      // TODO: Remove manual calibration values from IMU
-      imu_linear_acceleration_[0] = result.imu_acc_y / 1000.0 + 0.5;
-      imu_linear_acceleration_[1] = result.imu_acc_x / 1000.0 - 1.0;
-      imu_linear_acceleration_[2] = -1.0 * result.imu_acc_z / 1000.0 - 0.2;
+      imu_linear_acceleration_[0] = result.imu_acc_y / 1000.0;
+      imu_linear_acceleration_[1] = result.imu_acc_x / 1000.0;
+      imu_linear_acceleration_[2] = -1.0 * result.imu_acc_z / 1000.0;
     }
     catch(const std::exception& e)
     {
