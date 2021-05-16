@@ -92,7 +92,7 @@ namespace carmen_hardware
     std::string port;
     root_nh.param<std::string>("port", port, default_port);
     // TODO(Andriy): Add reading of baud
-    this->serial_port.connect(port.c_str(), B230400);
+    this->serial_port_.connect(port.c_str(), B230400);
     this->sendHandshake();
   }
 
