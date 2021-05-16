@@ -248,3 +248,31 @@ Launch SLAM with RViz
 ```bash
 roslaunch carmen_launch slam.launch gui:=True
 ```
+
+## Map building
+
+To save the map into the file
+
+```bash
+rosrun map_server map_saver -f <map_file_name>
+```
+
+## Navigating on known map
+
+For simulation
+
+```bash
+roslaunch carmen_launch simulation.launch
+```
+
+For hardware
+
+```bash
+roslaunch carmen_launch hardware.launch
+```
+
+For navigation launch
+
+```bash
+roslaunch carmen_launch navigation.launch
+```

@@ -14,7 +14,7 @@ lidar_scan: {
   max_obstacle_height: 2.5, #maximum height of the obstacle
   min_obstacle_height: 0.0, #minimum heiht of the obstacle.
   data_type: LaserScan, # where is the data obtained from
-  topic: leobot/laser/scan, # the name of the topic where lidar publishes
+  topic: laser/scan, # the name of the topic where lidar publishes
   marking: true, #shall ROS mark the obstacles
   clearing: true #shall ROS clear deprecated marking
 }

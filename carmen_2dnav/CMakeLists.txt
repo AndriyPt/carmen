@@ -9,6 +9,8 @@ catkin_package(
 
 install(FILES
   launch/gmapping.launch
+  launch/amcl.launch
+  launch/move_base.launch
   launch/rviz.launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
