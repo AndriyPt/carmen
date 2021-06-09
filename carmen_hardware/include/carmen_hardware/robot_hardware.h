@@ -5,7 +5,7 @@
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
-#include <orion_protocol/orion_major.h>
+#include <orion_protocol/orion_major.hpp>
 #include <orion_protocol/orion_transport.hpp>
 #include <orion_protocol/orion_serial_port.hpp>
 #include <carmen_control/range_sensor_interface.h>
