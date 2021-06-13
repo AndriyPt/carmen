@@ -38,19 +38,14 @@
 			<locationURI>$%7BPARENT-2-PROJECT_LOC%7D/src</locationURI>
 		</link>
 		<link>
-			<name>common</name>
-			<type>2</type>
-			<location>/home/user/workspace/src/orion/orion_protocol/src/common</location>
-		</link>
-		<link>
 			<name>orion_common</name>
 			<type>2</type>
-			<location>/home/user/workspace/src/orion/orion_protocol/src/common</location>
+			<locationURI>PARENT-5-PROJECT_LOC/orion/orion_protocol/src/common</locationURI>
 		</link>
 		<link>
 			<name>orion_minor</name>
 			<type>2</type>
-			<location>/home/user/workspace/src/orion/orion_protocol/src/minor</location>
+			<locationURI>PARENT-5-PROJECT_LOC/orion/orion_protocol/src/minor</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
