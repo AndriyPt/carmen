@@ -25,7 +25,7 @@
 /* USER CODE BEGIN INCLUDE */
 #include "communication.h"
 #include "orion_protocol/orion_circular_buffer.h"
-#include "error.h"
+#include "orion_protocol/orion_assert.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -330,17 +330,22 @@ static int8_t CDC_TransmitCplt_FS(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 }
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */
-
-uint32_t dequeue_input_buffer(uint8_t * p_buffer, uint32_t size)
+ssize_t orion_buffered_io_read(uint8_t * buffer, uint32_t size)
 {
-    uint32_t result = orion_circular_buffer_dequeue(&circular_buffer, p_buffer, size);
-    return result;
+  ssize_t result = orion_circular_buffer_dequeue(&circular_buffer, buffer, size);
+  return (result);
 }
 
-bool has_items_input_buffer()
+bool orion_buffered_io_read_empty()
 {
-    bool result = orion_circular_buffer_is_empty(&circular_buffer);
-    return (!result);
+  bool result = orion_circular_buffer_is_empty(&circular_buffer);
+  return (result);
+}
+
+bool orion_buffered_io_write(uint8_t * buffer, uint32_t size)
+{
+  uint8_t status = CDC_Transmit_FS(buffer, (uint16_t)(size & 0xFFFF));
+  return (USBD_OK == status);
 }
 
 /* USER CODE END PRIVATE_FUNCTIONS_IMPLEMENTATION */
