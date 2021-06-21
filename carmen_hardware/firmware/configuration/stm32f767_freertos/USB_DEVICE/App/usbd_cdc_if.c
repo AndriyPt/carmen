@@ -339,7 +339,7 @@ ssize_t orion_buffered_io_read(uint8_t * buffer, uint32_t size)
 bool orion_buffered_io_read_empty()
 {
   bool result = orion_circular_buffer_is_empty(&circular_buffer);
-  return (!result);
+  return (result);
 }
 
 bool orion_buffered_io_write(uint8_t * buffer, uint32_t size)

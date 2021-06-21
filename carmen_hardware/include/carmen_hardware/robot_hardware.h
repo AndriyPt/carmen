@@ -40,6 +40,8 @@ private:
   static const uint8_t SONARS_COUNT = 3;
   double sonar_[SONARS_COUNT];
 
+  uint32_t control_loop_timeout;
+
   orion::SerialPort serial_port_ = orion::SerialPort();
   orion::Transport frame_transport_ = orion::Transport(&this->serial_port_);
   orion::Major orion_major_ = orion::Major(&this->frame_transport_);
