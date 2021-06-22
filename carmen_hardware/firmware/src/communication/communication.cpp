@@ -3,11 +3,10 @@
 #include "log.h"
 #include "error.h"
 #include "control_loop.h"
-#include "virtual_com_port.h"
-#include "orion_protocol/orion_frame_transport.h"
-#include "orion_protocol/orion_cobs_framer.h"
-#include "orion_protocol/orion_header.h"
-#include "orion_protocol/orion_minor.h"
+#include "orion_protocol/orion_communication.hpp"
+#include "orion_protocol/orion_transport.hpp"
+#include "orion_protocol/orion_header.hpp"
+#include "orion_protocol/orion_minor.hpp"
 #include "carmen_hardware/protocol.h"
 
 #define QUEUE_SIZE (10)
@@ -31,9 +30,8 @@ typedef struct
 
 static context_t context;
 
-static carmen_hardware::VirtualComPort com_port;
-static orion::COBSFramer cobs_framer;
-static orion::FrameTransport frame_transport = orion::FrameTransport(&com_port, &cobs_framer);
+static orion::Communication com_port;
+static orion::Transport frame_transport = orion::Transport(&com_port);
 static orion::Minor minor(&frame_transport);
 
 static void loop_function(void);
@@ -61,11 +59,14 @@ void loop_function(void)
     osal_communication_status_t status = osal_communication_queue_get(&context.current_message, READ_EVENT_TIMEOUT);
     if (OSAL_COM_STATUS_OK == status)
     {
+    	ssize_t command_result = 0;
         switch (context.current_message.event)
         {
         case EVT_COMMAND_RECEIVED:
-            if (minor.receiveCommand(context.command_buffer, COMMAND_BUFFER_SIZE, context.command_size))
+        	command_result = minor.receiveCommand(context.command_buffer, COMMAND_BUFFER_SIZE);
+            if (command_result > 0)
             {
+                context.command_size = command_result;
                 SOFTWARE_ASSERT(NULL != context.command_buffer);
                 SOFTWARE_ASSERT(context.command_size >= sizeof(orion::CommandHeader));
                 orion::CommandHeader * command_header = reinterpret_cast<orion::CommandHeader*>(context.command_buffer);
@@ -150,7 +151,14 @@ void reply_set_commands(void)
     {
         carmen_hardware::SetCommandsResult reply;
         reply.header.common.sequence_id = context.current_message.sequence_id;
-        reply.result = (bool)context.current_message.data[0];
+        if (context.current_message.data[0])
+        {
+        	reply.wheel_pos_left = 100;
+        }
+        else
+        {
+        	reply.wheel_pos_left = 0;
+        }
         // TODO: Add code to validate that protocol versions coincide else send error code e.g. minor.validate method
         minor.sendResult((uint8_t*)&reply, sizeof(reply));
     }

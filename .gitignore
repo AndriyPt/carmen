@@ -23,10 +23,6 @@ msg/_*.py
 *.dox
 *.wikidoc
 
-# Eclipse stuff
-.project
-.cproject
-
 # QtCreator stuff
 CMakeLists.txt.user
 
