@@ -73,14 +73,15 @@ namespace carmen_hardware
   {
     HandshakeCommand command;
     HandshakeResult result;
-    try
+
+    orion_major_error_t status = orion_major_.invoke(command, &result, orion::Major::Interval::Second, 3);
+    if (ORION_MAJOR_ERROR_NONE == status)
     {
-      orion_major_.invoke(command, &result, orion::Major::Interval::Second, 3);
       ROS_INFO("Handshake success!");
     }
-    catch(const std::exception& e)
+    else
     {
-      ROS_ERROR_STREAM("Error during hand shake: " << e.what() << "\n");
+      ROS_ERROR_STREAM("Error during hand shake: " << status << "\n");
     }
   }
 
@@ -88,11 +89,17 @@ namespace carmen_hardware
   {
     this->setupHardwareInterfaces();
 
+    int rate = 0;
+    root_nh.param<int>("rate", rate, 10);
+    this->control_loop_timeout = 1000000 / rate * orion::Major::Interval::Microsecond; 
+
+    ROS_INFO_STREAM("Control loop timeout: " << (this->control_loop_timeout) << "ms\n");
+
     std::string default_port = "/dev/ttyACM0";
     std::string port;
     root_nh.param<std::string>("port", port, default_port);
     // TODO(Andriy): Add reading of baud
-    this->serial_port.connect(port.c_str(), B230400);
+    this->serial_port_.connect(port.c_str(), B230400);
     this->sendHandshake();
   }
 
@@ -102,32 +109,35 @@ namespace carmen_hardware
 
   void CarmenRobotHW::write(const ros::Time& time, const ros::Duration& period)
   {
-    SetCommandsCommand command;
-    SetCommandsResult result;
+     SetCommandsCommand command;
+     SetCommandsResult result;
 
-    command.right_cmd = static_cast<int16_t>(command_[0] * 1000);
-    command.left_cmd = static_cast<int16_t>(command_[1] * 1000);
-    try
-    {
-      orion_major_.invoke(command, &result, 250 * orion::Major::Interval::Millisecond, 1);
-      velocity_[0] = result.wheel_vel_right / 1000.0;
-      velocity_[1] = result.wheel_vel_left / 1000.0;
-      velocity_[2] = velocity_[0]; 
-      velocity_[3] = velocity_[1]; 
+     command.right_cmd = static_cast<int16_t>(command_[0] * 1000);
+     command.left_cmd = static_cast<int16_t>(command_[1] * 1000);
 
-      position_[0] = result.wheel_pos_right / 1000.0;
-      position_[1] = result.wheel_pos_left / 1000.0;
-      position_[2] = position_[0];
-      position_[3] = position_[1];
+     orion_major_error_t status = orion_major_.invoke(command, &result, this->control_loop_timeout, 1);
+     if (ORION_MAJOR_ERROR_NONE == status)
+     {
+       velocity_[0] = result.wheel_vel_right / 1000.0;
+       velocity_[1] = result.wheel_vel_left / 1000.0;
+       velocity_[2] = velocity_[0];
+       velocity_[3] = velocity_[1];
 
-      sonar_[0] = result.ultra_sonic_left / 1000.0;
-      sonar_[1] = result.ultra_sonic_center / 1000.0;
-      sonar_[2] = result.ultra_sonic_right / 1000.0;
-    }
-    catch(const std::exception& e)
-    {
-      ROS_ERROR_STREAM_THROTTLE(1, "Error during control loop: " << e.what() << "\n");
-    }
+       position_[0] = result.wheel_pos_right / 1000.0;
+       position_[1] = result.wheel_pos_left / 1000.0;
+       position_[2] = position_[0];
+       position_[3] = position_[1];
+
+       sonar_[0] = result.ultra_sonic_left / 1000.0;
+       sonar_[1] = result.ultra_sonic_center / 1000.0;
+       sonar_[2] = result.ultra_sonic_right / 1000.0;
+
+       ROS_INFO_STREAM_THROTTLE(5, "Control loop working as expected!" << "\n");
+     }
+     else
+     {
+       ROS_ERROR_STREAM_THROTTLE(1, "Error during control loop: " << status << "\n");
+     }
   }
 
 }  // carmen_hardware

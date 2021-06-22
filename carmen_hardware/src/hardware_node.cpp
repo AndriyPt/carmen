@@ -23,6 +23,8 @@ int main(int argc, char** argv)
   int32_t rate_value = 10;
   private_node_handle.param<int32_t>("rate", rate_value, rate_value);
 
+  ROS_INFO_STREAM("Control loop rate is: " << rate_value << "\n");
+
   ros::Rate rate(rate_value);
   while (ros::ok())
   {

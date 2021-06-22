@@ -33,6 +33,7 @@
 /* USER CODE BEGIN INCLUDE */
 #include <stdint.h>
 #include <stdbool.h>
+#include "orion_protocol/orion_buffered_io.h"
 /* USER CODE END INCLUDE */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -107,9 +108,6 @@ extern USBD_CDC_ItfTypeDef USBD_Interface_fops_FS;
 uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
 
 /* USER CODE BEGIN EXPORTED_FUNCTIONS */
-uint32_t dequeue_input_buffer(uint8_t * p_buffer, uint32_t size);
-
-bool has_items_input_buffer();
 /* USER CODE END EXPORTED_FUNCTIONS */
 
 /**
