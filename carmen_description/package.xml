@@ -12,6 +12,7 @@
   <buildtool_depend>catkin</buildtool_depend>
 
   <exec_depend>xacro</exec_depend>
+  <exec_depend>rqt_tf_tree</exec_depend>
   <exec_depend>joint_state_publisher_gui</exec_depend>
 
 </package>

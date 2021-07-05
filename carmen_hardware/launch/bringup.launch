@@ -11,6 +11,7 @@
 
   <node pkg="imu_filter_madgwick" type="imu_filter_node" name="imu_filter_node" output="screen">
     <param name="publish_debug_topics" type="bool" value="false"/>
+    <param name="publish_tf" type="bool" value="false"/>
     <param name="world_frame" type="str" value="enu"/>
     <remap from="imu/data_raw" to="/imu"/>
     <remap from="imu/mag" to="/mag_field"/>
