@@ -5,8 +5,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-// ROS Units https://www.ros.org/reps/rep-0103.html
-
 namespace carmen_hardware
 {
 
@@ -152,6 +150,14 @@ struct SetCommandsResult
   int32_t imu_angle_alpha; // multiplied by 1000 and rounded
   int32_t imu_angle_beta; // multiplied by 1000 and rounded
   int32_t imu_angle_gamma; // multiplied by 1000 and rounded
+
+  int32_t imu_vel_alpha; // multiplied by 1000 and rounded
+  int32_t imu_vel_beta; // multiplied by 1000 and rounded
+  int32_t imu_vel_gamma; // multiplied by 1000 and rounded
+
+  int32_t imu_acc_x; // multiplied by 1000 and rounded
+  int32_t imu_acc_y; // multiplied by 1000 and rounded
+  int32_t imu_acc_z; // multiplied by 1000 and rounded
 };
 
 struct SetPIDCommand

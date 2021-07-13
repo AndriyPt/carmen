@@ -3,7 +3,7 @@
 #include <string.h>
 #include "carmen_hardware/protocol.h"
 #include <hardware_interface/robot_hw.h>
-
+#include <tf2/LinearMath/Quaternion.h>
 
 namespace carmen_hardware
 {
@@ -64,9 +64,11 @@ namespace carmen_hardware
     range_sensor_interface_.registerHandle(right_sonar_handle);
     registerInterface(&range_sensor_interface_);
 
-    // TODO: Add IMUHandle for IMU Controller
-    // more info on EKF localization http://docs.ros.org/en/melodic/api/robot_localization/html/preparing_sensor_data.html
-    // http://docs.ros.org/en/melodic/api/robot_localization/html/configuring_robot_localization.html
+    hardware_interface::ImuSensorHandle imu_handle("imu", "imu_link", imu_orientation_, imu_orientation_covariances_,
+      imu_angular_velocity_, imu_angular_velocity_covariances_,
+      imu_linear_acceleration_, imu_linear_acceleration_covariances_);
+    imu_sensor_interface_.registerHandle(imu_handle);
+    registerInterface(&imu_sensor_interface_);
   }
 
   void CarmenRobotHW::sendHandshake()
@@ -89,6 +91,9 @@ namespace carmen_hardware
   {
     this->setupHardwareInterfaces();
 
+    realtime_magnetic_field_publisher_.reset(new realtime_tools::RealtimePublisher<sensor_msgs::MagneticField>(root_nh,
+      "/mag_field", 4));
+
     int rate = 0;
     root_nh.param<int>("rate", rate, 10);
     this->control_loop_timeout = 1000000 / rate * orion::Major::Interval::Microsecond; 
@@ -109,35 +114,56 @@ namespace carmen_hardware
 
   void CarmenRobotHW::write(const ros::Time& time, const ros::Duration& period)
   {
-     SetCommandsCommand command;
-     SetCommandsResult result;
+    SetCommandsCommand command;
+    SetCommandsResult result;
 
-     command.right_cmd = static_cast<int16_t>(command_[0] * 1000);
-     command.left_cmd = static_cast<int16_t>(command_[1] * 1000);
+    command.right_cmd = static_cast<int16_t>(command_[0] * 1000);
+    command.left_cmd = static_cast<int16_t>(command_[1] * 1000);
 
-     orion_major_error_t status = orion_major_.invoke(command, &result, this->control_loop_timeout, 1);
-     if (ORION_MAJOR_ERROR_NONE == status)
-     {
-       velocity_[0] = result.wheel_vel_right / 1000.0;
-       velocity_[1] = result.wheel_vel_left / 1000.0;
-       velocity_[2] = velocity_[0];
-       velocity_[3] = velocity_[1];
+    orion_major_error_t status = orion_major_.invoke(command, &result, this->control_loop_timeout, 1);
+    if (ORION_MAJOR_ERROR_NONE == status)
+    {
+      velocity_[0] = result.wheel_vel_right / 1000.0;
+      velocity_[1] = result.wheel_vel_left / 1000.0;
+      velocity_[2] = velocity_[0]; 
+      velocity_[3] = velocity_[1]; 
 
-       position_[0] = result.wheel_pos_right / 1000.0;
-       position_[1] = result.wheel_pos_left / 1000.0;
-       position_[2] = position_[0];
-       position_[3] = position_[1];
+      position_[0] = result.wheel_pos_right / 1000.0;
+      position_[1] = result.wheel_pos_left / 1000.0;
+      position_[2] = position_[0];
+      position_[3] = position_[1];
 
-       sonar_[0] = result.ultra_sonic_left / 1000.0;
-       sonar_[1] = result.ultra_sonic_center / 1000.0;
-       sonar_[2] = result.ultra_sonic_right / 1000.0;
+      sonar_[0] = result.ultra_sonic_left / 1000.0;
+      sonar_[1] = result.ultra_sonic_center / 1000.0;
+      sonar_[2] = result.ultra_sonic_right / 1000.0;
 
-       ROS_INFO_STREAM_THROTTLE(5, "Control loop working as expected!" << "\n");
-     }
-     else
-     {
-       ROS_ERROR_STREAM_THROTTLE(1, "Error during control loop: " << status << "\n");
-     }
+      if (realtime_magnetic_field_publisher_->trylock()) {
+
+        realtime_magnetic_field_publisher_->msg_.header.stamp = time;
+        realtime_magnetic_field_publisher_->msg_.header.frame_id = "imu_link";
+
+        realtime_magnetic_field_publisher_->msg_.magnetic_field.x = result.imu_angle_beta / 1000000000.0;
+        realtime_magnetic_field_publisher_->msg_.magnetic_field.y = result.imu_angle_alpha / 1000000000.0;
+        realtime_magnetic_field_publisher_->msg_.magnetic_field.z = -1.0 * result.imu_angle_gamma / 1000000000.0;
+        for (int i=0; i < realtime_magnetic_field_publisher_->msg_.magnetic_field_covariance.size(); i++) {
+          realtime_magnetic_field_publisher_->msg_.magnetic_field_covariance[i] = mag_sensor_covariances_[i];
+        }
+
+        realtime_magnetic_field_publisher_->unlockAndPublish();
+      }
+
+      imu_angular_velocity_[0] = result.imu_vel_beta / 1000.0;
+      imu_angular_velocity_[1] = result.imu_vel_alpha / 1000.0;
+      imu_angular_velocity_[2] = -1.0 * result.imu_vel_gamma / 1000.0;
+
+      imu_linear_acceleration_[0] = result.imu_acc_y / 1000.0;
+      imu_linear_acceleration_[1] = result.imu_acc_x / 1000.0;
+      imu_linear_acceleration_[2] = -1.0 * result.imu_acc_z / 1000.0;
+    }
+    else
+    {
+      ROS_ERROR_STREAM_THROTTLE(1, "Error during control loop: " << status << "\n");
+    }
   }
 
 }  // carmen_hardware

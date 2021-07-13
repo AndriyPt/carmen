@@ -5,23 +5,24 @@ ekf_localization:
 
   two_d_mode: true
 
-  frequency: 50
+  frequency: 4
 
   odom0: diff_drive_controller/odom
-  odom0_config: [false, false, false,
+  odom0_config: [false, false, true,
                  false, false, false,
                  true, true, true,
-                 false, false, true,
+                 true, true, true,
                  false, false, false]
   odom0_differential: false
   odom0_queue_size: 10
 
-  imu0: imu/data
+  imu0: imu_with_orientation
   imu0_config: [false, false, false,
                 true, true, true,
                 false, false, false,
                 true, true, true,
-                false, false, false]
-  imu0_differential: true
+                true, true, true]
+  imu0_differential: false
+  imu0_relative: true
   imu0_queue_size: 10
   imu0_remove_gravitational_acceleration: true

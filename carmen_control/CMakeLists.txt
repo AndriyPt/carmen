@@ -25,8 +25,10 @@ catkin_package(
     controller_manager
     teleop_twist_keyboard
     diff_drive_controller
+    imu_sensor_controller
     velocity_controllers
     effort_controllers
+    rviz_imu_plugin
     INCLUDE_DIRS include
     LIBRARIES rage_sensor_controller
 )
