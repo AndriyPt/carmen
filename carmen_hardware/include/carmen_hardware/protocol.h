@@ -1,7 +1,7 @@
 #ifndef CARMEN_HARDWARE_PROTOCOL_H
 #define CARMEN_HARDWARE_PROTOCOL_H
 
-#include <orion_protocol/orion_header.h>
+#include <orion_protocol/orion_header.hpp>
 #include <stdint.h>
 #include <stdbool.h>
 

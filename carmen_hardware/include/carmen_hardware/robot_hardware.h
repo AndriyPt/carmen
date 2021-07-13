@@ -7,10 +7,9 @@
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/imu_sensor_interface.h>
 #include <hardware_interface/robot_hw.h>
-#include <orion_protocol/orion_major.h>
-#include <orion_protocol/orion_frame_transport.h>
-#include <orion_protocol/orion_cobs_framer.h>
-#include <orion_protocol/orion_serial_port.h>
+#include <orion_protocol/orion_major.hpp>
+#include <orion_protocol/orion_transport.hpp>
+#include <orion_protocol/orion_serial_port.hpp>
 #include <carmen_control/range_sensor_interface.h>
 #include <realtime_tools/realtime_publisher.h>
 
@@ -63,9 +62,10 @@ private:
   typedef std::unique_ptr<realtime_tools::RealtimePublisher<sensor_msgs::MagneticField> > RtPublisherPtr;
   RtPublisherPtr realtime_magnetic_field_publisher_;
 
-  orion::SerialPort serial_port = orion::SerialPort();
-  orion::COBSFramer cobs_framer_ = orion::COBSFramer();
-  orion::FrameTransport frame_transport_ = orion::FrameTransport(&this->serial_port, &this->cobs_framer_);
+  uint32_t control_loop_timeout;
+
+  orion::SerialPort serial_port_ = orion::SerialPort();
+  orion::Transport frame_transport_ = orion::Transport(&this->serial_port_);
   orion::Major orion_major_ = orion::Major(&this->frame_transport_);
 };
 
